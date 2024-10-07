@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://civnmabjyur76"]
+
+[ext_resource type="PackedScene" uid="uid://bqi1q3xxib57w" path="res://candle.tscn" id="1_6pbqe"]
+[ext_resource type="Script" path="res://checkerboard.gd" id="2_w3e34"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jit8y"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_wtyds"]
+albedo_color = Color(0.477749, 0.284855, 0.0815872, 1)
+
+[sub_resource type="Environment" id="Environment_2wusc"]
+background_mode = 1
+background_energy_multiplier = 0.0
+ambient_light_energy = 0.0
+reflected_light_source = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ohswc"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_urvrj"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_cmabe"]
+shading_mode = 0
+
+[node name="Game" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="World"]
+transform = Transform3D(9, 0, 0, 0, 1, 0, 0, 0, 9, 0, -0.51, 0)
+mesh = SubResource("BoxMesh_jit8y")
+material = SubResource("ORMMaterial3D_wtyds")
+
+[node name="Candle" parent="World" instance=ExtResource("1_6pbqe")]
+
+[node name="Candle2" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1.4161, 0, 0, 0, 1, -3.80602, -0.0139853, 3.21907)
+
+[node name="Candle3" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, -3.70367, 0.0118303, 3.21907)
+
+[node name="Candle4" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.74733, 0, -3.35222)
+
+[node name="Candle5" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1.4161, 0, 0, 0, 1, -3.80602, -0.0139853, -3.29705)
+
+[node name="Candle6" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, -3.70367, 0.0118303, -3.29705)
+
+[node name="Candle7" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.46701, 0, -3.35222)
+
+[node name="Candle8" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1.4161, 0, 0, 0, 1, 3.40832, -0.0139853, -3.29705)
+
+[node name="Candle9" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, 3.51067, 0.0118303, -3.29705)
+
+[node name="Candle10" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.46701, 0, 3.56992)
+
+[node name="Candle11" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 1.4161, 0, 0, 0, 1, 3.40832, -0.0139853, 3.62509)
+
+[node name="Candle12" parent="World" instance=ExtResource("1_6pbqe")]
+transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, 3.51067, 0.0118303, 3.62509)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_2wusc")
+
+[node name="Board" type="Node3D" parent="World"]
+
+[node name="Checkerboard" type="Node3D" parent="World/Board"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+script = ExtResource("2_w3e34")
+size = Vector2(8, 8)
+
+[node name="BlackSquare" type="CSGMesh3D" parent="World/Board/Checkerboard"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.43514, 0.000246048, 1.5996)
+visible = false
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="WhiteSquare" type="CSGMesh3D" parent="World/Board/Checkerboard"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.43311, 0.000246048, 1.59106)
+visible = false
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -0.000112557, 0.000288062, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.40882, 8.63147)
