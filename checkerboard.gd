@@ -6,12 +6,10 @@ extends Node3D
 		size = value
 		update_board(value)
 		
-@export var handSize : int = 6
 var WhiteSquare : CSGMesh3D
 var BlackSquare : CSGMesh3D
 var generated = false
 var planes = []
-var card = preload("res://card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +18,6 @@ func _ready():
 	generated = true
 	update_board(size)
 	
-	instHand(handSize)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,14 +52,3 @@ func update_board (size):
 			alternate = (alternate + 1) % 2
 		
 	
-
-func instCard(pos):
-	var instance = card.instantiate()
-	instance.position = pos
-	add_child(instance)
-
-func instHand(handSize):
-	var count = 0
-	while count < handSize:
-		instCard(Vector3(count * 1.3 - 3.25,0,4.75))
-		count = count + 1
