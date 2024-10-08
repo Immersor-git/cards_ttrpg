@@ -75,7 +75,6 @@ environment = SubResource("Environment_2wusc")
 [node name="Checkerboard" type="Node3D" parent="World/Board"]
 script = ExtResource("2_w3e34")
 size = Vector2(8, 8)
-handSize = 7
 
 [node name="BlackSquare" type="CSGMesh3D" parent="World/Board/Checkerboard"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

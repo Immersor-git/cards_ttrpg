@@ -64,5 +64,5 @@ func instCard(pos):
 func instHand(handSize):
 	var count = 0
 	while count < handSize:
-		instCard(Vector3(count * 1.3 - 3.9,0,4.75))
+		instCard(Vector3(count * 1.3 - 3.25,0,4.75))
 		count = count + 1
