@@ -73,18 +73,17 @@ environment = SubResource("Environment_2wusc")
 [node name="Board" type="Node3D" parent="World"]
 
 [node name="Checkerboard" type="Node3D" parent="World/Board"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
 script = ExtResource("2_w3e34")
 size = Vector2(8, 8)
 
 [node name="BlackSquare" type="CSGMesh3D" parent="World/Board/Checkerboard"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.43514, 0.000246048, 1.5996)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 visible = false
 mesh = SubResource("PlaneMesh_ohswc")
 material = SubResource("ORMMaterial3D_urvrj")
 
 [node name="WhiteSquare" type="CSGMesh3D" parent="World/Board/Checkerboard"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.43311, 0.000246048, 1.59106)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 visible = false
 mesh = SubResource("PlaneMesh_ohswc")
 material = SubResource("ORMMaterial3D_cmabe")

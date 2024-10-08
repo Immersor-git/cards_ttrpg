@@ -29,13 +29,14 @@ func update_board (size):
 		square.queue_free()
 	planes.clear()
 	var alternate = 0
-	for x in size.x - 1:
-		for y in size.y - 1:
+	for x in size.x:
+		alternate = (alternate + 1) % 2
+		for y in size.y:
 			if alternate == 0:
 				var square : CSGMesh3D = WhiteSquare.duplicate()
 				self.add_child(square)
 				square.owner = self
-				square.position = Vector3(x,0,y)
+				square.position = Vector3(x - size.x/2.0 + 0.5,0,y - size.y/2.0 + 0.5)
 				square.visible = true
 				self.add_child(square)
 				planes.append(square)
@@ -43,7 +44,7 @@ func update_board (size):
 				var square : CSGMesh3D = BlackSquare.duplicate()
 				self.add_child(square)
 				square.owner = self
-				square.position = Vector3(x,0,y)
+				square.position = Vector3(x - size.x/2.0 + 0.5,0,y - size.y/2.0 + 0.5)
 				square.visible = true
 				
 				planes.append(square)
