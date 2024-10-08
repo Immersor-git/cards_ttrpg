@@ -10,6 +10,7 @@ var WhiteSquare : CSGMesh3D
 var BlackSquare : CSGMesh3D
 var generated = false
 var planes = []
+var card = preload("res://card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +18,10 @@ func _ready():
 	BlackSquare = get_node("BlackSquare")
 	generated = true
 	update_board(size)
+	
+	var instance = card.instantiate()
+	add_child(instance)
+	
 	pass # Replace with function body.
 
 
