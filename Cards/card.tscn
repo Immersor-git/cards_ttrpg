@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://biqqw3xuldq1b"]
 
-[ext_resource type="Script" path="res://cards/card.gd" id="1_c1iyp"]
+[ext_resource type="Script" path="res://Cards/card.gd" id="1_c1iyp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bgac1"]
 size = Vector3(1.25, 0.01, 1.75)
@@ -21,3 +21,6 @@ mesh = SubResource("BoxMesh_ytrrl")
 
 [node name="CardTitle" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245692, -0.425548)
+
+[node name="Description" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.139311, 0.990249, 0, -0.990249, 0.139311, 0.00747955, 0.0588787, 0.237932)

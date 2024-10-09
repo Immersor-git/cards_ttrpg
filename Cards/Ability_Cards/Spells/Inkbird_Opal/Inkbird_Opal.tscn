@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d4erueqq73gdq"]
 
-[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://cards/card.tscn" id="1_c1nho"]
-[ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tres" id="2_d8pb3"]
+[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_c1nho"]
+[ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tres" id="2_d8pb3"]
 
 [node name="InkbirdOpal" type="Node3D"]
 

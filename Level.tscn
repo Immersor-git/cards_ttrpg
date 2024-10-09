@@ -1,12 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://civnmabjyur76"]
+[gd_scene load_steps=12 format=3 uid="uid://civnmabjyur76"]
 
 [ext_resource type="PackedScene" uid="uid://bqi1q3xxib57w" path="res://candle.tscn" id="1_6pbqe"]
+[ext_resource type="PackedScene" uid="uid://bv4sad2fg7moh" path="res://Caster/Caster.tscn" id="2_8wjik"]
 [ext_resource type="Script" path="res://checkerboard.gd" id="2_w3e34"]
 [ext_resource type="Script" path="res://hand.gd" id="3_j8uya"]
-[ext_resource type="Script" path="res://cards/abilityCard.gd" id="4_3rma0"]
-[ext_resource type="Resource" uid="uid://djg3evkxy2siv" path="res://cards/Ability_Cards/Spells/Mud_Tonic/Mud_Tonic.tres" id="5_67t62"]
-[ext_resource type="Resource" uid="uid://cvmxwn33632lu" path="res://cards/Ability_Cards/Spells/Inkbird_Prism/Inkbird_Prism.tres" id="5_jhogi"]
-[ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tres" id="6_62k8q"]
+[ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="5_2tlkj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jit8y"]
 
@@ -75,6 +73,8 @@ transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, 3.51067, 0.0118303, 3.6
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_2wusc")
 
+[node name="Caster" parent="World" instance=ExtResource("2_8wjik")]
+
 [node name="Board" type="Node3D" parent="World"]
 
 [node name="Checkerboard" type="Node3D" parent="World/Board"]
@@ -93,9 +93,10 @@ visible = false
 mesh = SubResource("PlaneMesh_ohswc")
 material = SubResource("ORMMaterial3D_cmabe")
 
-[node name="Hand" type="Node3D" parent="World"]
+[node name="Hand" type="Node3D" parent="World" node_paths=PackedStringArray("caster")]
 script = ExtResource("3_j8uya")
-hand = Array[ExtResource("4_3rma0")]([ExtResource("5_67t62"), ExtResource("5_jhogi"), ExtResource("5_67t62"), ExtResource("6_62k8q"), ExtResource("5_jhogi")])
+hand = Array[PackedScene]([ExtResource("5_2tlkj")])
+caster = NodePath("../Caster")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -0.000112557, 0.000288062, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.40882, 8.63147)

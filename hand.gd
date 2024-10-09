@@ -1,8 +1,8 @@
 @tool
 extends Node3D
 
-@export var hand : Array[AbilityCard]
-var card = preload("res://cards/card.tscn")
+@export var hand : Array[PackedScene]
+@export var caster: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,10 +14,10 @@ func _ready():
 func _process(delta):
 	pass
 
-func instCard(pos, cardResource):
-	var instance : Card = card.instantiate()
+func instCard(pos, card):
+	var instance = card.instantiate()
 	instance.position = pos
-	instance.card = cardResource
+	instance.get
 	add_child(instance)
 
 func spawnHand(hand):

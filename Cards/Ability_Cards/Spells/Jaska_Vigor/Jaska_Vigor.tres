@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://cmvdkoa1osmjs"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_dw6hv"]
+
+[resource]
+script = ExtResource("1_dw6hv")
+title = "Jaska's Vigor"
+costType = Array[String](["Gut"])
+costAmount = 1
