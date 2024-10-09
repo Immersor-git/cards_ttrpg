@@ -1,15 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://civnmabjyur76"]
+[gd_scene load_steps=12 format=3 uid="uid://civnmabjyur76"]
 
 [ext_resource type="PackedScene" uid="uid://bqi1q3xxib57w" path="res://candle.tscn" id="1_6pbqe"]
 [ext_resource type="PackedScene" uid="uid://bv4sad2fg7moh" path="res://Caster/Caster.tscn" id="2_8wjik"]
 [ext_resource type="Script" path="res://checkerboard.gd" id="2_w3e34"]
 [ext_resource type="Script" path="res://hand.gd" id="3_j8uya"]
-[ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="5_2tlkj"]
-[ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="6_etkji"]
-[ext_resource type="Script" path="res://bank.gd" id="7_8roat"]
-[ext_resource type="PackedScene" uid="uid://cayluekc2370l" path="res://Cards/Mana/Teeth.tscn" id="8_ejvyv"]
-[ext_resource type="PackedScene" uid="uid://c32p7cqdsehx8" path="res://Cards/Mana/Gut.tscn" id="9_uoyq3"]
-[ext_resource type="PackedScene" uid="uid://daiedfn3oljtc" path="res://Cards/Mana/Knots.tscn" id="10_0cl5t"]
+[ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="5_2tlkj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jit8y"]
 
@@ -78,10 +73,7 @@ transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, 3.51067, 0.0118303, 3.6
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_2wusc")
 
-[node name="Caster" parent="World" node_paths=PackedStringArray("board") instance=ExtResource("2_8wjik")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -0.5)
-boardPosition = Vector2(2, 3)
-board = NodePath("../Board/Checkerboard")
+[node name="Caster" parent="World" instance=ExtResource("2_8wjik")]
 
 [node name="Board" type="Node3D" parent="World"]
 
@@ -102,15 +94,9 @@ mesh = SubResource("PlaneMesh_ohswc")
 material = SubResource("ORMMaterial3D_cmabe")
 
 [node name="Hand" type="Node3D" parent="World" node_paths=PackedStringArray("caster")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.68396)
 script = ExtResource("3_j8uya")
-hand = Array[PackedScene]([ExtResource("6_etkji"), ExtResource("5_2tlkj")])
+hand = Array[PackedScene]([ExtResource("5_2tlkj")])
 caster = NodePath("../Caster")
 
-[node name="Bank" type="Node3D" parent="World"]
-transform = Transform3D(0.936764, -0.349962, 1.52973e-08, 0, -4.37114e-08, -1, 0.349962, 0.936764, -4.09472e-08, 1.70483, 3.95702, 0.0178742)
-script = ExtResource("7_8roat")
-bank = Array[PackedScene]([ExtResource("9_uoyq3"), ExtResource("8_ejvyv"), ExtResource("9_uoyq3"), ExtResource("10_0cl5t"), ExtResource("8_ejvyv"), ExtResource("10_0cl5t")])
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, -0.000112572, 0.000288055, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.40882, 10.6315)
+transform = Transform3D(1, -0.000112557, 0.000288062, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.40882, 8.63147)

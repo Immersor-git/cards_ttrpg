@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://35fj1hk4mds8" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tres" id="2_x7vhm"]
 [ext_resource type="PackedScene" uid="uid://w6kiehw6n3vr" path="res://Cards/Components/ImplementedComponents/Move.tscn" id="3_ahwwj"]
 
-[node name="JaskaVigor" type="Node3D"]
+[node name="SpectralSteed" type="Node3D"]
 
 [node name="Card" parent="." instance=ExtResource("1_4ef7e")]
 card = ExtResource("2_x7vhm")

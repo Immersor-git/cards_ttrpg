@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ManaType" load_steps=3 format=3 uid="uid://by78330o873xn"]
+
+[ext_resource type="Script" path="res://Cards/ManaType.gd" id="1_w0dxa"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_sgxj5"]
+albedo_color = Color(0.863436, 5.31845e-06, 7.70092e-07, 1)
+
+[resource]
+script = ExtResource("1_w0dxa")
+title = "Teeth"
+color = SubResource("ORMMaterial3D_sgxj5")

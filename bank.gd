@@ -1,12 +1,12 @@
-@tool
+#@tool
 extends Node3D
 
-@export var hand : Array[PackedScene]
+@export var bank : Array[PackedScene]
 @export var caster: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spawnHand(hand)
+	spawnBank(bank)
 	pass # Replace with function body.
 
 
@@ -14,16 +14,15 @@ func _ready():
 func _process(delta):
 	pass
 
-func instCard(pos, card):
-	var instance = card.instantiate()
+func instMana(pos, mana):
+	var instance = mana.instantiate()
 	instance.position = pos
 	instance.get
 	add_child(instance)
 
-func spawnHand(hand):
-	var offset = .65 * (hand.size() -1)
+func spawnBank(bank):
 	#while count < hand.length:
 		#instCard(Vector3(count * 1.3 - offset,0,4.75))
 		#count = count + 1
-	for card_index in hand.size():
-		instCard(Vector3(card_index * 1.3 - offset,0,0), hand[card_index])
+	for card_index in bank.size():
+		instMana(Vector3(card_index * 1.3,0,0), bank[card_index])

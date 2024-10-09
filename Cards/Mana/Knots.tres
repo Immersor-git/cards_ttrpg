@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ManaType" load_steps=3 format=3 uid="uid://nru44e75gfk8"]
+
+[ext_resource type="Script" path="res://Cards/ManaType.gd" id="1_bo80n"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_yr18l"]
+albedo_color = Color(0.774734, 0.000462633, 0.774729, 1)
+
+[resource]
+script = ExtResource("1_bo80n")
+title = "Knots"
+color = SubResource("ORMMaterial3D_yr18l")

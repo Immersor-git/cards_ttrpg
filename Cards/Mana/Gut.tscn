@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c32p7cqdsehx8"]
+
+[ext_resource type="PackedScene" uid="uid://oh0e1cx774c" path="res://Cards/mana.tscn" id="1_v0j2y"]
+[ext_resource type="Resource" uid="uid://cctom3iub06he" path="res://Cards/Mana/Gut.tres" id="2_nuulr"]
+
+[node name="Gut" type="Node3D"]
+
+[node name="Mana" parent="." instance=ExtResource("1_v0j2y")]
+manaType = ExtResource("2_nuulr")

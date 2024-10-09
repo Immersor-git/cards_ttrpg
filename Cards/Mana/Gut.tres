@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ManaType" load_steps=3 format=3 uid="uid://cctom3iub06he"]
+
+[ext_resource type="Script" path="res://Cards/ManaType.gd" id="1_t41mh"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1lwdc"]
+albedo_color = Color(0.20871, 0.20871, 0.20871, 1)
+
+[resource]
+script = ExtResource("1_t41mh")
+title = "Gut"
+color = SubResource("ORMMaterial3D_1lwdc")

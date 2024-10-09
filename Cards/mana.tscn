@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://oh0e1cx774c"]
+
+[ext_resource type="Script" path="res://Cards/mana.gd" id="1_gsv4h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bgac1"]
+size = Vector3(1.25, 0.01, 1.75)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_i1wn2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ytrrl"]
+material = SubResource("ORMMaterial3D_i1wn2")
+size = Vector3(1.25, 0.01, 1.75)
+
+[node name="Mana" type="Node3D"]
+script = ExtResource("1_gsv4h")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_bgac1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_ytrrl")
+
+[node name="ManaTitle" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.00312416, 0.999995, 0, -0.999995, -0.00312416, 0, 0.0168052, -0.425548)

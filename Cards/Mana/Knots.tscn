@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://daiedfn3oljtc"]
+
+[ext_resource type="PackedScene" uid="uid://oh0e1cx774c" path="res://Cards/mana.tscn" id="1_2eqxr"]
+[ext_resource type="Resource" uid="uid://nru44e75gfk8" path="res://Cards/Mana/Knots.tres" id="2_jgf48"]
+
+[node name="Knots" type="Node3D"]
+
+[node name="Mana" parent="." instance=ExtResource("1_2eqxr")]
+manaType = ExtResource("2_jgf48")
