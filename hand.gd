@@ -1,12 +1,12 @@
 @tool
 extends Node3D
 
-@export var handSize : int
-var card = preload("res://card.tscn")
+@export var hand : Array[AbilityCard]
+var card = preload("res://cards/card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	instHand(handSize)
+	spawnHand(hand)
 	pass # Replace with function body.
 
 
@@ -14,13 +14,16 @@ func _ready():
 func _process(delta):
 	pass
 
-func instCard(pos):
-	var instance = card.instantiate()
+func instCard(pos, cardResource):
+	var instance : Card = card.instantiate()
 	instance.position = pos
+	instance.card = cardResource
 	add_child(instance)
 
-func instHand(handSize):
-	var count = 0
-	while count < handSize:
-		instCard(Vector3(count * 1.3 - 3.25,0,4.75))
-		count = count + 1
+func spawnHand(hand):
+	var offset = .65 * (hand.size() -1)
+	#while count < hand.length:
+		#instCard(Vector3(count * 1.3 - offset,0,4.75))
+		#count = count + 1
+	for card_index in hand.size():
+		instCard(Vector3(card_index * 1.3 - offset,0,4.75), hand[card_index])

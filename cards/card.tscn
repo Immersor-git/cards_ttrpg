@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://biqqw3xuldq1b"]
+[gd_scene load_steps=4 format=3 uid="uid://biqqw3xuldq1b"]
+
+[ext_resource type="Script" path="res://cards/card.gd" id="1_c1iyp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bgac1"]
 size = Vector3(1.25, 0.01, 1.75)
@@ -7,6 +9,7 @@ size = Vector3(1.25, 0.01, 1.75)
 size = Vector3(1.25, 0.01, 1.75)
 
 [node name="Card" type="Node3D"]
+script = ExtResource("1_c1iyp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -15,3 +18,6 @@ shape = SubResource("BoxShape3D_bgac1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_ytrrl")
+
+[node name="CardTitle" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245692, -0.425548)

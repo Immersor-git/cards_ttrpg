@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Card" load_steps=2 format=3 uid="uid://cvmxwn33632lu"]
+
+[ext_resource type="Script" path="res://cards/abilityCard.gd" id="1_55aju"]
+
+[resource]
+script = ExtResource("1_55aju")
+title = "Inkbird's Prism"
+costType = Array[String](["Knots"])
+costAmount = 1
