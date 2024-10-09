@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://35fj1hk4mds8"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_l0teq"]
+
+[resource]
+script = ExtResource("1_l0teq")
+title = "Spectral Steed"
+costType = Array[String](["Knots"])
+costAmount = 2

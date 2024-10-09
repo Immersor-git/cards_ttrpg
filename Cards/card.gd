@@ -11,14 +11,8 @@ var caster: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	updateCardComponents()
 	updateCardTitle()
-	var children : Array = self.get_children()
-	for child in children:
-		if child.name == "Components":
-			for component in child.get_children():
-				if component is AbstractComponent:
-					components.append(component)
-					description.text += " " + component.castAbilityDescription()
 	pass # Replace with function body.
 
 func castEffect():
@@ -28,9 +22,20 @@ func castEffect():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Engine.is_editor_hint():
+		#updateCardComponents()
 		updateCardTitle()
 	pass
 
+func updateCardComponents():
+	description.text = ""
+	var children : Array = self.get_children()
+	for child in children:
+		if child.name == "Components":
+			for component in child.get_children():
+				if component is AbstractComponent:
+					components.append(component)
+					description.text += " " + component.castAbilityDescription()
+	
 func updateCardTitle():
 	if card != null :
 		cardTitle.text = card.title

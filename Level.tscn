@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://civnmabjyur76"]
+[gd_scene load_steps=13 format=3 uid="uid://civnmabjyur76"]
 
 [ext_resource type="PackedScene" uid="uid://bqi1q3xxib57w" path="res://candle.tscn" id="1_6pbqe"]
 [ext_resource type="PackedScene" uid="uid://bv4sad2fg7moh" path="res://Caster/Caster.tscn" id="2_8wjik"]
 [ext_resource type="Script" path="res://checkerboard.gd" id="2_w3e34"]
 [ext_resource type="Script" path="res://hand.gd" id="3_j8uya"]
 [ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="5_2tlkj"]
+[ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="6_etkji"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jit8y"]
 
@@ -73,7 +74,10 @@ transform = Transform3D(1, 0, 0, 0, 0.59129, 0, 0, 0, 1, 3.51067, 0.0118303, 3.6
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_2wusc")
 
-[node name="Caster" parent="World" instance=ExtResource("2_8wjik")]
+[node name="Caster" parent="World" node_paths=PackedStringArray("board") instance=ExtResource("2_8wjik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -0.5)
+boardPosition = Vector2(2, 3)
+board = NodePath("../Board/Checkerboard")
 
 [node name="Board" type="Node3D" parent="World"]
 
@@ -95,7 +99,7 @@ material = SubResource("ORMMaterial3D_cmabe")
 
 [node name="Hand" type="Node3D" parent="World" node_paths=PackedStringArray("caster")]
 script = ExtResource("3_j8uya")
-hand = Array[PackedScene]([ExtResource("5_2tlkj")])
+hand = Array[PackedScene]([ExtResource("5_2tlkj"), ExtResource("6_etkji")])
 caster = NodePath("../Caster")
 
 [node name="Camera3D" type="Camera3D" parent="."]

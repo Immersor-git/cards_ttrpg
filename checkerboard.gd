@@ -1,4 +1,5 @@
 @tool
+class_name Board
 extends Node3D
 
 @export var size : Vector2 = Vector2(0,0):
@@ -11,16 +12,15 @@ var BlackSquare : CSGMesh3D
 var generated = false
 var planes = []
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	WhiteSquare = get_node("WhiteSquare")
 	BlackSquare = get_node("BlackSquare")
 	generated = true
 	update_board(size)
-	
-	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func boardToWorldCoord(boardPos: Vector2) -> Vector3:
+	return Vector3(boardPos.x - size.x/2.0 + 0.5, 0.0, boardPos.y - size.y/2.0 + 0.5)
+
 func update_board (size):
 	if generated == false: return
 	print("Updated size")

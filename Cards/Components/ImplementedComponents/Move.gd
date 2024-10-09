@@ -1,10 +1,10 @@
 @tool
 extends AbstractComponent
 
-@export var healAmount := 1
+@export var moveAmount := 1
 
 func handleCastEffect(cardOwner: Node):
-	cardOwner.heal(healAmount)
+	cardOwner.move(moveAmount)
 
 func castAbilityDescription() -> String:
-	return "Heal %d" % healAmount
+	return "Move %d" % moveAmount
