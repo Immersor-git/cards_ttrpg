@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://checkerboard.gd" id="2_w3e34"]
 [ext_resource type="Script" path="res://hand.gd" id="3_j8uya"]
 [ext_resource type="Script" path="res://cards/abilityCard.gd" id="4_3rma0"]
-[ext_resource type="Resource" uid="uid://djg3evkxy2siv" path="res://cards/ability cards/spells/Mud_Tonic.tres" id="5_67t62"]
-[ext_resource type="Resource" uid="uid://cvmxwn33632lu" path="res://cards/ability cards/spells/Inkbird_Prism.tres" id="5_jhogi"]
-[ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://cards/ability cards/spells/Inkbird_Opal.tres" id="6_62k8q"]
+[ext_resource type="Resource" uid="uid://djg3evkxy2siv" path="res://cards/Ability_Cards/Spells/Mud_Tonic/Mud_Tonic.tres" id="5_67t62"]
+[ext_resource type="Resource" uid="uid://cvmxwn33632lu" path="res://cards/Ability_Cards/Spells/Inkbird_Prism/Inkbird_Prism.tres" id="5_jhogi"]
+[ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tres" id="6_62k8q"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jit8y"]
 
