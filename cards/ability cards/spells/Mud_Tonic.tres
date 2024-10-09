@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://djg3evkxy2siv"]
+
+[ext_resource type="Script" path="res://cards/abilityCard.gd" id="1_ncmo6"]
+
+[resource]
+script = ExtResource("1_ncmo6")
+title = "Mud Tonic"
+costType = Array[String](["Knots"])
+costAmount = 1

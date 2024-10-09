@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://civnmabjyur76"]
+[gd_scene load_steps=14 format=3 uid="uid://civnmabjyur76"]
 
 [ext_resource type="PackedScene" uid="uid://bqi1q3xxib57w" path="res://candle.tscn" id="1_6pbqe"]
 [ext_resource type="Script" path="res://checkerboard.gd" id="2_w3e34"]
 [ext_resource type="Script" path="res://hand.gd" id="3_j8uya"]
 [ext_resource type="Script" path="res://cards/abilityCard.gd" id="4_3rma0"]
+[ext_resource type="Resource" uid="uid://djg3evkxy2siv" path="res://cards/ability cards/spells/Mud_Tonic.tres" id="5_67t62"]
 [ext_resource type="Resource" uid="uid://cvmxwn33632lu" path="res://cards/ability cards/spells/Inkbird_Prism.tres" id="5_jhogi"]
 [ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://cards/ability cards/spells/Inkbird_Opal.tres" id="6_62k8q"]
 
@@ -94,7 +95,7 @@ material = SubResource("ORMMaterial3D_cmabe")
 
 [node name="Hand" type="Node3D" parent="World"]
 script = ExtResource("3_j8uya")
-hand = Array[ExtResource("4_3rma0")]([null, ExtResource("5_jhogi"), null, ExtResource("6_62k8q"), ExtResource("5_jhogi")])
+hand = Array[ExtResource("4_3rma0")]([ExtResource("5_67t62"), ExtResource("5_jhogi"), ExtResource("5_67t62"), ExtResource("6_62k8q"), ExtResource("5_jhogi")])
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -0.000112557, 0.000288062, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.40882, 8.63147)
