@@ -5,14 +5,18 @@ extends Node3D
 @export var card: AbilityCard
 @onready var cardTitle = $CardTitle
 @onready var description = $Description
+@onready var hitbox = $StaticBody3D/CollisionShape3D
+@onready var cardCost = $Cost
 
 var components : Array[AbstractComponent] = []
-var caster: Node
+var caster: Caster
+
+signal cast_card(card: Card)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	updateCardComponents()
-	updateCardTitle()
+	updateCardText()
 	pass # Replace with function body.
 
 func castEffect():
@@ -22,8 +26,8 @@ func castEffect():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Engine.is_editor_hint():
-		#updateCardComponents()
-		updateCardTitle()
+		updateCardComponents()
+		updateCardText()
 	pass
 
 func updateCardComponents():
@@ -36,8 +40,14 @@ func updateCardComponents():
 					components.append(component)
 					description.text += " " + component.castAbilityDescription()
 	
-func updateCardTitle():
+func updateCardText():
 	if card != null :
 		cardTitle.text = card.title
+		cardCost.text = card.costString()
 	else:
 		cardTitle.text = ''
+
+
+func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
+	if event is InputEventMouseButton && event.is_pressed():
+		cast_card.emit(self)

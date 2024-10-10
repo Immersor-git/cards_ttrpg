@@ -3,7 +3,7 @@ extends AbstractComponent
 
 @export var moveAmount := 1
 
-func handleCastEffect(cardOwner: Node):
+func handleCastEffect(cardOwner: Caster):
 	cardOwner.move(moveAmount)
 
 func castAbilityDescription() -> String:

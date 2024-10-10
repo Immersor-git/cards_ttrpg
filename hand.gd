@@ -1,8 +1,10 @@
 @tool
+class_name Hand
 extends Node3D
 
 @export var hand : Array[PackedScene]
-@export var caster: Node
+@export var caster: Caster
+var cards : Array[Card] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +19,10 @@ func _process(delta):
 func instCard(pos, card):
 	var instance = card.instantiate()
 	instance.position = pos
-	instance.get
+	for child in instance.get_children():
+		if child is Card:
+			child.caster = caster
+			cards.append(child)
 	add_child(instance)
 
 func spawnHand(hand):

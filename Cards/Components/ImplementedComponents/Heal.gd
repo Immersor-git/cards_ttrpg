@@ -3,7 +3,7 @@ extends AbstractComponent
 
 @export var healAmount := 1
 
-func handleCastEffect(cardOwner: Node):
+func handleCastEffect(cardOwner: Caster):
 	cardOwner.heal(healAmount)
 
 func castAbilityDescription() -> String:
