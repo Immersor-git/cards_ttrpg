@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://hyoh4aw35qry"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_4ef7e"]
-[ext_resource type="PackedScene" uid="uid://w6kiehw6n3vr" path="res://Cards/Components/ImplementedComponents/Move.tscn" id="3_ahwwj"]
+[ext_resource type="PackedScene" uid="uid://w6kiehw6n3vr" path="res://Cards/Components/ImplementedComponents/AddBasicMove.tscn" id="3_ahwwj"]
 
 [node name="SpectralSteed" type="Node3D"]
 
@@ -9,5 +9,5 @@
 
 [node name="Components" type="Node" parent="Card"]
 
-[node name="Move" parent="Card/Components" instance=ExtResource("3_ahwwj")]
+[node name="AddBasicMove" parent="Card/Components" instance=ExtResource("3_ahwwj")]
 moveAmount = 4

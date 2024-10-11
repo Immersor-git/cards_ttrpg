@@ -1,2 +1,3 @@
 enum ManaType {KNOT, TEETH, GUT}
 enum DeckType {DECK, DISCARD}
+enum PlayerState {SITTING_NEUTRAL, MOVING_PIECE, SPENDING_MANA}

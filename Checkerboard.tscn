@@ -1,0 +1,998 @@
+[gd_scene load_steps=6 format=3 uid="uid://bypfl6f7upksp"]
+
+[ext_resource type="Script" path="res://checkerboard.gd" id="1_nvuox"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dbtit"]
+size = Vector3(8, 0.02, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ohswc"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_urvrj"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_cmabe"]
+shading_mode = 0
+
+[node name="Checkerboard" type="Node3D"]
+script = ExtResource("1_nvuox")
+size = Vector2(8, 8)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_dbtit")
+
+[node name="BlackSquare" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="WhiteSquare" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22872" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22873" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22874" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22875" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22876" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22877" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22878" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22879" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22880" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22881" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22882" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22883" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22884" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22885" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22886" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22887" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22888" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22889" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22890" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22891" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22892" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22893" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22894" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22895" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22896" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22897" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22898" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22899" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22900" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22901" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22902" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22903" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22904" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22905" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22906" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22907" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22908" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22909" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22910" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22911" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22912" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22913" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22914" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22915" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22916" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22917" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22918" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22919" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22920" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22921" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22922" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22923" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22924" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22925" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22926" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22927" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22928" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22929" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22930" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22931" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22932" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22933" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="_CSGMesh3D_22934" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="_CSGMesh3D_22935" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24765" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24766" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24767" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24768" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24769" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24770" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24771" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24772" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24773" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24774" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24775" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24776" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24777" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24778" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24779" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24780" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24781" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24782" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24783" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24784" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24785" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24786" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24787" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24788" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24789" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24790" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24791" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24792" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24793" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24794" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24795" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24796" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24797" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24798" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24799" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24800" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24801" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24802" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24803" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24804" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24805" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24806" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24807" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24808" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24809" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24810" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24811" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24812" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24813" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24814" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24815" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24816" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24817" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24818" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24819" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24820" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24821" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24822" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24823" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24824" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24825" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24826" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@24827" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@24828" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17302" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17303" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17304" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17305" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17306" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17307" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17308" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17309" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17310" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17311" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17312" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17313" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17314" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17315" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17316" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17317" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -2.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17318" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17319" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17320" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17321" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17322" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17323" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17324" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17325" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17326" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17327" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17328" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17329" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17330" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17331" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17332" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17333" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17334" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17335" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17336" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17337" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17338" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17339" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17340" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17341" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17342" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17343" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17344" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17345" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17346" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17347" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17348" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17349" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17350" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17351" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17352" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17353" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17354" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17355" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17356" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17357" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17358" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17359" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17360" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17361" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, -0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17362" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 0.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17363" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 1.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[node name="@CSGMesh3D@17364" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 2.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_cmabe")
+
+[node name="@CSGMesh3D@17365" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.5, 0, 3.5)
+mesh = SubResource("PlaneMesh_ohswc")
+material = SubResource("ORMMaterial3D_urvrj")
+
+[connection signal="input_event" from="StaticBody3D" to="." method="_on_board_click"]

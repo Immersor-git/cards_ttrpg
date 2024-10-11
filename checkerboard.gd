@@ -11,6 +11,7 @@ var WhiteSquare : CSGMesh3D
 var BlackSquare : CSGMesh3D
 var generated = false
 var planes = []
+signal send_clicked_square(clickedSquare: Vector2)
 
 func _ready():
 	WhiteSquare = get_node("WhiteSquare")
@@ -20,6 +21,9 @@ func _ready():
 
 func boardToWorldCoord(boardPos: Vector2) -> Vector3:
 	return Vector3(boardPos.x - size.x/2.0 + 0.5, 0.0, boardPos.y - size.y/2.0 + 0.5)
+
+func worldToBoardCoord(worldPos: Vector3) -> Vector2:
+	return Vector2(snappedf(floor(worldPos.x), 1) + size.x/2, snappedf(floor(worldPos.z), 1) + size.x/2)
 
 func update_board (size):
 	if generated == false: return
@@ -51,4 +55,7 @@ func update_board (size):
 				
 			alternate = (alternate + 1) % 2
 		
-	
+func _on_board_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
+	var clickedSquare: Vector2 = worldToBoardCoord(event_position)
+	if event is InputEventMouseButton && event.is_pressed():
+		send_clicked_square.emit(clickedSquare)

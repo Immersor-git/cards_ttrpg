@@ -4,7 +4,8 @@ extends AbstractComponent
 @export var moveAmount := 1
 
 func handleCastEffect(cardOwner: Caster):
-	cardOwner.move(moveAmount)
+	cardOwner.basicMovesAvailable += moveAmount
+	print(cardOwner.basicMovesAvailable, " moves are available")
 
 func castAbilityDescription() -> String:
-	return "Move %d" % moveAmount
+	return "Gain %d Moves" % moveAmount
