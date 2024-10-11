@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_l0teq")
 title = "Spectral Steed"
-costType = Array[String](["Knots"])
+costType = Array[int]([0])
 costAmount = 2

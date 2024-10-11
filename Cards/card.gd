@@ -8,7 +8,7 @@ extends Node3D
 @onready var hitbox = $StaticBody3D/CollisionShape3D
 @onready var cardCost = $Cost
 
-var components : Array[AbstractComponent] = []
+var components: Array[AbstractComponent] = []
 var caster: Caster
 
 signal cast_card(card: Card)

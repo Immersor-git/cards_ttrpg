@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bitbephjbu6pt"]
+
+[ext_resource type="Script" path="res://bank.gd" id="1_y62c3"]
+
+[node name="Bank" type="Node3D"]
+transform = Transform3D(0.936764, -0.349962, 1.52973e-08, 0, -4.37114e-08, -1, 0.349962, 0.936764, -4.09472e-08, 1.70483, 3.95702, 0.0178742)
+script = ExtResource("1_y62c3")

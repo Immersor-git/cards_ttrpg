@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_dw6hv")
 title = "Jaska's Vigor"
-costType = Array[String](["Gut"])
+costType = Array[int]([2])
 costAmount = 1

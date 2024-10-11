@@ -8,4 +8,5 @@ albedo_color = Color(0.863436, 5.31845e-06, 7.70092e-07, 1)
 [resource]
 script = ExtResource("1_w0dxa")
 title = "Teeth"
+type = 1
 color = SubResource("ORMMaterial3D_sgxj5")

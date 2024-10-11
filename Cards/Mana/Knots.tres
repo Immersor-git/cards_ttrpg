@@ -8,4 +8,5 @@ albedo_color = Color(0.774734, 0.000462633, 0.774729, 1)
 [resource]
 script = ExtResource("1_bo80n")
 title = "Knots"
+type = 0
 color = SubResource("ORMMaterial3D_yr18l")

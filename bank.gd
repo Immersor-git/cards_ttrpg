@@ -1,14 +1,15 @@
 @tool
 class_name Bank
 extends Node3D
-
-@export var bank : Array[PackedScene]
+var  GUT_PACKEDSCENE = load("res://Cards/Mana/Gut.tscn")
+var KNOTS_PACKEDSCENE = load("res://Cards/Mana/Knots.tscn")
+var TEETH_PACKEDSCENE = load("res://Cards/Mana/Teeth.tscn")
 @export var caster: Node
+
 var manaPool : Array[Mana] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spawnBank(bank)
 	pass # Replace with function body.
 
 
@@ -25,34 +26,47 @@ func updateManaPool():
 			if mana is Mana:
 				manaPool.append(mana)
 
-func removeManaOfType(type: Array[String]) -> bool:
+func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 	for manaInstance in get_children():
 		for mana in manaInstance.get_children():
-			if mana is Mana && type.has(mana.manaType.title):
+			if mana is Mana && type.has(mana.manaType.type):
+				var removedCardManaType = mana.manaType.type
 				manaInstance.free()
 				updateManaPool()
-				return true;
-	return false;
+				return removedCardManaType
+	return -1;
 
-func removeNManaOfType(amount: int, type: Array[String]):
+func removeNManaOfType(amount: int, type: Array[Enums.ManaType]) -> Array[Enums.ManaType]:
+	var removedMana: Array[Enums.ManaType] = []
 	for x in amount:
-		print("removing")
-		print(get_children())
-		print(removeManaOfType(type))
+		removedMana.push_back(removeManaOfType(type))
+	return removedMana
 
-func instMana(pos, mana):
-	var instance = mana.instantiate()
-	instance.position = pos
-	instance.get
-	for child in instance.get_children():
+func addManaCard(manaType: Enums.ManaType, caster: Caster):
+	var manaCardInstance = instantiateManaCardInstance(manaType, caster)
+	add_child(manaCardInstance)
+	updateManaPool()
+
+func addManaCards(manaTypes: Array[Enums.ManaType], caster: Caster):
+	for manaType in manaTypes:
+		add_child(instantiateManaCardInstance(manaType, caster))
+	updateManaPool()
+
+func instantiateManaCardInstance(manaType: Enums.ManaType, caster: Caster) -> Node3D:
+	var mana: PackedScene
+	match manaType:
+		Enums.ManaType.KNOT:
+			mana = KNOTS_PACKEDSCENE
+			print('matched knot')
+		Enums.ManaType.TEETH:
+			mana = TEETH_PACKEDSCENE
+			print('matched teeth')
+		Enums.ManaType.GUT:
+			mana = GUT_PACKEDSCENE
+			print('matched gut')
+	var manaCardInstance = mana.instantiate()
+	for child in manaCardInstance.get_children():
 		if child is Mana:
+			print(child.manaType, child.manaTitle)
 			child.caster = caster
-			manaPool.append(child)
-	add_child(instance)
-
-func spawnBank(bank):
-	#while count < hand.length:
-		#instCard(Vector3(count * 1.3 - offset,0,4.75))
-		#count = count + 1
-	for card_index in bank.size():
-		instMana(Vector3(card_index * 1.3,0,0), bank[card_index])
+	return manaCardInstance
