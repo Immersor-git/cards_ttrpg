@@ -68,6 +68,13 @@ func updateManaPool():
 			if mana is Mana:
 				manaPool.append(mana)
 
+func getManaOfType(manaType: Enums.ManaType) -> Mana:
+	for manaInstance in get_children():
+		for mana in manaInstance.get_children():
+			if mana is Mana && manaType == mana.manaType.type && !mana.queued_free:
+				return mana
+	return null
+
 func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 	for manaInstance in get_children():
 		for mana in manaInstance.get_children():

@@ -44,4 +44,4 @@ func updateManaTitle():
 
 func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click") && caster.caster_id == multiplayer.get_unique_id():
-		discard_mana.emit(self.get_path())
+		discard_mana.emit(self.manaType.type)
