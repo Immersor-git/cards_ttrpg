@@ -7,29 +7,56 @@ extends Node3D
 @export var hand: Hand
 @export var bank: Bank
 @export var manaTotals: Dictionary = {'Knots': 11, 'Teeth': 11, 'Guts': 11}
+@export var abilityCards : Array[PackedScene]
 @export var deck: Deck
 @export var discard: Deck
 @export var camera: Camera3D
+@export var isCastersTurn := false
 var basicMovesAvailable: int = 0
 var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
+@onready var board_piece = $MeshInstance3D
+var caster_id := 1:
+	set(id):
+		caster_id = id
+@onready var seated_neutral = $SeatedNeutral
+@onready var observing_board = $ObservingBoard
 
 func _ready():
-	setupBoardstate()
-	global_position = board.boardToWorldCoord(boardPosition)
+	bank.set_caster(self)
+	hand.set_caster(self)
+	board = get_tree().get_current_scene().get_node("World/Board/Checkerboard")
+	if multiplayer.is_server():
+		setupBoardstate()
+		board_piece.global_position = board.boardToWorldCoord(boardPosition)
+	if multiplayer.get_unique_id() == caster_id:
+		camera.make_current()
+	else:
+		camera.queue_free()
 	InputMap.load_from_project_settings()
 
 func _process(delta):
 	if Engine.is_editor_hint():
 		if board != null:
-			global_position = board.boardToWorldCoord(boardPosition)
+			board_piece.global_position = board.boardToWorldCoord(boardPosition)
 	else:
 		updateCurrentState()
 		for card in hand.cards:
-			if !card.is_connected(card.cast_card.get_name(), self.try_cast_card):
-				card.cast_card.connect(self.try_cast_card)
-		if !board.is_connected(board.send_clicked_square.get_name(), self.try_move):
-				board.send_clicked_square.connect(self.try_move)
-		
+			if !card.is_connected(card.cast_card.get_name(), self._client_try_cast_card):
+				card.cast_card.connect(self._client_try_cast_card)
+		for manaCard in bank.manaPool:
+			if is_instance_valid(manaCard) && !manaCard.is_connected(manaCard.discard_mana.get_name(), self._client_discard_mana):
+				manaCard.discard_mana.connect(self._client_discard_mana)
+		if !board.is_connected(board.send_clicked_square.get_name(), self._client_try_move):
+				board.send_clicked_square.connect(self._client_try_move)
+
+func set_player_number(player_num: int):
+	if player_num == 1:
+		self.global_rotation_degrees = Vector3(0, 180, 0)
+		boardPosition = Vector2(0, 0)
+	elif player_num == 2:
+		self.global_rotation_degrees = Vector3(0, 90, 0)
+	elif player_num == 3:
+		self.global_rotation_degrees = Vector3(0, 270, 0)
 
 func heal(healAmount: int):
 	healAmount = min(healAmount, discard.contents.size())
@@ -38,42 +65,84 @@ func heal(healAmount: int):
 	deck.shuffle()
 	pass
 
-func try_cast_card(card: Card):
-	print("casting %s" % card.card.title)
-	print(card.card.costType)
-	var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
-	print(validMana)
-	if validMana.size() >= card.card.costAmount:
-		var removedManaTypes = bank.removeNManaOfType(card.card.costAmount, card.card.costType)
-		discard.addCards(removedManaTypes)
-		card.castEffect()
+func _client_try_cast_card(pathToCard: String):
+	try_cast_card.rpc(pathToCard)
 
-func try_move(targetSquare):
-	var distanceVector: Vector2 = abs(targetSquare - boardPosition)
-	var movesNeeded = max(distanceVector.x, distanceVector.y)
-	if currentState == Enums.PlayerState.MOVING_PIECE:
-		if movesNeeded <= basicMovesAvailable:
-			boardPosition = targetSquare
-			global_position = board.boardToWorldCoord(boardPosition)
-			basicMovesAvailable -= movesNeeded
-			print("you have %s basic moves remaining" % basicMovesAvailable)
-		else:
-			print("You Don't Have Enough Moves!")
-	pass
+@rpc("any_peer", "call_local", "reliable")
+func try_cast_card(pathToCard: String):
+	if isCastersTurn:
+		var card = get_tree().get_current_scene().get_node(pathToCard)
+		if multiplayer.is_server():
+			var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
+			if validMana.size() >= card.card.costAmount:
+				var removedManaTypes = bank.removeNManaOfType(card.card.costAmount, card.card.costType)
+				discard.addCards(removedManaTypes)
+				card.castEffect()
+
+func _client_discard_mana(pathToMana: String):
+	discard_mana.rpc(pathToMana)
+	
+@rpc("any_peer", "call_local", "reliable")
+func discard_mana(pathToMana: String):
+	if isCastersTurn:
+		var mana = get_tree().get_current_scene().get_node(pathToMana)
+		mana.enterDiscard()
+		var removedManaTypes = bank.removeManaOfType([mana.manaType.type])
+		discard.addCard(removedManaTypes)
+
+func _client_try_move(targetSquare: Vector2):
+	try_move.rpc(targetSquare)
+
+@rpc("any_peer", "call_local", "reliable")
+func try_move(targetSquare: Vector2):
+	if isCastersTurn:
+		var distanceVector: Vector2 = abs(targetSquare - boardPosition)
+		var movesNeeded = max(distanceVector.x, distanceVector.y)
+		if currentState == Enums.PlayerState.MOVING_PIECE:
+			if movesNeeded <= basicMovesAvailable:
+				boardPosition = targetSquare
+				var tween = create_tween()
+				tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
+				basicMovesAvailable -= movesNeeded
 
 func setupBoardstate():
-	deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
-	var drawnCards := deck.drawNCards(6, self)
-	bank.addManaCards(drawnCards, self)
+	if multiplayer.is_server():
+		hand.spawnHand(abilityCards)
+		deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
+
+func startTurn():
+	if multiplayer.is_server():
+		isCastersTurn = true
+		draw()
+
+func endTurn():
+	if multiplayer.is_server():
+		isCastersTurn = false
+
+func draw():
+	if multiplayer.is_server():
+		if bank.manaPool.size() < 6:
+			var drawnCards := deck.drawNCards(6-bank.manaPool.size(), self)
+			bank.addManaCards(drawnCards)
+
+@rpc("any_peer", "call_local", "reliable")
+func updateState(state: Enums.PlayerState):
+	currentState = state
 
 func updateCurrentState():
-	if Input.is_action_just_pressed("move_back"):
-		currentState = Enums.PlayerState.SITTING_NEUTRAL
-		print("currentState is", currentState)
-		camera.global_position = Vector3(0, 5.409, 10.632)
-		camera.global_rotation_degrees = Vector3(-24.2, 0, 0)
-	if Input.is_action_just_pressed("move_forward") && currentState == Enums.PlayerState.SITTING_NEUTRAL:
-		currentState = Enums.PlayerState.MOVING_PIECE
-		print("currentState is", currentState)
-		camera.global_position = Vector3(0, 5.409, 5.632)
-		camera.global_rotation_degrees = Vector3(-50, 0, 0)
+	if multiplayer.get_unique_id() == caster_id:
+		if Input.is_action_just_pressed("move_back"):
+			currentState = Enums.PlayerState.SITTING_NEUTRAL
+			var tween = create_tween()
+			tween.parallel().tween_property(camera, "global_position", seated_neutral.global_position, 0.25)
+			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-24.2, camera.global_rotation_degrees.y, 0), 0.25)
+		if Input.is_action_just_pressed("move_forward") && currentState == Enums.PlayerState.SITTING_NEUTRAL:
+			currentState = Enums.PlayerState.MOVING_PIECE
+			var tween = create_tween()
+			tween.parallel().tween_property(camera, "global_position", observing_board.global_position, 0.25)
+			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
+		updateState.rpc(currentState)
+
+func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
+	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
+		GameManager.passTurn.rpc()

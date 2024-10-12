@@ -27,7 +27,6 @@ func worldToBoardCoord(worldPos: Vector3) -> Vector2:
 
 func update_board (size):
 	if generated == false: return
-	print("Updated size")
 	var boardSize = scale
 	for square : CSGMesh3D in planes:
 		square.queue_free()
@@ -38,8 +37,6 @@ func update_board (size):
 		for y in size.y:
 			if alternate == 0:
 				var square : CSGMesh3D = WhiteSquare.duplicate()
-				self.add_child(square)
-				square.owner = self
 				square.position = Vector3(x - size.x/2.0 + 0.5,0,y - size.y/2.0 + 0.5)
 				square.visible = true
 				self.add_child(square)
@@ -57,5 +54,5 @@ func update_board (size):
 		
 func _on_board_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
 	var clickedSquare: Vector2 = worldToBoardCoord(event_position)
-	if event is InputEventMouseButton && event.is_pressed():
+	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		send_clicked_square.emit(clickedSquare)

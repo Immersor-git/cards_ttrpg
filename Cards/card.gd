@@ -11,7 +11,7 @@ extends Node3D
 var components: Array[AbstractComponent] = []
 var caster: Caster
 
-signal cast_card(card: Card)
+signal cast_card(pathToCard: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +22,9 @@ func _ready():
 func castEffect():
 	for component in components:
 		component.handleCastEffect(caster)
+
+func set_caster(caster: Caster):
+	self.caster = caster
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -49,5 +52,5 @@ func updateCardText():
 
 
 func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
-	if event is InputEventMouseButton && event.is_pressed():
-		cast_card.emit(self)
+	if event is InputEventMouseButton && event.is_action_pressed("left_click") && caster.caster_id == multiplayer.get_unique_id():
+		cast_card.emit(self.get_path())

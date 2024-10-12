@@ -5,6 +5,7 @@ extends Resource
 @export var title: String
 @export var costType: Array[Enums.ManaType]
 @export var costAmount: int
+@export var scenePath: String
 
 func costString() -> String:
 	match costType[0]:
