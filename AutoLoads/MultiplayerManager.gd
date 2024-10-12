@@ -40,11 +40,14 @@ func join_hosted_game():
 func _set_server_ip(ip: String):
 	SERVER_IP = ip
 
+var player_num = 0
 func _add_new_caster(caster_id: int):
-	var caster = CASTER.instantiate()
+	var caster: Caster = CASTER.instantiate()
 	caster.caster_id = caster_id
 	caster.name = str(caster_id)
 	_caster_spawn_node.add_child(caster)
+	caster.set_player_number(player_num)
+	player_num += 1
 	print("Caster %s joined the game!" % caster_id)
 
 func _remove_caster(caster_id: int):

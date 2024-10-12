@@ -8,8 +8,9 @@ extends Node3D
 
 var components: Array[AbstractComponent] = []
 var caster: Node
+var queued_free := false
 
-signal discard_mana(mana: Mana)
+signal discard_mana(cardPath: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,5 +43,5 @@ func updateManaTitle():
 		manaTitle.text = ''
 
 func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
-	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
-		discard_mana.emit(self)
+	if event is InputEventMouseButton && event.is_action_pressed("left_click") && caster.caster_id == multiplayer.get_unique_id():
+		discard_mana.emit(self.get_path())

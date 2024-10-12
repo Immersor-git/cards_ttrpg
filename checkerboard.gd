@@ -27,7 +27,6 @@ func worldToBoardCoord(worldPos: Vector3) -> Vector2:
 
 func update_board (size):
 	if generated == false: return
-	print("Updated size")
 	var boardSize = scale
 	for square : CSGMesh3D in planes:
 		square.queue_free()

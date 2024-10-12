@@ -13,8 +13,12 @@ func _process(delta):
 		else:
 			syncronizeCardsFromServer()
 
+func set_caster(caster: Caster):
+	self.caster = caster
+
 func syncronizeCardsToClients():
 	if syncableAbilityCards.size() != cards.size():
+		syncableAbilityCards = []
 		for card in cards:
 			syncableAbilityCards.append(card.card.title)
 
@@ -24,10 +28,9 @@ func syncronizeCardsFromServer():
 		for syncableAbilityCard in syncableAbilityCards:
 			var cardPackedScene: PackedScene = load(Enums.CardNameToCardResource.get(syncableAbilityCard).scenePath)
 			ability_card_scene.append(cardPackedScene)
-		print(ability_card_scene)
-		spawnHand(ability_card_scene, caster)
+		spawnHand(ability_card_scene)
 
-func instantiateAbilityCardInstance(pos: Vector3, card: PackedScene, caster: Caster):
+func instantiateAbilityCardInstance(pos: Vector3, card: PackedScene):
 	var instance = card.instantiate()
 	instance.position = pos
 	for child in instance.get_children():
@@ -36,8 +39,8 @@ func instantiateAbilityCardInstance(pos: Vector3, card: PackedScene, caster: Cas
 			cards.append(child)
 	add_child(instance)
 
-func spawnHand(hand: Array[PackedScene], caster: Caster):
+func spawnHand(hand: Array[PackedScene]):
 	self.caster = caster
 	var offset = .65 * (hand.size() -1)
 	for card_index in hand.size():
-		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - offset,0,0), hand[card_index], caster)
+		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - offset,0,0), hand[card_index])

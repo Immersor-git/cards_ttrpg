@@ -5,7 +5,6 @@ extends AbstractComponent
 
 func handleCastEffect(cardOwner: Caster):
 	cardOwner.basicMovesAvailable += moveAmount
-	print(cardOwner.basicMovesAvailable, " moves are available")
 
 func castAbilityDescription() -> String:
 	return "Gain %d Moves" % moveAmount

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Enums="*res://AutoLoads/Enums.gd"
 MultiplayerManager="*res://AutoLoads/MultiplayerManager.gd"
+GameManager="*res://AutoLoads/GameManager.gd"
 
 [input]
 
