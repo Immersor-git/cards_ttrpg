@@ -49,5 +49,5 @@ func updateCardText():
 
 
 func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
-	if event is InputEventMouseButton && event.is_pressed():
+	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		cast_card.emit(self)

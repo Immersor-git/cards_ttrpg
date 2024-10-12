@@ -2,21 +2,32 @@
 class_name Hand
 extends Node3D
 
-@export var hand : Array[PackedScene]
-@export var caster: Caster
+var caster: Caster
+var syncableAbilityCards : Array[String] = []
 var cards : Array[Card] = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	spawnHand(hand)
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if !Engine.is_editor_hint():
+		if multiplayer.is_server():
+			syncronizeCardsToClients()
+		else:
+			syncronizeCardsFromServer()
 
-func instCard(pos, card):
+func syncronizeCardsToClients():
+	if syncableAbilityCards.size() != cards.size():
+		for card in cards:
+			syncableAbilityCards.append(card.card.title)
+
+func syncronizeCardsFromServer():
+	if cards.size() == 0:
+		var ability_card_scene : Array[PackedScene] = []
+		for syncableAbilityCard in syncableAbilityCards:
+			var cardPackedScene: PackedScene = load(Enums.CardNameToCardResource.get(syncableAbilityCard).scenePath)
+			ability_card_scene.append(cardPackedScene)
+		print(ability_card_scene)
+		spawnHand(ability_card_scene, caster)
+
+func instantiateAbilityCardInstance(pos: Vector3, card: PackedScene, caster: Caster):
 	var instance = card.instantiate()
 	instance.position = pos
 	for child in instance.get_children():
@@ -25,10 +36,8 @@ func instCard(pos, card):
 			cards.append(child)
 	add_child(instance)
 
-func spawnHand(hand):
+func spawnHand(hand: Array[PackedScene], caster: Caster):
+	self.caster = caster
 	var offset = .65 * (hand.size() -1)
-	#while count < hand.length:
-		#instCard(Vector3(count * 1.3 - offset,0,4.75))
-		#count = count + 1
 	for card_index in hand.size():
-		instCard(Vector3(card_index * 1.3 - offset,0,0), hand[card_index])
+		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - offset,0,0), hand[card_index], caster)

@@ -1,12 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=9 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
+[ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
+[ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="3_t8hsd"]
+[ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="4_dxyu5"]
+[ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
+[ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3ikwe"]
 
-[node name="Caster" type="Node3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fblby"]
+properties/0/path = NodePath("Deck:contents")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Discard:contents")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("MeshInstance3D:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Hand:syncableAbilityCards")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Bank:syncableManaPool")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[node name="Caster" type="Node3D" node_paths=PackedStringArray("hand", "bank", "deck", "discard", "camera")]
 script = ExtResource("1_s5bp1")
+hand = NodePath("Hand")
+bank = NodePath("Bank")
+abilityCards = Array[PackedScene]([ExtResource("4_dxyu5"), ExtResource("3_t8hsd")])
+deck = NodePath("Deck")
+discard = NodePath("Discard")
+camera = NodePath("Camera3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
 mesh = SubResource("SphereMesh_3ikwe")
+
+[node name="Hand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.68396)
+script = ExtResource("2_22l47")
+
+[node name="Bank" parent="." instance=ExtResource("5_sbbq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.7)
+
+[node name="Deck" parent="." instance=ExtResource("6_osmyo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 6.7)
+
+[node name="Discard" parent="." instance=ExtResource("6_osmyo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 6.7)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -0.000112572, 0.000288055, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.409, 10.632)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fblby")

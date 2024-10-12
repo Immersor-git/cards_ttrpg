@@ -7,3 +7,4 @@ script = ExtResource("1_l0teq")
 title = "Spectral Steed"
 costType = Array[int]([0])
 costAmount = 2
+scenePath = "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn"

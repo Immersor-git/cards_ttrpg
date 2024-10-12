@@ -4,24 +4,41 @@ extends Node3D
 var  GUT_PACKEDSCENE = load("res://Cards/Mana/Gut.tscn")
 var KNOTS_PACKEDSCENE = load("res://Cards/Mana/Knots.tscn")
 var TEETH_PACKEDSCENE = load("res://Cards/Mana/Teeth.tscn")
-@export var caster: Node
+var caster: Node
 
+var syncableManaPool : Array[Enums.ManaType]
 var manaPool : Array[Mana] = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if !Engine.is_editor_hint():
+		if multiplayer.is_server():
+			syncronizeCardsToClients()
+		else:
+			syncronizeCardsFromServer()
+
+func set_caster(caster: Caster):
+	self.caster = caster
+
+func syncronizeCardsToClients():
+	if syncableManaPool.size() != manaPool.size():
+		for mana in manaPool:
+			syncableManaPool.append(mana.manaType.type)
+
+func syncronizeCardsFromServer():
+	if manaPool.size() == 0:
+		addManaCards(syncableManaPool)
 
 func updateManaPool():
 	manaPool = []
 	for manaInstanceIndex in get_children().size():
-		var manaInstance = get_child(manaInstanceIndex)
-		manaInstance.position = Vector3(manaInstanceIndex * 1.3,0,0)
+		var manaInstance: Node3D = get_child(manaInstanceIndex)
+		var newPos = Vector3(((manaInstanceIndex-3) * 1.3) + (1.3/2), 0.0, 0.0)
+		if self.is_node_ready():
+			var tween = create_tween()
+			tween.set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(manaInstance, "position", newPos, 0.25)
+		else:
+			manaInstance.position = newPos
 		for mana in manaInstance.get_children():
 			if mana is Mana:
 				manaPool.append(mana)
@@ -42,31 +59,27 @@ func removeNManaOfType(amount: int, type: Array[Enums.ManaType]) -> Array[Enums.
 		removedMana.push_back(removeManaOfType(type))
 	return removedMana
 
-func addManaCard(manaType: Enums.ManaType, caster: Caster):
-	var manaCardInstance = instantiateManaCardInstance(manaType, caster)
+func addManaCard(manaType: Enums.ManaType):
+	var manaCardInstance = instantiateManaCardInstance(manaType)
 	add_child(manaCardInstance)
 	updateManaPool()
 
-func addManaCards(manaTypes: Array[Enums.ManaType], caster: Caster):
+func addManaCards(manaTypes: Array[Enums.ManaType]):
 	for manaType in manaTypes:
-		add_child(instantiateManaCardInstance(manaType, caster))
+		add_child(instantiateManaCardInstance(manaType))
 	updateManaPool()
 
-func instantiateManaCardInstance(manaType: Enums.ManaType, caster: Caster) -> Node3D:
+func instantiateManaCardInstance(manaType: Enums.ManaType) -> Node3D:
 	var mana: PackedScene
 	match manaType:
 		Enums.ManaType.KNOT:
 			mana = KNOTS_PACKEDSCENE
-			print('matched knot')
 		Enums.ManaType.TEETH:
 			mana = TEETH_PACKEDSCENE
-			print('matched teeth')
 		Enums.ManaType.GUT:
 			mana = GUT_PACKEDSCENE
-			print('matched gut')
 	var manaCardInstance = mana.instantiate()
 	for child in manaCardInstance.get_children():
 		if child is Mana:
-			print(child.manaType, child.manaTitle)
 			child.caster = caster
 	return manaCardInstance

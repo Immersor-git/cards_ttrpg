@@ -14,7 +14,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	updateDeckDisplaySize()
 
 func updateDeckDisplaySize():
 	var deck_mesh_3d = $StaticBody3D/DeckMesh3D
