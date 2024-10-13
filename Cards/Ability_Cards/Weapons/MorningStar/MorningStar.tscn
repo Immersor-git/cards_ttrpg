@@ -12,5 +12,4 @@ card = ExtResource("2_7gupn")
 [node name="Components" type="Node" parent="Card"]
 
 [node name="WoundInRadius" parent="Card/Components" instance=ExtResource("3_jnntj")]
-woundAmount = 12
-woundRadius = 7
+woundAmount = 2
