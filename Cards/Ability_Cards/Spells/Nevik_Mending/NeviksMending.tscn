@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cikkafol2eysa"]
+
+[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_conr0"]
+[ext_resource type="PackedScene" uid="uid://c3220pp81wfvr" path="res://Cards/Components/ImplementedComponents/Heal.tscn" id="2_oboxf"]
+
+[node name="NeviksMending" type="Node3D"]
+
+[node name="Card" parent="." instance=ExtResource("1_conr0")]
+
+[node name="Components" type="Node" parent="Card"]
+
+[node name="Heal" parent="Card/Components" instance=ExtResource("2_oboxf")]
+healAmount = 3

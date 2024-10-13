@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://b4jc0m2snepxv"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_1prpy"]
+
+[resource]
+script = ExtResource("1_1prpy")
+title = "Nevik's Mending"
+costType = Array[int]([0])
+costAmount = 1
+scenePath = "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn"

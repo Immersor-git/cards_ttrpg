@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
 [ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="3_t8hsd"]
 [ext_resource type="PackedScene" uid="uid://cge044feew1v2" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn" id="4_0sxh0"]
-[ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="4_dxyu5"]
+[ext_resource type="PackedScene" uid="uid://cikkafol2eysa" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn" id="4_skbvr"]
 [ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
 [ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
 
@@ -57,7 +57,7 @@ script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
 hand = NodePath("Hand")
 bank = NodePath("Bank")
-abilityCards = Array[PackedScene]([ExtResource("4_0sxh0"), ExtResource("4_dxyu5"), ExtResource("3_t8hsd")])
+abilityCards = Array[PackedScene]([ExtResource("4_0sxh0"), ExtResource("3_t8hsd"), ExtResource("4_skbvr")])
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")
