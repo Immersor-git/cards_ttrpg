@@ -18,3 +18,8 @@ shape = SubResource("BoxShape3D_jgp41")
 
 [node name="DeckMesh3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_nj66v")
+
+[node name="ContentsDisplay" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.497977, 0)
+text = "
+"

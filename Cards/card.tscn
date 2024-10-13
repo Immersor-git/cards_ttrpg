@@ -22,11 +22,14 @@ shape = SubResource("BoxShape3D_bgac1")
 mesh = SubResource("BoxMesh_ytrrl")
 
 [node name="CardTitle" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245692, -0.425548)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.059, -0.426)
 text = "Spectral Steed"
 
 [node name="Description" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.139311, 0.990249, 0, -0.990249, 0.139311, 0.00747955, 0.0588787, 0.237932)
+font_size = 20
+autowrap_mode = 2
+width = 225.0
 
 [node name="Cost" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.139311, 0.990249, 0, -0.990249, 0.139311, 0.00747955, 0.0588787, 0.622022)

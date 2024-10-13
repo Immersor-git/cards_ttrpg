@@ -12,12 +12,15 @@ extends Node3D
 @export var discard: Deck
 @export var camera: Camera3D
 @export var isCastersTurn := false
+
 var basicMovesAvailable: int = 0
 var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
-@onready var board_piece = $MeshInstance3D
 var caster_id := 1:
 	set(id):
 		caster_id = id
+var team_id := 0
+
+@onready var board_piece = $MeshInstance3D
 @onready var seated_neutral = $SeatedNeutral
 @onready var observing_board = $ObservingBoard
 
@@ -50,6 +53,7 @@ func _process(delta):
 				board.send_clicked_square.connect(self._client_try_move)
 
 func set_player_number(player_num: int):
+	self.team_id = player_num
 	if player_num == 1:
 		self.global_rotation_degrees = Vector3(0, 180, 0)
 		boardPosition = Vector2(0, 0)
@@ -147,3 +151,35 @@ func updateCurrentState():
 func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		GameManager.passTurn.rpc()
+
+func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:
+	var listOfCasters = get_tree().get_current_scene().get_node("World/Casters").get_children()
+	print("listOfCasters is ", listOfCasters)
+	var listOfCastersInRadius : Array[Caster] = []
+	for caster in listOfCasters:
+		if caster is Caster:
+			var distanceToPiece : Vector2 = abs(caster.boardPosition - self.boardPosition)
+			var distanceInSquaresToPiece = max(distanceToPiece.x, distanceToPiece.y)
+			print("found a piece at: ", caster.boardPosition, " distance is: ", distanceInSquaresToPiece)
+			print(radiusInclusive)
+			if distanceInSquaresToPiece <= radiusInclusive:
+				print("make sure")
+				listOfCastersInRadius.append(caster)
+	print("casters in radius: ", listOfCastersInRadius)
+	return listOfCastersInRadius
+
+## Returns total number of cards milled
+func recieveWounds(woundAmount: int) -> int:
+	print("recieve wounds is running %s" %woundAmount)
+	var gutCardsMilled := 0
+	var totalCardsMilled := 0
+	while gutCardsMilled != woundAmount:
+		var milledCard := deck.drawCard(self)
+		if milledCard == -1:
+			print("YOU DIED!!! D:")
+			return totalCardsMilled
+		if milledCard == Enums.ManaType.GUT:
+			gutCardsMilled += 1
+		totalCardsMilled += 1
+		discard.addCard(milledCard)
+	return totalCardsMilled

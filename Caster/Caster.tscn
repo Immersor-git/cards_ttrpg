@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=12 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
 [ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="3_t8hsd"]
+[ext_resource type="PackedScene" uid="uid://cge044feew1v2" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn" id="4_0sxh0"]
 [ext_resource type="PackedScene" uid="uid://csvw5c2tc80h2" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn" id="4_dxyu5"]
 [ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
 [ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
@@ -37,6 +38,12 @@ properties/7/replication_mode = 1
 properties/8/path = NodePath(".:isCastersTurn")
 properties/8/spawn = true
 properties/8/replication_mode = 1
+properties/9/path = NodePath("Deck:manaTotals")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath("Discard:manaTotals")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_6sk4a"]
 
@@ -47,7 +54,7 @@ script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
 hand = NodePath("Hand")
 bank = NodePath("Bank")
-abilityCards = Array[PackedScene]([ExtResource("4_dxyu5"), ExtResource("3_t8hsd")])
+abilityCards = Array[PackedScene]([ExtResource("4_0sxh0"), ExtResource("4_dxyu5"), ExtResource("3_t8hsd")])
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")

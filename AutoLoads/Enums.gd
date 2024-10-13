@@ -6,5 +6,7 @@ enum PlayerState {SITTING_NEUTRAL, MOVING_PIECE, SPENDING_MANA}
 
 var CardNameToCardResource: Dictionary = {
 	"Spectral Steed": preload("res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tres"),
-	"Jaska's Vigor": preload("res://Cards/Ability_Cards/Spells/Jaska_Vigor/Jaska_Vigor.tres")
+	"Jaska's Vigor": preload("res://Cards/Ability_Cards/Spells/Jaska_Vigor/Jaska_Vigor.tres"),
+	"Inkbird's Opal": preload("res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tres"),
+	"Morning Star": preload("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tres")
 }

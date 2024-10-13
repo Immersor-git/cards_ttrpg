@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dppnrkyb3am8b"]
+
+[ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/WoundInRadius.gd" id="1_7q8nd"]
+
+[node name="WoundInRadius" type="Node"]
+script = ExtResource("1_7q8nd")
