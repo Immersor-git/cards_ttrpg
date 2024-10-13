@@ -11,7 +11,7 @@ extends Node3D
 @export var deck: Deck
 @export var discard: Deck
 @export var camera: Camera3D
-@export var isCastersTurn := false
+@export var is_casters_turn := false
 
 var basicMovesAvailable: int = 0
 var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
@@ -74,7 +74,7 @@ func _client_try_cast_card(pathToCard: String):
 
 @rpc("any_peer", "call_local", "reliable")
 func try_cast_card(pathToCard: String):
-	if isCastersTurn:
+	if isCastersTurn():
 		var card = get_tree().get_current_scene().get_node(pathToCard)
 		if multiplayer.is_server():
 			var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
@@ -89,7 +89,7 @@ func _client_discard_mana(manaType: Enums.ManaType):
 @rpc("any_peer", "call_local", "reliable")
 func discard_mana(manaType: Enums.ManaType):
 	if multiplayer.is_server():
-		if isCastersTurn:
+		if isCastersTurn():
 			var mana = bank.getManaOfType(manaType)
 			mana.enterDiscard()
 			var removedManaTypes = bank.removeManaOfType([mana.manaType.type])
@@ -100,7 +100,7 @@ func _client_try_move(targetSquare: Vector2):
 
 @rpc("any_peer", "call_local", "reliable")
 func try_move(targetSquare: Vector2):
-	if isCastersTurn:
+	if isCastersTurn():
 		var distanceVector: Vector2 = abs(targetSquare - boardPosition)
 		var movesNeeded = max(distanceVector.x, distanceVector.y)
 		if currentState == Enums.PlayerState.MOVING_PIECE:
@@ -115,14 +115,17 @@ func setupBoardstate():
 		hand.spawnHand(abilityCards)
 		deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
 
+func isCastersTurn() -> bool:
+	return multiplayer.get_remote_sender_id() == self.caster_id && is_casters_turn
+
 func startTurn():
 	if multiplayer.is_server():
-		isCastersTurn = true
+		is_casters_turn = true
 		draw()
 
 func endTurn():
 	if multiplayer.is_server():
-		isCastersTurn = false
+		is_casters_turn = false
 
 func draw():
 	if multiplayer.is_server():
@@ -153,8 +156,10 @@ func _client_pass_turn():
 
 @rpc("any_peer", "call_local", "reliable")
 func passTurn():
-	basicMovesAvailable = 0
-	GameManager.passTurn()
+	if multiplayer.is_server():
+		if isCastersTurn():
+			basicMovesAvailable = 0
+			GameManager.passTurn()
 
 func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):

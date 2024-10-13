@@ -61,6 +61,7 @@ abilityCards = Array[PackedScene]([ExtResource("4_0sxh0"), ExtResource("3_t8hsd"
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")
+is_casters_turn = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
