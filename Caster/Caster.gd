@@ -116,7 +116,7 @@ func setupBoardstate():
 		deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
 
 func isCastersTurn() -> bool:
-	return multiplayer.get_remote_sender_id() == self.caster_id && is_casters_turn
+	return is_casters_turn
 
 func startTurn():
 	if multiplayer.is_server():
