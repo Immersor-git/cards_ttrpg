@@ -148,9 +148,17 @@ func updateCurrentState():
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
 		updateState.rpc(currentState)
 
+func _client_pass_turn():
+	passTurn.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func passTurn():
+	basicMovesAvailable = 0
+	GameManager.passTurn()
+
 func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
-		GameManager.passTurn.rpc()
+		_client_pass_turn()
 
 func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:
 	var listOfCasters = get_tree().get_current_scene().get_node("World/Casters").get_children()

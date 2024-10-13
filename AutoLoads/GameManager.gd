@@ -18,7 +18,6 @@ func pickStartTurn():
 				casterTakingTurn = caster
 				caster.startTurn()
 
-@rpc("any_peer", "call_local", "reliable")
 func passTurn():
 	if multiplayer.is_server():
 		var casters = get_tree().get_current_scene().get_node("World/Casters").get_children()
