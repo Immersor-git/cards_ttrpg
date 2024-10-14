@@ -98,17 +98,43 @@ func discard_mana(manaType: Enums.ManaType):
 func _client_try_move(targetSquare: Vector2):
 	try_move.rpc(targetSquare)
 
+#@rpc("any_peer", "call_local", "reliable")
+#func try_move(targetSquare: Vector2):
+	#if isCastersTurn():
+		#var distanceVector: Vector2 = abs(targetSquare - boardPosition)
+		#var movesNeeded = max(distanceVector.x, distanceVector.y)
+		#if currentState == Enums.PlayerState.MOVING_PIECE:
+			#if movesNeeded <= basicMovesAvailable:
+				#boardPosition = targetSquare
+				#var tween = create_tween()
+				#tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
+				#basicMovesAvailable -= movesNeeded
+
 @rpc("any_peer", "call_local", "reliable")
 func try_move(targetSquare: Vector2):
 	if isCastersTurn():
-		var distanceVector: Vector2 = abs(targetSquare - boardPosition)
-		var movesNeeded = max(distanceVector.x, distanceVector.y)
+		if currentState == Enums.PlayerState.OBSERVING_BOARD && targetSquare == boardPosition:
+			currentState = Enums.PlayerState.MOVING_PIECE
+			var arrOfCasters := getCastersInRadius(7)
+			var arrOfCasterPositions : Array[Vector2] = []
+			for caster in arrOfCasters:
+				arrOfCasterPositions.append(caster.boardPosition)
+			for x in 8:
+				for y in 8:
+					if !Vector2(x, y) in arrOfCasterPositions:
+						board.highlightSquare(Vector2(x, y))
 		if currentState == Enums.PlayerState.MOVING_PIECE:
-			if movesNeeded <= basicMovesAvailable:
-				boardPosition = targetSquare
-				var tween = create_tween()
-				tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
-				basicMovesAvailable -= movesNeeded
+			var distanceVector: Vector2 = abs(targetSquare - boardPosition)
+			print("moving to ", targetSquare)
+
+func getPathsToPossibleSquares() -> Dictionary:
+	var validAdjacentSquares : Array[Vector2] = []
+	for x in range(-1, 2):
+		for y in range(-1, 2):
+			var adjacentSquare := boardPosition + Vector2(x, y)
+			if adjacentSquare[x] in range(0, 7) and adjacentSquare[y] in range(0, 7):
+				validAdjacentSquares.append(adjacentSquare)
+	return {}
 
 func setupBoardstate():
 	if multiplayer.is_server():
@@ -145,7 +171,7 @@ func updateCurrentState():
 			tween.parallel().tween_property(camera, "global_position", seated_neutral.global_position, 0.25)
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-24.2, camera.global_rotation_degrees.y, 0), 0.25)
 		if Input.is_action_just_pressed("move_forward") && currentState == Enums.PlayerState.SITTING_NEUTRAL:
-			currentState = Enums.PlayerState.MOVING_PIECE
+			currentState = Enums.PlayerState.OBSERVING_BOARD
 			var tween = create_tween()
 			tween.parallel().tween_property(camera, "global_position", observing_board.global_position, 0.25)
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
@@ -165,6 +191,7 @@ func _on_pass_turn_collider_input_event(camera, event, event_position, normal, s
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		_client_pass_turn()
 
+## Returns an array of other casters that are within the given radius of this caster. Results include this caster. 
 func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:
 	var listOfCasters = get_tree().get_current_scene().get_node("World/Casters").get_children()
 	print("listOfCasters is ", listOfCasters)

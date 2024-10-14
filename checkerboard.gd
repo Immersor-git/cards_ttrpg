@@ -11,6 +11,7 @@ var WhiteSquare : CSGMesh3D
 var BlackSquare : CSGMesh3D
 var generated = false
 var planes = []
+var highlight := preload("res://BoardSquareHighlight.tscn")
 signal send_clicked_square(clickedSquare: Vector2)
 
 func _ready():
@@ -56,3 +57,9 @@ func _on_board_click(camera, event: InputEvent, event_position: Vector3, normal,
 	var clickedSquare: Vector2 = worldToBoardCoord(event_position)
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		send_clicked_square.emit(clickedSquare)
+
+func highlightSquare(pos: Vector2):
+	var instance = highlight.instantiate()
+	instance.position = boardToWorldCoord(pos)
+	add_child(instance)
+	pass
