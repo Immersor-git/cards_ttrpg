@@ -7,7 +7,7 @@ extends Node3D
 @export var hand: Hand
 @export var bank: Bank
 @export var manaTotals: Dictionary = {'Knots': 11, 'Teeth': 11, 'Guts': 11}
-@export var abilityCards : Array[PackedScene]
+@export var abilityCards : Array[AbilityCard]
 @export var deck: Deck
 @export var discard: Deck
 @export var camera: Camera3D
@@ -19,6 +19,7 @@ var caster_id := 1:
 	set(id):
 		caster_id = id
 var team_id := 0
+var isReadyToDraw := false
 
 @onready var board_piece = $MeshInstance3D
 @onready var seated_neutral = $SeatedNeutral
@@ -29,7 +30,6 @@ func _ready():
 	hand.set_caster(self)
 	board = get_tree().get_current_scene().get_node("World/Board/Checkerboard")
 	if multiplayer.is_server():
-		setupBoardstate()
 		board_piece.global_position = board.boardToWorldCoord(boardPosition)
 	if multiplayer.get_unique_id() == caster_id:
 		camera.make_current()
@@ -78,7 +78,7 @@ func try_cast_card(pathToCard: String):
 		var card = get_tree().get_current_scene().get_node(pathToCard)
 		if multiplayer.is_server():
 			var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
-			if validMana.size() >= card.card.costAmount:
+			if validMana.size() >= card.card.costAmount && card.canCastEffect():
 				var removedManaTypes = bank.removeNManaOfType(card.card.costAmount, card.card.costType)
 				discard.addCards(removedManaTypes)
 				card.castEffect()
@@ -110,10 +110,13 @@ func try_move(targetSquare: Vector2):
 				tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
 				basicMovesAvailable -= movesNeeded
 
-func setupBoardstate():
+func spawnHand():
 	if multiplayer.is_server():
 		hand.spawnHand(abilityCards)
-		deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
+
+func spawnMana():
+	deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
+	isReadyToDraw = true
 
 func isCastersTurn() -> bool:
 	return is_casters_turn
@@ -121,6 +124,8 @@ func isCastersTurn() -> bool:
 func startTurn():
 	if multiplayer.is_server():
 		is_casters_turn = true
+		for card in hand.cards:
+			card.startTurnEffect()
 		draw()
 
 func endTurn():
@@ -167,18 +172,13 @@ func _on_pass_turn_collider_input_event(camera, event, event_position, normal, s
 
 func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:
 	var listOfCasters = get_tree().get_current_scene().get_node("World/Casters").get_children()
-	print("listOfCasters is ", listOfCasters)
 	var listOfCastersInRadius : Array[Caster] = []
 	for caster in listOfCasters:
 		if caster is Caster:
 			var distanceToPiece : Vector2 = abs(caster.boardPosition - self.boardPosition)
 			var distanceInSquaresToPiece = max(distanceToPiece.x, distanceToPiece.y)
-			print("found a piece at: ", caster.boardPosition, " distance is: ", distanceInSquaresToPiece)
-			print(radiusInclusive)
 			if distanceInSquaresToPiece <= radiusInclusive:
-				print("make sure")
 				listOfCastersInRadius.append(caster)
-	print("casters in radius: ", listOfCastersInRadius)
 	return listOfCastersInRadius
 
 ## Returns total number of cards milled

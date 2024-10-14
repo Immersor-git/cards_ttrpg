@@ -11,6 +11,10 @@ func pickStartTurn():
 	if multiplayer.is_server():
 		var casters = get_tree().get_current_scene().get_node("World/Casters").get_children()
 		if casters.size() >= 2:
+			for caster in casters:
+				if caster is Caster:
+					if !caster.isReadyToDraw:
+						return
 			gameStarted = true
 			casters.shuffle()
 			var caster = casters.pop_back()

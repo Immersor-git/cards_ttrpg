@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=13 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
-[ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="3_t8hsd"]
-[ext_resource type="PackedScene" uid="uid://cge044feew1v2" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn" id="4_0sxh0"]
-[ext_resource type="PackedScene" uid="uid://cikkafol2eysa" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn" id="4_skbvr"]
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="2_y12uu"]
+[ext_resource type="Resource" uid="uid://35fj1hk4mds8" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tres" id="3_cl7u8"]
+[ext_resource type="Resource" uid="uid://b4jc0m2snepxv" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tres" id="4_86ef1"]
+[ext_resource type="Resource" uid="uid://b0nc6h8pa07u5" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tres" id="5_4gvdo"]
 [ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
 [ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
 
@@ -13,40 +14,43 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fblby"]
 properties/0/path = NodePath("MeshInstance3D:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath("Hand:syncableAbilityCards")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath("Bank:syncableManaPool")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath(".:rotation")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath(".:caster_id")
 properties/4/spawn = true
-properties/4/replication_mode = 1
+properties/4/replication_mode = 2
 properties/5/path = NodePath("Deck:cardCount")
 properties/5/spawn = true
-properties/5/replication_mode = 1
+properties/5/replication_mode = 2
 properties/6/path = NodePath("Discard:cardCount")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
 properties/7/path = NodePath(".:boardPosition")
 properties/7/spawn = true
-properties/7/replication_mode = 1
+properties/7/replication_mode = 2
 properties/8/path = NodePath(".:isCastersTurn")
 properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/8/replication_mode = 2
 properties/9/path = NodePath("Deck:manaTotals")
 properties/9/spawn = true
-properties/9/replication_mode = 1
+properties/9/replication_mode = 2
 properties/10/path = NodePath("Discard:manaTotals")
 properties/10/spawn = true
-properties/10/replication_mode = 1
+properties/10/replication_mode = 2
 properties/11/path = NodePath(".:basicMovesAvailable")
 properties/11/spawn = true
-properties/11/replication_mode = 1
+properties/11/replication_mode = 2
+properties/12/path = NodePath("PassTurnCollider/PassTurn/Label3D:text")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_6sk4a"]
 
@@ -57,15 +61,18 @@ script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
 hand = NodePath("Hand")
 bank = NodePath("Bank")
-abilityCards = Array[PackedScene]([ExtResource("4_0sxh0"), ExtResource("3_t8hsd"), ExtResource("4_skbvr")])
+abilityCards = Array[ExtResource("2_y12uu")]([ExtResource("3_cl7u8"), ExtResource("4_86ef1"), ExtResource("5_4gvdo")])
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")
-is_casters_turn = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
 mesh = SubResource("SphereMesh_3ikwe")
+
+[node name="HandSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn")
+spawn_path = NodePath("../Hand")
 
 [node name="Hand" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.68396)

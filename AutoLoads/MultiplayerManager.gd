@@ -28,14 +28,14 @@ func host_game():
 	multiplayer.peer_connected.connect(_add_new_caster)
 	multiplayer.peer_disconnected.connect(_remove_caster)
 	_add_new_caster(1)
-	_remove_single_player_caster()
+	_remove_single_player_caster(1)
 
 func join_hosted_game():
 	var client_peer = ENetMultiplayerPeer.new()
 	client_peer.create_client(SERVER_IP, PORT)
 	
 	multiplayer.multiplayer_peer = client_peer
-	_remove_single_player_caster()
+	_remove_single_player_caster(multiplayer.get_unique_id())
 	
 func _set_server_ip(ip: String):
 	SERVER_IP = ip
@@ -53,6 +53,35 @@ func _add_new_caster(caster_id: int):
 func _remove_caster(caster_id: int):
 	print("Caster %s left the game!" % caster_id)
 
-func _remove_single_player_caster():
-	var caster_to_remove = get_tree().get_current_scene().get_node("World/Caster")
+func _remove_single_player_caster(caster_id: int):
+	var caster_to_remove: Caster = get_tree().get_current_scene().get_node("World/Caster")
+	if multiplayer.is_server():
+		for caster: Node in _caster_spawn_node.get_children():
+			if caster is Caster:
+				if caster.caster_id == 1:
+					caster.abilityCards = caster_to_remove.abilityCards
+					caster.spawnHand()
+					caster.manaTotals = caster_to_remove.manaTotals
+					caster.spawnMana()
 	caster_to_remove.queue_free()
+
+@rpc("any_peer", "reliable")
+func _client_set_hand(hand: Array[String]):
+	if multiplayer.is_server():
+		var resourceHand : Array[AbilityCard] = []
+		for cardName in hand:
+			resourceHand.append(Enums.CardNameToCardResource[cardName])
+		for caster: Node in _caster_spawn_node.get_children():
+			if caster is Caster:
+				if caster.caster_id == multiplayer.get_remote_sender_id():
+					caster.abilityCards = resourceHand
+					caster.spawnHand()
+
+@rpc("any_peer", "reliable")
+func _client_set_mana_totals(manaTotals: Dictionary):
+	if multiplayer.is_server():
+		for caster: Node in _caster_spawn_node.get_children():
+			if caster is Caster:
+				if caster.caster_id == multiplayer.get_remote_sender_id():
+					caster.manaTotals = manaTotals
+					caster.spawnMana()
