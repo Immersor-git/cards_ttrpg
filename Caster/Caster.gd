@@ -21,6 +21,7 @@ var caster_id := 1:
 		caster_id = id
 var team_id := 0
 var isReadyToDraw := false
+var arrOfInvalidSquares : Array[Vector2] = []
 
 @onready var board_piece = $MeshInstance3D
 @onready var seated_neutral = $SeatedNeutral
@@ -68,7 +69,7 @@ func set_player_number(player_num: int):
 	set_board_piece_color(player_num)
 	if player_num == 1:
 		self.global_rotation_degrees = Vector3(0, 180, 0)
-		self.boardPosition = Vector2(7, 7)
+		self.boardPosition = Vector2(0, 0)
 	elif player_num == 2:
 		self.global_rotation_degrees = Vector3(0, 90, 0)
 		self.boardPosition = Vector2(0, 7)
@@ -129,23 +130,31 @@ var dictOfPreviousSquaresGlobalTemp: Dictionary
 func try_move(targetSquare: Vector2):
 	if isCastersTurn():
 		if currentState == Enums.PlayerState.MOVING_PIECE:
-			board.clearHighlights()
-			print("player trying to move to ", targetSquare)
-			var pathToTargetSquare := findPathToSquare(targetSquare, dictOfPreviousSquaresGlobalTemp)
-			for square in pathToTargetSquare:
-				boardPosition = targetSquare
-				var tween = create_tween()
-				tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), pathToTargetSquare.size() * 0.25)
-				basicMovesAvailable -= 1
-				
+			if basicMovesAvailable >= 1 && dictOfPreviousSquaresGlobalTemp.has(str(targetSquare)):
+				board.clearHighlights()
+				var pathToTargetSquare := findPathToSquare(targetSquare, dictOfPreviousSquaresGlobalTemp)
+				var speedModifier := pathToTargetSquare.size()
+				while pathToTargetSquare.size() > 0:
+					var nextStep: Vector2 = pathToTargetSquare.pop_back()
+					if nextStep != boardPosition:
+						boardPosition = nextStep
+						var tween = create_tween()
+						tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), speedModifier * 0.05)
+						basicMovesAvailable -= 1
+						await tween.finished
+						await get_tree().create_timer(.03).timeout
+				updateArrOfInvalidSquares()
+				dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
 		if currentState == Enums.PlayerState.OBSERVING_BOARD && targetSquare == boardPosition:
 			currentState = Enums.PlayerState.MOVING_PIECE
-			print("player can now move piece")
-			var arrOfCasters := getCastersInRadius(7)
-			var arrOfInvalidSquares : Array[Vector2] = []
-			for caster in arrOfCasters:
-				arrOfInvalidSquares.append(caster.boardPosition)
+			updateArrOfInvalidSquares()
 			dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
+
+func updateArrOfInvalidSquares():
+	arrOfInvalidSquares.clear()
+	for caster in getCastersInRadius(7):
+		arrOfInvalidSquares.append(caster.boardPosition)
+	arrOfInvalidSquares.append(Vector2(6, 6))
 
 func getNeighbors(startingSquare: Vector2)-> Array[Vector2]:
 	var validAdjacentSquares : Array[Vector2] = []
@@ -157,8 +166,8 @@ func getNeighbors(startingSquare: Vector2)-> Array[Vector2]:
 	return validAdjacentSquares
 
 func findPathToSquare(targetSquare: Vector2, dictOfPreviousSquares: Dictionary)-> Array[Vector2]:
+	var pathToSquare: Array[Vector2] = [targetSquare]
 	var currentSquare := targetSquare
-	var pathToSquare: Array[Vector2]
 	while currentSquare != boardPosition:
 		currentSquare = dictOfPreviousSquares[str(currentSquare)]
 		pathToSquare.append(currentSquare)
@@ -171,14 +180,14 @@ func getPathsToPossibleSquares(arrOfInvalidSquares)-> Dictionary:
 	var currentSquare := boardPosition
 	while queue.size() != 0:
 		currentSquare = queue.pop_front()
-		if findPathToSquare(currentSquare, dictOfPreviousSquares).size() <= basicMovesAvailable:
+		if findPathToSquare(currentSquare, dictOfPreviousSquares).size() < basicMovesAvailable:
 			var neighbors = getNeighbors(currentSquare)
-			board.highlightSquare(currentSquare)
 			for nextSquare in neighbors:
 				if !arrOfInvalidSquares.has(nextSquare):
 					queue.append(nextSquare)
 					arrOfInvalidSquares.append(nextSquare)
 					dictOfPreviousSquares[str(nextSquare)] = currentSquare
+					board.highlightSquare(nextSquare)
 	return dictOfPreviousSquares
 
 func spawnHand():
