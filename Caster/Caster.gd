@@ -158,11 +158,19 @@ func updateArrOfInvalidSquares():
 
 func getNeighbors(startingSquare: Vector2)-> Array[Vector2]:
 	var validAdjacentSquares : Array[Vector2] = []
+	var cardinalNeighbors : Array[Vector2] = []
+	var diagNeighbors :Array[Vector2] = []
 	for targetRelativeX in range(-1, 2):
 		for targetRelativeY in range(-1, 2):
 			var adjacentSquare := startingSquare + Vector2(targetRelativeX, targetRelativeY)
 			if adjacentSquare.x >= 0 && adjacentSquare.x <= 7 && adjacentSquare.y >= 0 && adjacentSquare.y <= 7:
-				validAdjacentSquares.append(adjacentSquare)
+				if adjacentSquare.x == startingSquare.x || adjacentSquare.y == startingSquare.y:
+					cardinalNeighbors.append(adjacentSquare)
+				else:
+					diagNeighbors.append(adjacentSquare)
+	validAdjacentSquares.append_array(cardinalNeighbors)
+	validAdjacentSquares.append_array(diagNeighbors)
+
 	return validAdjacentSquares
 
 func findPathToSquare(targetSquare: Vector2, dictOfPreviousSquares: Dictionary)-> Array[Vector2]:
@@ -180,7 +188,7 @@ func getPathsToPossibleSquares(arrOfInvalidSquares)-> Dictionary:
 	var currentSquare := boardPosition
 	while queue.size() != 0:
 		currentSquare = queue.pop_front()
-		if findPathToSquare(currentSquare, dictOfPreviousSquares).size() < basicMovesAvailable:
+		if findPathToSquare(currentSquare, dictOfPreviousSquares).size() <= basicMovesAvailable:
 			var neighbors = getNeighbors(currentSquare)
 			for nextSquare in neighbors:
 				if !arrOfInvalidSquares.has(nextSquare):
