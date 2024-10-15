@@ -12,6 +12,7 @@ extends Node3D
 @export var discard: Deck
 @export var camera: Camera3D
 @export var is_casters_turn := false
+@export var casterMaterial: Array[Material]
 
 var basicMovesAvailable: int = 0
 var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
@@ -35,6 +36,8 @@ func _ready():
 		camera.make_current()
 	else:
 		camera.queue_free()
+	set_player_number(team_id)
+	
 	InputMap.load_from_project_settings()
 
 func _process(delta):
@@ -43,6 +46,7 @@ func _process(delta):
 			board_piece.global_position = board.boardToWorldCoord(boardPosition)
 	else:
 		updateCurrentState()
+		set_board_piece_color(team_id)
 		for card in hand.cards:
 			if !card.is_connected(card.cast_card.get_name(), self._client_try_cast_card):
 				card.cast_card.connect(self._client_try_cast_card)
@@ -52,11 +56,18 @@ func _process(delta):
 		if !board.is_connected(board.send_clicked_square.get_name(), self._client_try_move):
 				board.send_clicked_square.connect(self._client_try_move)
 
+var isOwnedMesh := false
+func set_board_piece_color(player_num: int):
+	if !isOwnedMesh:
+		isOwnedMesh = true
+		board_piece.mesh = board_piece.mesh.duplicate()
+	board_piece.mesh.material = casterMaterial[player_num]
+
 func set_player_number(player_num: int):
 	self.team_id = player_num
+	set_board_piece_color(player_num)
 	if player_num == 1:
 		self.global_rotation_degrees = Vector3(0, 180, 0)
-		boardPosition = Vector2(0, 0)
 	elif player_num == 2:
 		self.global_rotation_degrees = Vector3(0, 90, 0)
 	elif player_num == 3:

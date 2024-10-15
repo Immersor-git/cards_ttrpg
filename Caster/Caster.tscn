@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=20 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
@@ -8,6 +8,28 @@
 [ext_resource type="Resource" uid="uid://b0nc6h8pa07u5" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tres" id="5_4gvdo"]
 [ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
 [ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
+
+[sub_resource type="Gradient" id="Gradient_01jf4"]
+colors = PackedColorArray(0.528801, 1, 0.83022, 1, 0.528801, 1, 0.83022, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ffppw"]
+gradient = SubResource("Gradient_01jf4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7l0n"]
+albedo_color = Color(0.651379, 0.932649, 1, 1)
+normal_texture = SubResource("GradientTexture1D_ffppw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m6mvy"]
+albedo_color = Color(0.809828, 0.641799, 0.741237, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3u3bc"]
+albedo_color = Color(0.77657, 0.996671, 0.743253, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6wie"]
+next_pass = SubResource("StandardMaterial3D_3u3bc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dboo4"]
+albedo_color = Color(1, 0.996078, 0.627451, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_3ikwe"]
 
@@ -51,6 +73,9 @@ properties/11/replication_mode = 2
 properties/12/path = NodePath("PassTurnCollider/PassTurn/Label3D:text")
 properties/12/spawn = true
 properties/12/replication_mode = 1
+properties/13/path = NodePath(".:team_id")
+properties/13/spawn = true
+properties/13/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_6sk4a"]
 
@@ -65,6 +90,7 @@ abilityCards = Array[ExtResource("2_y12uu")]([ExtResource("3_cl7u8"), ExtResourc
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")
+casterMaterial = Array[Material]([SubResource("StandardMaterial3D_m7l0n"), SubResource("StandardMaterial3D_m6mvy"), SubResource("StandardMaterial3D_p6wie"), SubResource("StandardMaterial3D_dboo4")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
