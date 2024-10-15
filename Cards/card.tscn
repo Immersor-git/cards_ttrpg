@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://biqqw3xuldq1b"]
+[gd_scene load_steps=6 format=3 uid="uid://biqqw3xuldq1b"]
 
 [ext_resource type="Script" path="res://Cards/card.gd" id="1_c1iyp"]
 [ext_resource type="Resource" uid="uid://35fj1hk4mds8" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tres" id="2_vt608"]
@@ -8,6 +8,11 @@ size = Vector3(1.25, 0.01, 1.75)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ytrrl"]
 size = Vector3(1.25, 0.01, 1.75)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kv1nn"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Card" type="Node3D"]
 script = ExtResource("1_c1iyp")
@@ -34,5 +39,8 @@ width = 225.0
 [node name="Cost" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.139311, 0.990249, 0, -0.990249, 0.139311, 0.00747955, 0.0588787, 0.622022)
 text = "Knots 2"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_kv1nn")
 
 [connection signal="input_event" from="StaticBody3D" to="." method="_on_card_click"]

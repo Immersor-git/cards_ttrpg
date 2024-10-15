@@ -21,17 +21,30 @@ func _ready():
 
 func castEffect():
 	for component in components:
-		component.handleCastEffect(caster)
+		var isBlocking = component.handleCastEffect(caster)
+		if isBlocking:
+			return true
+	return false
+
+func canCastEffect() -> bool:
+	for components in components:
+		var canCast = components.canCast(caster)
+		if !canCast:
+			return false
+	return true
+
+func startTurnEffect():
+	for component in components:
+		component.handleStartTurn(caster)
 
 func set_caster(caster: Caster):
 	self.caster = caster
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Engine.is_editor_hint():
 		updateCardComponents()
 		updateCardText()
-	pass
+
 
 func updateCardComponents():
 	description.text = ""

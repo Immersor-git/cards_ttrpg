@@ -7,11 +7,12 @@ extends Node3D
 @export var hand: Hand
 @export var bank: Bank
 @export var manaTotals: Dictionary = {'Knots': 11, 'Teeth': 11, 'Guts': 11}
-@export var abilityCards : Array[PackedScene]
+@export var abilityCards : Array[AbilityCard]
 @export var deck: Deck
 @export var discard: Deck
 @export var camera: Camera3D
 @export var is_casters_turn := false
+@export var casterMaterial: Array[Material]
 
 var basicMovesAvailable: int = 0
 var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
@@ -19,6 +20,7 @@ var caster_id := 1:
 	set(id):
 		caster_id = id
 var team_id := 0
+var isReadyToDraw := false
 
 @onready var board_piece = $MeshInstance3D
 @onready var seated_neutral = $SeatedNeutral
@@ -29,12 +31,13 @@ func _ready():
 	hand.set_caster(self)
 	board = get_tree().get_current_scene().get_node("World/Board/Checkerboard")
 	if multiplayer.is_server():
-		setupBoardstate()
 		board_piece.global_position = board.boardToWorldCoord(boardPosition)
 	if multiplayer.get_unique_id() == caster_id:
 		camera.make_current()
 	else:
 		camera.queue_free()
+	set_player_number(team_id)
+	
 	InputMap.load_from_project_settings()
 
 func _process(delta):
@@ -43,6 +46,7 @@ func _process(delta):
 			board_piece.global_position = board.boardToWorldCoord(boardPosition)
 	else:
 		updateCurrentState()
+		set_board_piece_color(team_id)
 		for card in hand.cards:
 			if !card.is_connected(card.cast_card.get_name(), self._client_try_cast_card):
 				card.cast_card.connect(self._client_try_cast_card)
@@ -52,15 +56,25 @@ func _process(delta):
 		if !board.is_connected(board.send_clicked_square.get_name(), self._client_try_move):
 				board.send_clicked_square.connect(self._client_try_move)
 
+var isOwnedMesh := false
+func set_board_piece_color(player_num: int):
+	if !isOwnedMesh:
+		isOwnedMesh = true
+		board_piece.mesh = board_piece.mesh.duplicate()
+	board_piece.mesh.material = casterMaterial[player_num]
+
 func set_player_number(player_num: int):
 	self.team_id = player_num
+	set_board_piece_color(player_num)
 	if player_num == 1:
 		self.global_rotation_degrees = Vector3(0, 180, 0)
-		boardPosition = Vector2(0, 0)
+		self.boardPosition = Vector2(7, 7)
 	elif player_num == 2:
 		self.global_rotation_degrees = Vector3(0, 90, 0)
+		self.boardPosition = Vector2(0, 7)
 	elif player_num == 3:
 		self.global_rotation_degrees = Vector3(0, 270, 0)
+		self.boardPosition = Vector2(7, 0)
 
 func heal(healAmount: int):
 	healAmount = min(healAmount, discard.contents.size())
@@ -78,21 +92,21 @@ func try_cast_card(pathToCard: String):
 		var card = get_tree().get_current_scene().get_node(pathToCard)
 		if multiplayer.is_server():
 			var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
-			if validMana.size() >= card.card.costAmount:
+			if validMana.size() >= card.card.costAmount && card.canCastEffect():
 				var removedManaTypes = bank.removeNManaOfType(card.card.costAmount, card.card.costType)
 				discard.addCards(removedManaTypes)
 				card.castEffect()
 
-func _client_discard_mana(manaType: Enums.ManaType):
-	discard_mana.rpc(manaType)
+func _client_discard_mana(manaPath: NodePath):
+	discard_mana.rpc(manaPath)
 	
 @rpc("any_peer", "call_local", "reliable")
-func discard_mana(manaType: Enums.ManaType):
+func discard_mana(manaPath: NodePath):
 	if multiplayer.is_server():
 		if isCastersTurn():
-			var mana = bank.getManaOfType(manaType)
+			var mana = get_node(manaPath)
 			mana.enterDiscard()
-			var removedManaTypes = bank.removeManaOfType([mana.manaType.type])
+			var removedManaTypes = bank.removeManaAtNodePath(manaPath)
 			discard.addCard(removedManaTypes)
 
 func _client_try_move(targetSquare: Vector2):
@@ -167,17 +181,22 @@ func getPathsToPossibleSquares(arrOfInvalidSquares)-> Dictionary:
 					dictOfPreviousSquares[str(nextSquare)] = currentSquare
 	return dictOfPreviousSquares
 
-func setupBoardstate():
+func spawnHand():
 	if multiplayer.is_server():
 		hand.spawnHand(abilityCards)
-		deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
+
+func spawnMana():
+	deck.setDeckContents(manaTotals.get('Knots'), manaTotals.get('Teeth'), manaTotals.get('Guts'))
+	isReadyToDraw = true
 
 func isCastersTurn() -> bool:
-	return is_casters_turn
+	return is_casters_turn  && (multiplayer.get_remote_sender_id() == self.caster_id || multiplayer.is_server())
 
 func startTurn():
 	if multiplayer.is_server():
 		is_casters_turn = true
+		for card in hand.cards:
+			card.startTurnEffect()
 		draw()
 
 func endTurn():
@@ -209,19 +228,19 @@ func updateCurrentState():
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
 		updateState.rpc(currentState)
 
-func _client_pass_turn():
-	passTurn.rpc()
+func _client_pass_turn(card_pass: bool):
+	passTurn.rpc(card_pass)
 
 @rpc("any_peer", "call_local", "reliable")
-func passTurn():
+func passTurn(card_pass: bool):
 	if multiplayer.is_server():
-		if isCastersTurn():
+		if is_casters_turn && (multiplayer.get_remote_sender_id() == caster_id || (multiplayer.is_server() && card_pass)):
 			basicMovesAvailable = 0
 			GameManager.passTurn()
 
 func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
-		_client_pass_turn()
+		_client_pass_turn(false)
 
 ## Returns an array of other casters that are within the given radius of this caster. Results include this caster. 
 func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:

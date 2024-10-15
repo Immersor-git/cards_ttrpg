@@ -9,34 +9,23 @@ var caster: Node
 var syncableManaPool : Array[Enums.ManaType]
 var manaPool : Array[Mana] = []
 
-func _process(delta):
-	if !Engine.is_editor_hint():
-		if multiplayer.is_server():
-			syncronizeCardsToClients()
-		else:
-			syncronizeCardsFromServer()
+@onready var bank_spawner = $"../BankSpawner"
+
+func _ready():
+	bank_spawner.spawned.connect(serverAddManaToBank)
+	bank_spawner.despawned.connect(serverRemoveManaFromBank)
 
 func set_caster(caster: Caster):
 	self.caster = caster
 
-func syncronizeCardsToClients():
-	if syncableManaPool.size() != manaPool.size():
-		syncableManaPool = []
-		for mana in manaPool:
-			syncableManaPool.append(mana.manaType.type)
+func serverAddManaToBank(node: Node):
+	for child in node.get_children():
+		if child is Mana:
+			child.caster = caster
+	updateManaPool()
 
-func syncronizeCardsFromServer():
-	if syncableManaPool.size() != manaPool.size():
-			var manaTooAdd = []
-			var diffMana = {Enums.ManaType.KNOT: 0, Enums.ManaType.TEETH: 0, Enums.ManaType.GUT: 0}
-			for manaInServerPool in syncableManaPool:
-				diffMana[manaInServerPool] += 1
-			for manaInLocalPool in manaPool:
-				diffMana[manaInLocalPool.manaType.type] -= 1
-			fixDiffForManaOfType(diffMana, Enums.ManaType.KNOT)
-			fixDiffForManaOfType(diffMana, Enums.ManaType.TEETH)
-			fixDiffForManaOfType(diffMana, Enums.ManaType.GUT)
-
+func serverRemoveManaFromBank(node: Node):
+	updateManaPool()
 
 func fixDiffForManaOfType(diffMana: Dictionary, manaType: Enums.ManaType):
 	if diffMana[manaType] > 0:
@@ -57,7 +46,8 @@ func updateManaPool():
 			return false)
 	for manaInstanceIndex in validManaInstances.size():
 		var manaInstance: Node3D = validManaInstances[manaInstanceIndex]
-		var newPos = Vector3(((manaInstanceIndex-3) * 1.3) + (1.3/2), 0.0, 0.0)
+		var offset: float = 7.8 / validManaInstances.size()
+		var newPos = Vector3(((float(manaInstanceIndex)-(validManaInstances.size()/2.0)) * offset) + (offset/2.0), 0.001*manaInstanceIndex, 0.0)
 		if self.is_node_ready():
 			var tween = create_tween()
 			tween.set_ease(Tween.EASE_IN_OUT)
@@ -74,6 +64,16 @@ func getManaOfType(manaType: Enums.ManaType) -> Mana:
 			if mana is Mana && manaType == mana.manaType.type && !mana.queued_free:
 				return mana
 	return null
+
+func removeManaAtNodePath(manaPath: NodePath) -> Enums.ManaType:
+	var mana = get_node(manaPath)
+	var removedCardManaType = mana.manaType.type
+	mana.get_parent().queue_free()
+	mana.queued_free = true
+	updateManaPool()
+	return removedCardManaType
+	
+	
 
 func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 	for manaInstance in get_children():
@@ -112,6 +112,7 @@ func instantiateManaCardInstance(manaType: Enums.ManaType) -> Node3D:
 		Enums.ManaType.GUT:
 			mana = GUT_PACKEDSCENE
 	var manaCardInstance = mana.instantiate()
+	manaCardInstance.name = "%s%s" % [manaCardInstance.name, manaCardInstance.get_instance_id()]
 	for child in manaCardInstance.get_children():
 		if child is Mana:
 			child.caster = caster

@@ -6,41 +6,39 @@ var caster: Caster
 var syncableAbilityCards : Array[String] = []
 var cards : Array[Card] = []
 
-func _process(delta):
-	if !Engine.is_editor_hint():
-		if multiplayer.is_server():
-			syncronizeCardsToClients()
-		else:
-			syncronizeCardsFromServer()
+@onready var multiplayer_synchronizer = $"../MultiplayerSynchronizer"
+@onready var hand_spawner = $"../HandSpawner"
+
+func _ready():
+	if !multiplayer.is_server():
+		if !hand_spawner.is_connected("child_entered_tree", updateHand):
+			hand_spawner.spawned.connect(updateHand)
 
 func set_caster(caster: Caster):
 	self.caster = caster
 
-func syncronizeCardsToClients():
-	if syncableAbilityCards.size() != cards.size():
-		syncableAbilityCards = []
-		for card in cards:
-			syncableAbilityCards.append(card.card.title)
-
-func syncronizeCardsFromServer():
-	if cards.size() == 0:
-		var ability_card_scene : Array[PackedScene] = []
-		for syncableAbilityCard in syncableAbilityCards:
-			var cardPackedScene: PackedScene = load(Enums.CardNameToCardResource.get(syncableAbilityCard).scenePath)
-			ability_card_scene.append(cardPackedScene)
-		spawnHand(ability_card_scene)
+func updateHand(node: Node):
+	for card in node.get_children():
+		if card is Card:
+			print("runing")
+			card.caster = caster
+			cards.append(card)
+	var OFFSET = .65 * (self.get_child_count() -1)
+	for child_index in self.get_child_count():
+		var child = self.get_child(child_index)
+		child.position = Vector3(child_index * 1.3 - OFFSET,0,0)
 
 func instantiateAbilityCardInstance(pos: Vector3, card: PackedScene):
 	var instance = card.instantiate()
 	instance.position = pos
+	add_child(instance)
 	for child in instance.get_children():
 		if child is Card:
 			child.caster = caster
 			cards.append(child)
-	add_child(instance)
 
-func spawnHand(hand: Array[PackedScene]):
+func spawnHand(hand: Array[AbilityCard]):
 	self.caster = caster
-	var offset = .65 * (hand.size() -1)
+	var OFFSET = .65 * (hand.size() -1)
 	for card_index in hand.size():
-		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - offset,0,0), hand[card_index])
+		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - OFFSET,0,0), load(Enums.CardNameToCardResource.get(hand[card_index].title).scenePath))

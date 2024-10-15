@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgx1tqwhajynu"]
+
+[ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/Tap.gd" id="1_5gbf0"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0n4lo"]
+
+[node name="Tap" type="Node"]
+script = ExtResource("1_5gbf0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_0n4lo")

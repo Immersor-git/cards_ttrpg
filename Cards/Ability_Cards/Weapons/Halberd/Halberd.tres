@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://dr7g1wva2klxr"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_0gylx"]
+
+[resource]
+script = ExtResource("1_0gylx")
+title = "Halberd"
+costType = Array[int]([1])
+costAmount = 3
+scenePath = "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn"

@@ -1,52 +1,81 @@
-[gd_scene load_steps=12 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=20 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
-[ext_resource type="PackedScene" uid="uid://hyoh4aw35qry" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn" id="3_t8hsd"]
-[ext_resource type="PackedScene" uid="uid://cge044feew1v2" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn" id="4_0sxh0"]
-[ext_resource type="PackedScene" uid="uid://cikkafol2eysa" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn" id="4_skbvr"]
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="2_y12uu"]
+[ext_resource type="Resource" uid="uid://35fj1hk4mds8" path="res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tres" id="3_cl7u8"]
+[ext_resource type="Resource" uid="uid://b4jc0m2snepxv" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tres" id="4_86ef1"]
+[ext_resource type="Resource" uid="uid://b0nc6h8pa07u5" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tres" id="5_4gvdo"]
 [ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
 [ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
+
+[sub_resource type="Gradient" id="Gradient_01jf4"]
+colors = PackedColorArray(0.528801, 1, 0.83022, 1, 0.528801, 1, 0.83022, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ffppw"]
+gradient = SubResource("Gradient_01jf4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7l0n"]
+albedo_color = Color(0.651379, 0.932649, 1, 1)
+normal_texture = SubResource("GradientTexture1D_ffppw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m6mvy"]
+albedo_color = Color(0.809828, 0.641799, 0.741237, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3u3bc"]
+albedo_color = Color(0.77657, 0.996671, 0.743253, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6wie"]
+next_pass = SubResource("StandardMaterial3D_3u3bc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dboo4"]
+albedo_color = Color(1, 0.996078, 0.627451, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_3ikwe"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fblby"]
 properties/0/path = NodePath("MeshInstance3D:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath("Hand:syncableAbilityCards")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath("Bank:syncableManaPool")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath(".:rotation")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath(".:caster_id")
 properties/4/spawn = true
-properties/4/replication_mode = 1
+properties/4/replication_mode = 2
 properties/5/path = NodePath("Deck:cardCount")
 properties/5/spawn = true
-properties/5/replication_mode = 1
+properties/5/replication_mode = 2
 properties/6/path = NodePath("Discard:cardCount")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
 properties/7/path = NodePath(".:boardPosition")
 properties/7/spawn = true
-properties/7/replication_mode = 1
+properties/7/replication_mode = 2
 properties/8/path = NodePath(".:isCastersTurn")
 properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/8/replication_mode = 2
 properties/9/path = NodePath("Deck:manaTotals")
 properties/9/spawn = true
-properties/9/replication_mode = 1
+properties/9/replication_mode = 2
 properties/10/path = NodePath("Discard:manaTotals")
 properties/10/spawn = true
-properties/10/replication_mode = 1
+properties/10/replication_mode = 2
 properties/11/path = NodePath(".:basicMovesAvailable")
 properties/11/spawn = true
-properties/11/replication_mode = 1
+properties/11/replication_mode = 2
+properties/12/path = NodePath("PassTurnCollider/PassTurn/Label3D:text")
+properties/12/spawn = true
+properties/12/replication_mode = 1
+properties/13/path = NodePath(".:team_id")
+properties/13/spawn = true
+properties/13/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_6sk4a"]
 
@@ -57,19 +86,27 @@ script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
 hand = NodePath("Hand")
 bank = NodePath("Bank")
-abilityCards = Array[PackedScene]([ExtResource("4_0sxh0"), ExtResource("3_t8hsd"), ExtResource("4_skbvr")])
+abilityCards = Array[ExtResource("2_y12uu")]([ExtResource("3_cl7u8"), ExtResource("4_86ef1"), ExtResource("5_4gvdo")])
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")
-is_casters_turn = null
+casterMaterial = Array[Material]([SubResource("StandardMaterial3D_m7l0n"), SubResource("StandardMaterial3D_m6mvy"), SubResource("StandardMaterial3D_p6wie"), SubResource("StandardMaterial3D_dboo4")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
 mesh = SubResource("SphereMesh_3ikwe")
 
+[node name="HandSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn", "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn", "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn")
+spawn_path = NodePath("../Hand")
+
 [node name="Hand" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.68396)
 script = ExtResource("2_22l47")
+
+[node name="BankSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Cards/Mana/Gut.tscn", "res://Cards/Mana/Knots.tscn", "res://Cards/Mana/Teeth.tscn")
+spawn_path = NodePath("../Bank")
 
 [node name="Bank" parent="." instance=ExtResource("5_sbbq7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.7)

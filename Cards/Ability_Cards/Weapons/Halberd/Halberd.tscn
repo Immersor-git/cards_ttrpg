@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxyeuje1eq8ai"]
+
+[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_w47tp"]
+[ext_resource type="Resource" uid="uid://dr7g1wva2klxr" path="res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tres" id="2_2a0b1"]
+[ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_68fhy"]
+[ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="4_c1ncc"]
+[ext_resource type="PackedScene" uid="uid://cfjspaayt164g" path="res://Cards/Components/ImplementedComponents/PassTurn.tscn" id="5_8jplu"]
+
+[node name="Halberd" type="Node3D"]
+
+[node name="Card" parent="." instance=ExtResource("1_w47tp")]
+card = ExtResource("2_2a0b1")
+
+[node name="Components" type="Node" parent="Card"]
+
+[node name="Tap" parent="Card/Components" instance=ExtResource("3_68fhy")]
+
+[node name="WoundInRadius" parent="Card/Components" instance=ExtResource("4_c1ncc")]
+woundAmount = 3
+woundRadius = 2
+
+[node name="PassTurn" parent="Card/Components" instance=ExtResource("5_8jplu")]

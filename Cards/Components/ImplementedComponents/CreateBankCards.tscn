@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnbeij774e155"]
+
+[ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/CreateBankCards.gd" id="1_us6x8"]
+
+[node name="CreateBankCards" type="Node"]
+script = ExtResource("1_us6x8")
