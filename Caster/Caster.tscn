@@ -78,6 +78,10 @@ spawn_path = NodePath("../Hand")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.68396)
 script = ExtResource("2_22l47")
 
+[node name="BankSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Cards/Mana/Gut.tscn", "res://Cards/Mana/Knots.tscn", "res://Cards/Mana/Teeth.tscn")
+spawn_path = NodePath("../Bank")
+
 [node name="Bank" parent="." instance=ExtResource("5_sbbq7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.7)
 
