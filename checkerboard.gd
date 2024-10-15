@@ -58,8 +58,15 @@ func _on_board_click(camera, event: InputEvent, event_position: Vector3, normal,
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		send_clicked_square.emit(clickedSquare)
 
+var highlightedSquares: Array[Node3D]
 func highlightSquare(pos: Vector2):
 	var instance = highlight.instantiate()
 	instance.position = boardToWorldCoord(pos)
 	add_child(instance)
+	highlightedSquares.append(instance)
 	pass
+
+func clearHighlights():
+	for highlight in highlightedSquares:
+		highlight.free()
+	highlightedSquares.clear()

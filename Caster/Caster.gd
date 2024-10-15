@@ -115,6 +115,7 @@ var dictionaryOfPossiblePaths : Dictionary
 func try_move(targetSquare: Vector2):
 	if isCastersTurn():
 		if currentState == Enums.PlayerState.MOVING_PIECE:
+			board.clearHighlights()
 			print("player trying to move to ", targetSquare)
 			var distanceVector: Vector2 = abs(targetSquare - boardPosition)
 			var validEndSquares := dictionaryOfPossiblePaths.keys()
@@ -134,7 +135,7 @@ func try_move(targetSquare: Vector2):
 			var arrOfInvalidSquares : Array[Vector2] = []
 			for caster in arrOfCasters:
 				arrOfInvalidSquares.append(caster.boardPosition)
-			dictionaryOfPossiblePaths = getPathsToPossibleSquares(arrOfInvalidSquares)
+			getPathsToPossibleSquares()
 
 ## returns a dictionary with all possible ending squares as keys and the shortest series of 1-square moves to get there as the value
 #func getPathsToPossibleSquares(arrOfCasterPositions: Array[Vector2], currentSquare := boardPosition, pathToCurrentSquare := [], movesRemaining := basicMovesAvailable, dictionaryOfPaths := {}) -> Dictionary:
@@ -156,35 +157,48 @@ func try_move(targetSquare: Vector2):
 	#print(dictionaryOfPaths)
 	#return dictionaryOfPaths
 
-func exploreAdjacentSquares(startingSquare: Vector2, arrOfInvalidSquares: Array[Vector2]) -> Array[Vector2]:
-	#return array of valid and not yet explored squares that are adjacent to startingSquare
-	var validAdjacentSquares : Array[Vector2] = []
-	for targetRelativeX in range(-1, 2):
-		for targetRelativeY in range(-1, 2):
-			var adjacentSquare := startingSquare + Vector2(targetRelativeX, targetRelativeY)
-			if adjacentSquare.x >= 0 && adjacentSquare.x <= 7 && adjacentSquare.y >= 0 && adjacentSquare.y <= 7 && !arrOfInvalidSquares.has(adjacentSquare):
-				validAdjacentSquares.append(adjacentSquare)
-	return validAdjacentSquares
+#func exploreAdjacentSquares(startingSquare: Vector2, arrOfInvalidSquares: Array[Vector2]) -> Array[Vector2]:
+	##return array of valid and not yet explored squares that are adjacent to startingSquare
+	#var validAdjacentSquares : Array[Vector2] = []
+	#for targetRelativeX in range(-1, 2):
+		#for targetRelativeY in range(-1, 2):
+			#var adjacentSquare := startingSquare + Vector2(targetRelativeX, targetRelativeY)
+			#if adjacentSquare.x >= 0 && adjacentSquare.x <= 7 && adjacentSquare.y >= 0 && adjacentSquare.y <= 7 && !arrOfInvalidSquares.has(adjacentSquare):
+				#validAdjacentSquares.append(adjacentSquare)
+	#return validAdjacentSquares
+#
+#func getPathsToPossibleSquares(arrOfInvalidSquares: Array[Vector2], unexploredSquares = {str(boardPosition): {'vector': boardPosition, 'depth': 0}}, currentDepth = 0) -> Dictionary:
+	#var dictionaryOfPaths := {}
+	#while unexploredSquares.keys().size() > 0:
+		#var squaresAtCurrentDepth: Array[Vector2]
+		#for key in unexploredSquares:
+			#squaresAtCurrentDepth.append(unexploredSquares[key].vector)
+			#print(unexploredSquares[key])
+		#for square in squaresAtCurrentDepth:
+			#board.highlightSquare(square)
+			#var depthOfCurrentSquare = unexploredSquares[str(square)].depth
+			#unexploredSquares.erase(str(square))
+			#if depthOfCurrentSquare < basicMovesAvailable:
+				#arrOfInvalidSquares.append(square)
+				#for returnedSquare in exploreAdjacentSquares(square, arrOfInvalidSquares):
+					#if !unexploredSquares.keys().has(str(returnedSquare)):
+						#unexploredSquares[str(returnedSquare)] = {'vector': returnedSquare, 'depth': depthOfCurrentSquare + 1}
+#	return dictionaryOfPaths
 
-func getPathsToPossibleSquares(arrOfInvalidSquares: Array[Vector2], unexploredSquares = {str(boardPosition): {'vector': boardPosition, 'depth': 0}}, currentDepth = 0) -> Dictionary:
-	var dictionaryOfPaths := {}
-	while unexploredSquares.keys().size() > 0:
-		var squaresAtCurrentDepth: Array[Vector2]
-		for key in unexploredSquares:
-			squaresAtCurrentDepth.append(unexploredSquares[key].vector)
-			print(unexploredSquares[key])
-		for square in squaresAtCurrentDepth:
-			board.highlightSquare(square)
-			var depthOfCurrentSquare = unexploredSquares[str(square)].depth
-			unexploredSquares.erase(str(square))
-			if depthOfCurrentSquare < basicMovesAvailable:
-				arrOfInvalidSquares.append(square)
-				for returnedSquare in exploreAdjacentSquares(square, arrOfInvalidSquares):
-					if !unexploredSquares.keys().has(str(returnedSquare)):
-						unexploredSquares[str(returnedSquare)] = {'vector': returnedSquare, 'depth': depthOfCurrentSquare + 1}
-
-
-	return dictionaryOfPaths
+var arrOfInvalidSquares: Array[Vector2]
+func getPathsToPossibleSquares(startingSquare := boardPosition, currentDepth := 0, maxDepth := basicMovesAvailable):
+	arrOfInvalidSquares.append(startingSquare)
+	if currentDepth < maxDepth:
+		var validAdjacentSquares : Array[Vector2] = []
+		for targetRelativeX in range(-1, 2):
+			for targetRelativeY in range(-1, 2):
+				var adjacentSquare := startingSquare + Vector2(targetRelativeX, targetRelativeY)
+				if adjacentSquare.x >= 0 && adjacentSquare.x <= 7 && adjacentSquare.y >= 0 && adjacentSquare.y <= 7 && !arrOfInvalidSquares.has(adjacentSquare):
+					validAdjacentSquares.append(adjacentSquare)
+					#print("depth: ",currentDepth , updatedInvalidSquares)
+					board.highlightSquare(adjacentSquare)
+					getPathsToPossibleSquares(adjacentSquare, currentDepth + 1)
+	pass
 
 func setupBoardstate():
 	if multiplayer.is_server():
@@ -217,6 +231,7 @@ func updateCurrentState():
 	if multiplayer.get_unique_id() == caster_id:
 		if Input.is_action_just_pressed("move_back"):
 			currentState = Enums.PlayerState.SITTING_NEUTRAL
+			board.clearHighlights()
 			var tween = create_tween()
 			tween.parallel().tween_property(camera, "global_position", seated_neutral.global_position, 0.25)
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-24.2, camera.global_rotation_degrees.y, 0), 0.25)
