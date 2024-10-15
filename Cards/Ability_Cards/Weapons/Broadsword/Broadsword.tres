@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://cget4rjvmiltc"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_db6tn"]
+
+[resource]
+script = ExtResource("1_db6tn")
+title = "Broadsword"
+costType = Array[int]([1])
+costAmount = 3
+scenePath = "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn"

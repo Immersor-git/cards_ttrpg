@@ -46,7 +46,8 @@ func updateManaPool():
 			return false)
 	for manaInstanceIndex in validManaInstances.size():
 		var manaInstance: Node3D = validManaInstances[manaInstanceIndex]
-		var newPos = Vector3(((manaInstanceIndex-3) * 1.3) + (1.3/2), 0.0, 0.0)
+		var offset: float = 7.8 / validManaInstances.size()
+		var newPos = Vector3(((float(manaInstanceIndex)-(validManaInstances.size()/2.0)) * offset) + (offset/2.0), 0.001*manaInstanceIndex, 0.0)
 		if self.is_node_ready():
 			var tween = create_tween()
 			tween.set_ease(Tween.EASE_IN_OUT)
@@ -63,6 +64,16 @@ func getManaOfType(manaType: Enums.ManaType) -> Mana:
 			if mana is Mana && manaType == mana.manaType.type && !mana.queued_free:
 				return mana
 	return null
+
+func removeManaAtNodePath(manaPath: NodePath) -> Enums.ManaType:
+	var mana = get_node(manaPath)
+	var removedCardManaType = mana.manaType.type
+	mana.get_parent().queue_free()
+	mana.queued_free = true
+	updateManaPool()
+	return removedCardManaType
+	
+	
 
 func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 	for manaInstance in get_children():

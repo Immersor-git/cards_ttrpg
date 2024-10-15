@@ -97,16 +97,16 @@ func try_cast_card(pathToCard: String):
 				discard.addCards(removedManaTypes)
 				card.castEffect()
 
-func _client_discard_mana(manaType: Enums.ManaType):
-	discard_mana.rpc(manaType)
+func _client_discard_mana(manaPath: NodePath):
+	discard_mana.rpc(manaPath)
 	
 @rpc("any_peer", "call_local", "reliable")
-func discard_mana(manaType: Enums.ManaType):
+func discard_mana(manaPath: NodePath):
 	if multiplayer.is_server():
 		if isCastersTurn():
-			var mana = bank.getManaOfType(manaType)
+			var mana = get_node(manaPath)
 			mana.enterDiscard()
-			var removedManaTypes = bank.removeManaOfType([mana.manaType.type])
+			var removedManaTypes = bank.removeManaAtNodePath(manaPath)
 			discard.addCard(removedManaTypes)
 
 func _client_try_move(targetSquare: Vector2):

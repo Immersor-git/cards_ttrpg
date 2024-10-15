@@ -97,7 +97,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
 mesh = SubResource("SphereMesh_3ikwe")
 
 [node name="HandSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn")
+_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn", "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn", "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn")
 spawn_path = NodePath("../Hand")
 
 [node name="Hand" type="Node3D" parent="."]
