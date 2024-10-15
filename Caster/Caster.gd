@@ -154,7 +154,6 @@ func updateArrOfInvalidSquares():
 	arrOfInvalidSquares.clear()
 	for caster in getCastersInRadius(7):
 		arrOfInvalidSquares.append(caster.boardPosition)
-	arrOfInvalidSquares.append(Vector2(6, 6))
 
 func getNeighbors(startingSquare: Vector2)-> Array[Vector2]:
 	var validAdjacentSquares : Array[Vector2] = []
@@ -170,7 +169,6 @@ func getNeighbors(startingSquare: Vector2)-> Array[Vector2]:
 					diagNeighbors.append(adjacentSquare)
 	validAdjacentSquares.append_array(cardinalNeighbors)
 	validAdjacentSquares.append_array(diagNeighbors)
-
 	return validAdjacentSquares
 
 func findPathToSquare(targetSquare: Vector2, dictOfPreviousSquares: Dictionary)-> Array[Vector2]:
