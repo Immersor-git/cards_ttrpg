@@ -110,31 +110,81 @@ func _client_try_move(targetSquare: Vector2):
 				#tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
 				#basicMovesAvailable -= movesNeeded
 
+var dictionaryOfPossiblePaths : Dictionary
 @rpc("any_peer", "call_local", "reliable")
 func try_move(targetSquare: Vector2):
 	if isCastersTurn():
+		if currentState == Enums.PlayerState.MOVING_PIECE:
+			print("player trying to move to ", targetSquare)
+			var distanceVector: Vector2 = abs(targetSquare - boardPosition)
+			var validEndSquares := dictionaryOfPossiblePaths.keys()
+			print("valid end squares: ", validEndSquares)
+			print("dictionary of possible paths: ", dictionaryOfPossiblePaths)
+			if str(targetSquare) in validEndSquares:
+				print("the target square is valid")
+				for square in dictionaryOfPossiblePaths[str(targetSquare)]:
+					print(square)
+					var tween = create_tween()
+					tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
+					basicMovesAvailable -= 1
 		if currentState == Enums.PlayerState.OBSERVING_BOARD && targetSquare == boardPosition:
 			currentState = Enums.PlayerState.MOVING_PIECE
+			print("player can now move piece")
 			var arrOfCasters := getCastersInRadius(7)
-			var arrOfCasterPositions : Array[Vector2] = []
+			var arrOfInvalidSquares : Array[Vector2] = []
 			for caster in arrOfCasters:
-				arrOfCasterPositions.append(caster.boardPosition)
-			for x in 8:
-				for y in 8:
-					if !Vector2(x, y) in arrOfCasterPositions:
-						board.highlightSquare(Vector2(x, y))
-		if currentState == Enums.PlayerState.MOVING_PIECE:
-			var distanceVector: Vector2 = abs(targetSquare - boardPosition)
-			print("moving to ", targetSquare)
+				arrOfInvalidSquares.append(caster.boardPosition)
+			dictionaryOfPossiblePaths = getPathsToPossibleSquares(arrOfInvalidSquares)
 
-func getPathsToPossibleSquares() -> Dictionary:
+## returns a dictionary with all possible ending squares as keys and the shortest series of 1-square moves to get there as the value
+#func getPathsToPossibleSquares(arrOfCasterPositions: Array[Vector2], currentSquare := boardPosition, pathToCurrentSquare := [], movesRemaining := basicMovesAvailable, dictionaryOfPaths := {}) -> Dictionary:
+	#var newPathToCurrentSquare = [currentSquare]
+	#newPathToCurrentSquare.append_array(pathToCurrentSquare.duplicate())
+	#if !dictionaryOfPaths.has(str(currentSquare)):
+		#dictionaryOfPaths[str(currentSquare)] = [newPathToCurrentSquare]
+		#board.highlightSquare(currentSquare)
+	#if dictionaryOfPaths[str(currentSquare)].size() > newPathToCurrentSquare.size():
+		#dictionaryOfPaths[str(currentSquare)] = newPathToCurrentSquare
+	#if movesRemaining > 0:
+		#var validAdjacentSquares : Array[Vector2] = []
+		#for targetRelativeX in range(-1, 2):
+			#for targetRelativeY in range(-1, 2):
+				#var adjacentSquare := currentSquare + Vector2(targetRelativeX, targetRelativeY)
+				#if adjacentSquare.x >= 0 && adjacentSquare.x <= 7 && adjacentSquare.y >= 0 && adjacentSquare.y <= 7 && !adjacentSquare in arrOfCasterPositions:
+					#validAdjacentSquares.append(adjacentSquare)
+					#getPathsToPossibleSquares(arrOfCasterPositions, adjacentSquare, newPathToCurrentSquare, movesRemaining - 1, dictionaryOfPaths)
+	#print(dictionaryOfPaths)
+	#return dictionaryOfPaths
+
+func exploreAdjacentSquares(startingSquare: Vector2, arrOfInvalidSquares: Array[Vector2]) -> Array[Vector2]:
+	#return array of valid and not yet explored squares that are adjacent to startingSquare
 	var validAdjacentSquares : Array[Vector2] = []
-	for x in range(-1, 2):
-		for y in range(-1, 2):
-			var adjacentSquare := boardPosition + Vector2(x, y)
-			if adjacentSquare[x] in range(0, 7) and adjacentSquare[y] in range(0, 7):
+	for targetRelativeX in range(-1, 2):
+		for targetRelativeY in range(-1, 2):
+			var adjacentSquare := startingSquare + Vector2(targetRelativeX, targetRelativeY)
+			if adjacentSquare.x >= 0 && adjacentSquare.x <= 7 && adjacentSquare.y >= 0 && adjacentSquare.y <= 7 && !arrOfInvalidSquares.has(adjacentSquare):
 				validAdjacentSquares.append(adjacentSquare)
-	return {}
+	return validAdjacentSquares
+
+func getPathsToPossibleSquares(arrOfInvalidSquares: Array[Vector2], unexploredSquares = {str(boardPosition): {'vector': boardPosition, 'depth': 0}}, currentDepth = 0) -> Dictionary:
+	var dictionaryOfPaths := {}
+	while unexploredSquares.keys().size() > 0:
+		var squaresAtCurrentDepth: Array[Vector2]
+		for key in unexploredSquares:
+			squaresAtCurrentDepth.append(unexploredSquares[key].vector)
+			print(unexploredSquares[key])
+		for square in squaresAtCurrentDepth:
+			board.highlightSquare(square)
+			var depthOfCurrentSquare = unexploredSquares[str(square)].depth
+			unexploredSquares.erase(str(square))
+			if depthOfCurrentSquare < basicMovesAvailable:
+				arrOfInvalidSquares.append(square)
+				for returnedSquare in exploreAdjacentSquares(square, arrOfInvalidSquares):
+					if !unexploredSquares.keys().has(str(returnedSquare)):
+						unexploredSquares[str(returnedSquare)] = {'vector': returnedSquare, 'depth': depthOfCurrentSquare + 1}
+
+
+	return dictionaryOfPaths
 
 func setupBoardstate():
 	if multiplayer.is_server():
@@ -194,18 +244,13 @@ func _on_pass_turn_collider_input_event(camera, event, event_position, normal, s
 ## Returns an array of other casters that are within the given radius of this caster. Results include this caster. 
 func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:
 	var listOfCasters = get_tree().get_current_scene().get_node("World/Casters").get_children()
-	print("listOfCasters is ", listOfCasters)
 	var listOfCastersInRadius : Array[Caster] = []
 	for caster in listOfCasters:
 		if caster is Caster:
 			var distanceToPiece : Vector2 = abs(caster.boardPosition - self.boardPosition)
 			var distanceInSquaresToPiece = max(distanceToPiece.x, distanceToPiece.y)
-			print("found a piece at: ", caster.boardPosition, " distance is: ", distanceInSquaresToPiece)
-			print(radiusInclusive)
 			if distanceInSquaresToPiece <= radiusInclusive:
-				print("make sure")
 				listOfCastersInRadius.append(caster)
-	print("casters in radius: ", listOfCastersInRadius)
 	return listOfCastersInRadius
 
 ## Returns total number of cards milled
