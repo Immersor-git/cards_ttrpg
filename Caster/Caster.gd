@@ -68,10 +68,13 @@ func set_player_number(player_num: int):
 	set_board_piece_color(player_num)
 	if player_num == 1:
 		self.global_rotation_degrees = Vector3(0, 180, 0)
+		self.boardPosition = Vector2(7, 7)
 	elif player_num == 2:
 		self.global_rotation_degrees = Vector3(0, 90, 0)
+		self.boardPosition = Vector2(0, 7)
 	elif player_num == 3:
 		self.global_rotation_degrees = Vector3(0, 270, 0)
+		self.boardPosition = Vector2(7, 0)
 
 func heal(healAmount: int):
 	healAmount = min(healAmount, discard.contents.size())
@@ -130,7 +133,7 @@ func spawnMana():
 	isReadyToDraw = true
 
 func isCastersTurn() -> bool:
-	return is_casters_turn
+	return is_casters_turn  && (multiplayer.get_remote_sender_id() == self.caster_id || multiplayer.is_server())
 
 func startTurn():
 	if multiplayer.is_server():
@@ -167,19 +170,19 @@ func updateCurrentState():
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
 		updateState.rpc(currentState)
 
-func _client_pass_turn():
-	passTurn.rpc()
+func _client_pass_turn(card_pass: bool):
+	passTurn.rpc(card_pass)
 
 @rpc("any_peer", "call_local", "reliable")
-func passTurn():
+func passTurn(card_pass: bool):
 	if multiplayer.is_server():
-		if isCastersTurn():
+		if is_casters_turn && (multiplayer.get_remote_sender_id() == caster_id || (multiplayer.is_server() && card_pass)):
 			basicMovesAvailable = 0
 			GameManager.passTurn()
 
 func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
-		_client_pass_turn()
+		_client_pass_turn(false)
 
 func getCastersInRadius(radiusInclusive: int) -> Array[Caster]:
 	var listOfCasters = get_tree().get_current_scene().get_node("World/Casters").get_children()
