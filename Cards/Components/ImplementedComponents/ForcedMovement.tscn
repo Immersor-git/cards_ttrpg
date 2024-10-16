@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceftvxa4jy38l"]
+
+[ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/ForcedMovement.gd" id="1_twodn"]
+
+[node name="ForcedMovement" type="Node"]
+script = ExtResource("1_twodn")
+checkForCollision = null
