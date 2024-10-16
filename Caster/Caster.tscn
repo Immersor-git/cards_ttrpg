@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=21 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
@@ -81,6 +81,11 @@ properties/13/replication_mode = 1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fhf1p"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pi0co"]
+properties/0/path = NodePath(".:currentState")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Caster" type="Node3D" node_paths=PackedStringArray("hand", "bank", "deck", "discard", "camera")]
 script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
@@ -143,5 +148,8 @@ text = " Pass"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PassTurnCollider"]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -7.34826, -0.427213, 2.58554)
 shape = SubResource("SphereShape3D_fhf1p")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pi0co")
 
 [connection signal="input_event" from="PassTurnCollider" to="." method="_on_pass_turn_collider_input_event"]

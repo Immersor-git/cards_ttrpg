@@ -13,12 +13,13 @@ extends Node3D
 @export var camera: Camera3D
 @export var is_casters_turn := false
 @export var casterMaterial: Array[Material]
+@export var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
 
 var basicMovesAvailable: int = 0
-var currentState: Enums.PlayerState = Enums.PlayerState.SITTING_NEUTRAL
 var caster_id := 1:
 	set(id):
 		caster_id = id
+		$PlayerInput.set_multiplayer_authority(id)
 var team_id := 0
 var isReadyToDraw := false
 var arrOfInvalidSquares : Array[Vector2] = []
@@ -112,26 +113,29 @@ func discard_mana(manaPath: NodePath):
 
 func _client_try_move(targetSquare: Vector2):
 	try_move.rpc(targetSquare)
-
-#@rpc("any_peer", "call_local", "reliable")
-#func try_move(targetSquare: Vector2):
-	#if isCastersTurn():
-		#var distanceVector: Vector2 = abs(targetSquare - boardPosition)
-		#var movesNeeded = max(distanceVector.x, distanceVector.y)
-		#if currentState == Enums.PlayerState.MOVING_PIECE:
-			#if movesNeeded <= basicMovesAvailable:
-				#boardPosition = targetSquare
-				#var tween = create_tween()
-				#tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), (distanceVector.x + distanceVector.y) * 0.25)
-				#basicMovesAvailable -= movesNeeded
+	if currentState == Enums.PlayerState.OBSERVING_BOARD && targetSquare == boardPosition:
+		currentState = Enums.PlayerState.MOVING_PIECE
+		updateArrOfInvalidSquares()
+		dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
+	elif currentState == Enums.PlayerState.MOVING_PIECE:
+		if dictOfPreviousSquaresGlobalTemp.has(str(targetSquare)):
+				board.clearHighlights()
+				if !multiplayer.is_server():
+					var pathToTargetSquare := findPathToSquare(targetSquare, dictOfPreviousSquaresGlobalTemp)
+					await get_tree().create_timer((0.35 + 0.18) * pathToTargetSquare.size()).timeout
+					updateArrOfInvalidSquares()
+					dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
 
 var dictOfPreviousSquaresGlobalTemp: Dictionary
 @rpc("any_peer", "call_local", "reliable")
 func try_move(targetSquare: Vector2):
 	if isCastersTurn():
-		if currentState == Enums.PlayerState.MOVING_PIECE:
+		if currentState == Enums.PlayerState.OBSERVING_BOARD && targetSquare == boardPosition:
+			currentState = Enums.PlayerState.MOVING_PIECE
+			updateArrOfInvalidSquares()
+			dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
+		elif currentState == Enums.PlayerState.MOVING_PIECE:
 			if basicMovesAvailable >= 1 && dictOfPreviousSquaresGlobalTemp.has(str(targetSquare)):
-				board.clearHighlights()
 				var pathToTargetSquare := findPathToSquare(targetSquare, dictOfPreviousSquaresGlobalTemp)
 				var speedModifier := pathToTargetSquare.size()
 				while pathToTargetSquare.size() > 0:
@@ -139,16 +143,12 @@ func try_move(targetSquare: Vector2):
 					if nextStep != boardPosition:
 						boardPosition = nextStep
 						var tween = create_tween()
-						tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), speedModifier * 0.05)
+						tween.tween_property(board_piece, "global_position", board.boardToWorldCoord(boardPosition), 0.35)
 						basicMovesAvailable -= 1
 						await tween.finished
-						await get_tree().create_timer(.03).timeout
+						await get_tree().create_timer(.18).timeout
 				updateArrOfInvalidSquares()
 				dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
-		if currentState == Enums.PlayerState.OBSERVING_BOARD && targetSquare == boardPosition:
-			currentState = Enums.PlayerState.MOVING_PIECE
-			updateArrOfInvalidSquares()
-			dictOfPreviousSquaresGlobalTemp = getPathsToPossibleSquares(arrOfInvalidSquares)
 
 func updateArrOfInvalidSquares():
 	arrOfInvalidSquares.clear()
@@ -193,7 +193,8 @@ func getPathsToPossibleSquares(arrOfInvalidSquares)-> Dictionary:
 					queue.append(nextSquare)
 					arrOfInvalidSquares.append(nextSquare)
 					dictOfPreviousSquares[str(nextSquare)] = currentSquare
-					board.highlightSquare(nextSquare)
+					if !multiplayer.is_server() || caster_id == 1:
+						board.highlightSquare(nextSquare)
 	return dictOfPreviousSquares
 
 func spawnHand():
@@ -224,10 +225,6 @@ func draw():
 			var drawnCards := deck.drawNCards(6-bank.manaPool.size(), self)
 			bank.addManaCards(drawnCards)
 
-@rpc("any_peer", "call_local", "reliable")
-func updateState(state: Enums.PlayerState):
-	currentState = state
-
 func updateCurrentState():
 	if multiplayer.get_unique_id() == caster_id:
 		if Input.is_action_just_pressed("move_back"):
@@ -241,7 +238,8 @@ func updateCurrentState():
 			var tween = create_tween()
 			tween.parallel().tween_property(camera, "global_position", observing_board.global_position, 0.25)
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
-		updateState.rpc(currentState)
+		if basicMovesAvailable == 0 && currentState == Enums.PlayerState.MOVING_PIECE:
+			currentState = Enums.PlayerState.OBSERVING_BOARD
 
 func _client_pass_turn(card_pass: bool):
 	passTurn.rpc(card_pass)
