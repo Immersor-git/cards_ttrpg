@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhqy4tk0cebco"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x26ig"]
+size = Vector3(1, 0.01, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1ibki"]
+transparency = 1
+albedo_color = Color(0, 0.756863, 0.576471, 0.945098)
+
+[node name="BoardSquareHighlight" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_x26ig")
+surface_material_override/0 = SubResource("ORMMaterial3D_1ibki")
