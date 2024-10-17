@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://hyoh4aw35qry"]
+[gd_scene load_steps=5 format=3 uid="uid://hyoh4aw35qry"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_4ef7e"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="2_6dppb"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="2_6n11p"]
 [ext_resource type="PackedScene" uid="uid://w6kiehw6n3vr" path="res://Cards/Components/ImplementedComponents/AddBasicMove.tscn" id="3_ahwwj"]
 
@@ -9,6 +10,8 @@
 [node name="Card" parent="." instance=ExtResource("1_4ef7e")]
 
 [node name="Components" type="Node" parent="Card"]
+
+[node name="PayCardCost" parent="Card/Components" instance=ExtResource("2_6dppb")]
 
 [node name="Tap" parent="Card/Components" instance=ExtResource("2_6n11p")]
 
