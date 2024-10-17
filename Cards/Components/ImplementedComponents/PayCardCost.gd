@@ -8,9 +8,6 @@ func _ready():
 	if c is Card:
 		self.card = c
 
-func setCard(lCard: Card):
-	self.card = lCard
-
 func simpleCardCost(cardCost: Dictionary) -> bool:
 	var cardCostKeys = cardCost.keys().filter(func (key): return !Enums.BasicManaCost.has(key))
 	for cardCostKey in cardCostKeys:
