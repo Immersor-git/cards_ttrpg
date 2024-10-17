@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxyeuje1eq8ai"]
+[gd_scene load_steps=7 format=3 uid="uid://dxyeuje1eq8ai"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_w47tp"]
 [ext_resource type="Resource" uid="uid://dr7g1wva2klxr" path="res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tres" id="2_2a0b1"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_68fhy"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="3_cj8bt"]
 [ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="4_c1ncc"]
 [ext_resource type="PackedScene" uid="uid://cfjspaayt164g" path="res://Cards/Components/ImplementedComponents/PassTurn.tscn" id="5_8jplu"]
 
@@ -12,6 +13,8 @@
 card = ExtResource("2_2a0b1")
 
 [node name="Components" type="Node" parent="Card"]
+
+[node name="PayCardCost" parent="Card/Components" instance=ExtResource("3_cj8bt")]
 
 [node name="Tap" parent="Card/Components" instance=ExtResource("3_68fhy")]
 

@@ -21,6 +21,3 @@ func castAbilityDescription() -> String:
 	if woundRadius == 0:
 		return "Deal %s %s to enemy in affected square" % [woundAmount, properlyPluralizedWounds]
 	return "Deal %s %s to all enemies within %s squares" % [woundAmount, properlyPluralizedWounds, woundRadius]
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

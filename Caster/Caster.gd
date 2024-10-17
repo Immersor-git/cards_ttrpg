@@ -90,13 +90,8 @@ func _client_try_cast_card(pathToCard: String):
 
 @rpc("any_peer", "call_local", "reliable")
 func try_cast_card(pathToCard: String):
-	if isCastersTurn():
-		var card = get_tree().get_current_scene().get_node(pathToCard)
-		if multiplayer.is_server():
-			var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
-			if validMana.size() >= card.card.costAmount && card.canCastEffect():
-				var removedManaTypes = bank.removeNManaOfType(card.card.costAmount, card.card.costType)
-				discard.addCards(removedManaTypes)
+	if isCastersTurn() && multiplayer.is_server():
+				var card = get_tree().get_current_scene().get_node(pathToCard)
 				card.castEffect()
 
 func _client_discard_mana(manaPath: NodePath):

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cge044feew1v2"]
+[gd_scene load_steps=7 format=3 uid="uid://cge044feew1v2"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_lwjsm"]
 [ext_resource type="Resource" uid="uid://b0nc6h8pa07u5" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tres" id="2_7gupn"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="3_1osui"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_iycyj"]
 [ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="3_jnntj"]
 [ext_resource type="PackedScene" uid="uid://cfjspaayt164g" path="res://Cards/Components/ImplementedComponents/PassTurn.tscn" id="4_xak2g"]
@@ -12,6 +13,8 @@
 card = ExtResource("2_7gupn")
 
 [node name="Components" type="Node" parent="Card"]
+
+[node name="PayCardCost" parent="Card/Components" instance=ExtResource("3_1osui")]
 
 [node name="Tap" parent="Card/Components" instance=ExtResource("3_iycyj")]
 

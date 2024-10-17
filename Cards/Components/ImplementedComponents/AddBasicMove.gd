@@ -12,6 +12,3 @@ func handleStartTurn(cardOwner: Caster):
 
 func castAbilityDescription() -> String:
 	return "Gain %d Moves" % moveAmount
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

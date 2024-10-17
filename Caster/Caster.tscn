@@ -37,45 +37,39 @@ albedo_color = Color(1, 0.996078, 0.627451, 1)
 properties/0/path = NodePath("MeshInstance3D:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath("Hand:syncableAbilityCards")
+properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath("Bank:syncableManaPool")
+properties/2/path = NodePath(".:caster_id")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath(".:rotation")
+properties/3/path = NodePath("Deck:cardCount")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath(".:caster_id")
+properties/4/path = NodePath("Discard:cardCount")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("Deck:cardCount")
+properties/5/path = NodePath(".:boardPosition")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath("Discard:cardCount")
+properties/6/path = NodePath(".:isCastersTurn")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath(".:boardPosition")
+properties/7/path = NodePath("Deck:manaTotals")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath(".:isCastersTurn")
+properties/8/path = NodePath("Discard:manaTotals")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath("Deck:manaTotals")
+properties/9/path = NodePath(".:basicMovesAvailable")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath("Discard:manaTotals")
+properties/10/path = NodePath("PassTurnCollider/PassTurn/Label3D:text")
 properties/10/spawn = true
-properties/10/replication_mode = 2
-properties/11/path = NodePath(".:basicMovesAvailable")
+properties/10/replication_mode = 1
+properties/11/path = NodePath(".:team_id")
 properties/11/spawn = true
-properties/11/replication_mode = 2
-properties/12/path = NodePath("PassTurnCollider/PassTurn/Label3D:text")
-properties/12/spawn = true
-properties/12/replication_mode = 1
-properties/13/path = NodePath(".:team_id")
-properties/13/spawn = true
-properties/13/replication_mode = 1
+properties/11/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_6sk4a"]
 
@@ -102,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
 mesh = SubResource("SphereMesh_3ikwe")
 
 [node name="HandSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn", "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn", "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn")
+_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn", "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn", "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn", "res://Cards/Ability_Cards/Spells/Spoil/Spoil.tscn")
 spawn_path = NodePath("../Hand")
 
 [node name="Hand" type="Node3D" parent="."]

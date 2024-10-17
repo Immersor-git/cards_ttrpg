@@ -23,6 +23,3 @@ func handleStartTurn(cardOwner: Caster):
 
 func castAbilityDescription() -> String:
 	return "Tap. "
-
-func canCast(cardOwner: Caster) -> bool:
-	return !tapped

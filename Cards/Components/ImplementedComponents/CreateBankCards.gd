@@ -9,7 +9,7 @@ func handleCastEffect(cardOwner: Caster) -> bool:
 	for i in amountToCreate:
 		mana.append(manaTypeToCreate)
 	cardOwner.bank.addManaCards(mana)
-	return true
+	return false
 
 func handleStartTurn(cardOwner: Caster):
 	pass
@@ -21,6 +21,3 @@ func castAbilityDescription() -> String:
 	elif manaTypeToCreate == Enums.ManaType.GUT:
 		manaType = "Gut"
 	return "Create %s %s in your bank" % [amountToCreate, manaType]
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

@@ -5,11 +5,9 @@
 [resource]
 script = ExtResource("1_dw6hv")
 title = "Jaska's Vigor"
-costType = Array[int]([2])
-costAmount = 1
 scenePath = "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn"
 cost = {
-"GUT": 0,
+"GUT": 1,
 "KNOTS": 0,
 "KNOT_GUT": 0,
 "TEETH": 0,

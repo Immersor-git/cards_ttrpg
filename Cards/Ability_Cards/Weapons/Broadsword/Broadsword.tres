@@ -5,8 +5,6 @@
 [resource]
 script = ExtResource("1_db6tn")
 title = "Broadsword"
-costType = Array[int]([1])
-costAmount = 3
 scenePath = "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn"
 cost = {
 "GUT": 0,
@@ -15,5 +13,5 @@ cost = {
 "TEETH": 0,
 "TEETH_GUT": 0,
 "TEETH_KNOT": 0,
-"TEETH_KNOT_GUT": 0
+"TEETH_KNOT_GUT": 3
 }

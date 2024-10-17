@@ -11,6 +11,3 @@ func handleStartTurn(cardOwner: Caster):
 
 func castAbilityDescription() -> String:
 	return "Ends Turn"
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

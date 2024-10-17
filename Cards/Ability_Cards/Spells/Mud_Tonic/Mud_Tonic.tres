@@ -5,5 +5,13 @@
 [resource]
 script = ExtResource("1_ncmo6")
 title = "Mud Tonic"
-costType = Array[String](["Knots"])
-costAmount = 1
+scenePath = ""
+cost = {
+"GUT": 0,
+"KNOTS": 1,
+"KNOT_GUT": 0,
+"TEETH": 0,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

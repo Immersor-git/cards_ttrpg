@@ -73,7 +73,7 @@ func removeManaAtNodePath(manaPath: NodePath) -> Enums.ManaType:
 	return removedCardManaType
 
 func hasNManaOfType(amount: int, type: Enums.ManaType) -> bool:
-	return manaPool.filter(func(mana: Mana): return mana.manaTitle == type).size() >= amount
+	return manaPool.filter(func(mana: Mana): return mana.manaType.type == type).size() >= amount
 
 func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 	for manaInstance in get_children():

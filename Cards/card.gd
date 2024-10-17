@@ -19,7 +19,11 @@ signal cast_card(pathToCard: String)
 func _ready():
 	updateCardComponents()
 	updateCardText()
-	pass # Replace with function body.
+	pass
+
+func cancelCast():
+	self.currentState = Enums.CardState.DEFAULT
+	componentsQueue = []
 
 func castEffect():
 	currentState = Enums.CardState.CASTING_IN_PROGRESS
@@ -35,13 +39,6 @@ func processComponentQueue():
 				return
 			componentsQueue.pop_front()
 		currentState = Enums.CardState.DEFAULT
-
-func canCastEffect() -> bool:
-	for components in components:
-		var canCast = components.canCast(caster)
-		if !canCast:
-			return false
-	return true
 
 func startTurnEffect():
 	for component in components:

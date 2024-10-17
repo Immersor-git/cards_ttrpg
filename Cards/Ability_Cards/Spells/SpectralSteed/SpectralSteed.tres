@@ -10,7 +10,7 @@ costAmount = 2
 scenePath = "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn"
 cost = {
 "GUT": 0,
-"KNOTS": 1,
+"KNOTS": 2,
 "KNOT_GUT": 0,
 "TEETH": 0,
 "TEETH_GUT": 0,
