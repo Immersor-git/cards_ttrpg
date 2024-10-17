@@ -6,7 +6,6 @@ var KNOTS_PACKEDSCENE = load("res://Cards/Mana/Knots.tscn")
 var TEETH_PACKEDSCENE = load("res://Cards/Mana/Teeth.tscn")
 var caster: Node
 
-var syncableManaPool : Array[Enums.ManaType]
 var manaPool : Array[Mana] = []
 
 @onready var bank_spawner = $"../BankSpawner"
@@ -72,8 +71,9 @@ func removeManaAtNodePath(manaPath: NodePath) -> Enums.ManaType:
 	mana.queued_free = true
 	updateManaPool()
 	return removedCardManaType
-	
-	
+
+func hasNManaOfType(amount: int, type: Enums.ManaType) -> bool:
+	return manaPool.filter(func(mana: Mana): return mana.manaTitle == type).size() >= amount
 
 func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 	for manaInstance in get_children():

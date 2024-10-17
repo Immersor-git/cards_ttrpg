@@ -65,6 +65,7 @@ environment = SubResource("Environment_2wusc")
 
 [node name="Caster" parent="World" node_paths=PackedStringArray("board") instance=ExtResource("2_8wjik")]
 board = NodePath("../Board/Checkerboard")
+is_casters_turn = false
 
 [node name="Casters" type="Node3D" parent="World"]
 

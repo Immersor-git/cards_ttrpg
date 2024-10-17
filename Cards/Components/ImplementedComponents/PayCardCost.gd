@@ -16,9 +16,11 @@ func simpleCardCost(cardCost: Dictionary) -> bool:
 	return true
 
 func handleCastEffect(cardOwner: Caster) -> bool:
-	if simpleCardCost(card.card.cost):
-		if cardOwner.bank.hasNManaOfType():
-			pass
+	var cardCost = card.card.cost
+	if simpleCardCost(cardCost):
+		for simpleManaType in Enums.BasicManaCost:
+			if !cardOwner.bank.hasNManaOfType(cardCost[simpleManaType], simpleManaType):
+				card
 	return false
 
 func handleStartTurn(_cardOwner: Caster):

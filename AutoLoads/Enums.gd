@@ -3,6 +3,7 @@ extends Node
 enum ManaType {KNOT, TEETH, GUT}
 enum DeckType {DECK, DISCARD}
 enum PlayerState {SITTING_NEUTRAL, OBSERVING_BOARD, MOVING_PIECE, SPENDING_MANA}
+enum CardState {CASTING_IN_PROGRESS, DEFAULT}
 
 var BasicManaCost = ["TEETH", "KNOTS", "GUT"]
 

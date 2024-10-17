@@ -8,3 +8,12 @@ title = "Nevik's Mending"
 costType = Array[int]([0])
 costAmount = 1
 scenePath = "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn"
+cost = {
+"GUT": 0,
+"KNOTS": 0,
+"KNOT_GUT": 0,
+"TEETH": 0,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

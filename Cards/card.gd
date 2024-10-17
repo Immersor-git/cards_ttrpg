@@ -8,8 +8,10 @@ extends Node3D
 @onready var hitbox = $StaticBody3D/CollisionShape3D
 @onready var cardCost = $Cost
 
+var currentState : Enums.CardState = Enums.CardState.DEFAULT
 var components: Array[AbstractComponent] = []
 var caster: Caster
+var componentsQueue: Array[AbstractComponent]
 
 signal cast_card(pathToCard: String)
 
@@ -20,11 +22,19 @@ func _ready():
 	pass # Replace with function body.
 
 func castEffect():
+	currentState = Enums.CardState.CASTING_IN_PROGRESS
 	for component in components:
-		var isBlocking = component.handleCastEffect(caster)
-		if isBlocking:
-			return true
-	return false
+		componentsQueue.append(component)
+
+func processComponentQueue():
+	if currentState == Enums.CardState.CASTING_IN_PROGRESS:
+		while componentsQueue.size() != 0:
+			var componentToTryCastEffect = componentsQueue[0]
+			var isBlocking = componentToTryCastEffect.handleCastEffect(caster)
+			if isBlocking:
+				return
+			componentsQueue.pop_front()
+		currentState = Enums.CardState.DEFAULT
 
 func canCastEffect() -> bool:
 	for components in components:
@@ -44,6 +54,8 @@ func _process(delta):
 	if Engine.is_editor_hint():
 		updateCardComponents()
 		updateCardText()
+	else:
+		processComponentQueue()
 
 
 func updateCardComponents():
