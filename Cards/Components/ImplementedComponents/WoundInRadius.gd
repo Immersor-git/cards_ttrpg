@@ -7,10 +7,12 @@ extends AbstractComponent
 @export var woundRadius := 1
 
 func handleCastEffect() -> bool:
-	var castersInRadius := card.caster.getCastersInRadius(woundRadius)
-	for caster in castersInRadius:
-		if caster.team_id != card.caster.team_id:
-			caster.recieveWounds(woundAmount)
+	var componentCaster = componentOwner.get('caster');
+	if componentCaster is Caster:
+		var castersInRadius: Array[Caster] = componentCaster.getCastersInRadius(woundRadius)
+		for caster in castersInRadius:
+			if caster.team_id != componentCaster.team_id:
+				caster.recieveWounds(woundAmount)
 	return false
 
 func handleStartTurn():

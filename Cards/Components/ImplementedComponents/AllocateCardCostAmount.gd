@@ -12,16 +12,22 @@ func simpleCardCost(cardCost: Dictionary) -> bool:
 	return true
 
 func handleCastEffect() -> bool:
-	allocatedManaCards = []
-	var cardCost = card.card.cost
-	if simpleCardCost(cardCost):
-		for simpleManaType in Enums.BasicManaCost:
-			var manaAmount:int = cardCost[simpleManaType]
-			if !card.caster.bank.hasNManaOfType(manaAmount, Enums.manaStringToEnum(simpleManaType)):
-				card.cancelCast()
-				return true
-			for _manaIndex in manaAmount:
-				allocatedManaCards.push_back(Enums.manaStringToEnum(simpleManaType))
+	var componentOwnerCard = componentOwner.get('card')
+	var componentCaster = componentOwner.get('caster')
+	if componentOwnerCard && componentCaster:
+		if componentCaster is Caster:
+			var cardCost = componentOwnerCard.get('cost');
+			if cardCost:
+				allocatedManaCards = []
+				if simpleCardCost(cardCost):
+					for simpleManaType in Enums.BasicManaCost:
+						var manaAmount:int = cardCost[simpleManaType]
+						if !componentCaster.bank.hasNManaOfType(manaAmount, Enums.manaStringToEnum(simpleManaType)):
+							if componentOwner.has_method('cancelCast'):
+								componentOwner.cancelCast()
+							return true
+						for _manaIndex in manaAmount:
+							allocatedManaCards.push_back(Enums.manaStringToEnum(simpleManaType))
 	return false
 
 func handleStartTurn():

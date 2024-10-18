@@ -5,10 +5,13 @@ extends AbstractComponent
 @export var amountToCreate: int
 
 func handleCastEffect() -> bool:
-	var mana: Array[Enums.ManaType] = []
-	for i in amountToCreate:
-		mana.append(manaTypeToCreate)
-	card.caster.bank.addManaCards(mana)
+	var componentCaster = componentOwner.get('caster')
+	if componentCaster:
+		if componentCaster is Caster:
+			var mana: Array[Enums.ManaType] = []
+			for i in amountToCreate:
+				mana.append(manaTypeToCreate)
+			componentCaster.bank.addManaCards(mana)
 	return false
 
 func handleStartTurn():

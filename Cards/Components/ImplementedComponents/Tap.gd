@@ -6,16 +6,19 @@ var tapped := false
 
 var t = 0
 func _process(delta):
-	if multiplayer.is_server() && delta < 10 && card.currentState != Enums.CardState.CASTING_IN_PROGRESS:
-		t += delta * 0.4;
-		if tapped:
-			card.rotation_degrees = card.rotation_degrees.lerp(Vector3(0, 90, 0), t)
-		else:
-			card.rotation_degrees = card.rotation_degrees.lerp(Vector3(0, 0, 0), t)
+	var currentState = componentOwner.get('currentState')
+	if currentState:
+		if multiplayer.is_server() && delta < 10 && currentState != Enums.CardState.CASTING_IN_PROGRESS:
+			t += delta * 0.4;
+			if tapped:
+				componentOwner.rotation_degrees = componentOwner.rotation_degrees.lerp(Vector3(0, 90, 0), t)
+			else:
+				componentOwner.rotation_degrees = componentOwner.rotation_degrees.lerp(Vector3(0, 0, 0), t)
 
 func handleCastEffect() -> bool:
 	if tapped:
-		card.cancelCast()
+		if componentOwner.has_method("cancelCast"):
+			componentOwner.cancelCast()
 		return true
 	t = 0
 	self.tapped = true

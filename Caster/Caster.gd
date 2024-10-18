@@ -77,6 +77,7 @@ func set_player_number(player_num: int):
 	elif player_num == 3:
 		self.global_rotation_degrees = Vector3(0, 270, 0)
 		self.boardPosition = Vector2(7, 0)
+	board_piece.global_position = board.boardToWorldCoord(boardPosition)
 
 func _client_try_cast_card(pathToCard: String):
 	try_cast_card.rpc(pathToCard)

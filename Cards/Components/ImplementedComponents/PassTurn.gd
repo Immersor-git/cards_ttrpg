@@ -2,7 +2,10 @@
 extends AbstractComponent
 
 func handleCastEffect() -> bool:
-	card.caster.passTurn(true)
+	var componentCaster = componentOwner.get('caster')
+	if componentCaster:
+		if componentCaster is Caster:
+			componentCaster.passTurn(true)
 	return false
 
 func handleStartTurn():

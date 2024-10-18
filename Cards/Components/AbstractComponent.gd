@@ -1,10 +1,10 @@
 class_name AbstractComponent
 extends Node
 
-var card: Card
+var componentOwner: Node
 
-func setCard(cardToSet: Card):
-	self.card = cardToSet
+func setComponentOwner(componentOwnerToSet: Node):
+	self.componentOwner = componentOwnerToSet
 
 func handleCastEffect() -> bool:
 	assert(false, "Abstract Method must be Overridden")

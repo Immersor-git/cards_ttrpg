@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://08fykqdegwcw"]
+
+[ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/SelectAttackDirection.gd" id="1_ff0nd"]
+
+[node name="Select Attack Direction" type="Node"]
+script = ExtResource("1_ff0nd")

@@ -34,6 +34,7 @@ func updateCardComponents():
 			for component in child.get_children():
 				if component is AbstractComponent:
 					components.append(component)
+					component.setComponentOwner(self)
 	
 func updateManaTitle():
 	if manaType != null :

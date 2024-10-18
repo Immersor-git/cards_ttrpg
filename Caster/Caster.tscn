@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bv4sad2fg7moh"]
+[gd_scene load_steps=22 format=3 uid="uid://bv4sad2fg7moh"]
 
 [ext_resource type="Script" path="res://Caster/Caster.gd" id="1_s5bp1"]
 [ext_resource type="Script" path="res://hand.gd" id="2_22l47"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://b4jc0m2snepxv" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tres" id="4_86ef1"]
 [ext_resource type="Resource" uid="uid://b0nc6h8pa07u5" path="res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tres" id="5_4gvdo"]
 [ext_resource type="PackedScene" uid="uid://bitbephjbu6pt" path="res://Bank.tscn" id="5_sbbq7"]
+[ext_resource type="Resource" uid="uid://cca5vteffweev" path="res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tres" id="6_1iygn"]
 [ext_resource type="PackedScene" uid="uid://bvweolxhdj405" path="res://Deck.tscn" id="6_osmyo"]
 
 [sub_resource type="Gradient" id="Gradient_01jf4"]
@@ -85,7 +86,7 @@ script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
 hand = NodePath("Hand")
 bank = NodePath("Bank")
-abilityCards = Array[ExtResource("2_y12uu")]([ExtResource("3_cl7u8"), ExtResource("4_86ef1"), ExtResource("5_4gvdo")])
+abilityCards = Array[ExtResource("2_y12uu")]([ExtResource("3_cl7u8"), ExtResource("4_86ef1"), ExtResource("5_4gvdo"), ExtResource("6_1iygn")])
 deck = NodePath("Deck")
 discard = NodePath("Discard")
 camera = NodePath("Camera3D")

@@ -63,7 +63,7 @@ func updateCardComponents():
 			for component in child.get_children():
 				if component is AbstractComponent:
 					components.append(component)
-					component.setCard(self)
+					component.setComponentOwner(self)
 					description.text += " " + component.castAbilityDescription()
 	
 func updateCardText():
