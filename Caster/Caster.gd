@@ -77,26 +77,15 @@ func set_player_number(player_num: int):
 	elif player_num == 3:
 		self.global_rotation_degrees = Vector3(0, 270, 0)
 		self.boardPosition = Vector2(7, 0)
-
-func heal(healAmount: int):
-	healAmount = min(healAmount, discard.contents.size())
-	var healedCards: Array[Enums.ManaType] = discard.drawNCards(healAmount, self)
-	deck.addCards(healedCards)
-	deck.shuffle()
-	pass
+	board_piece.global_position = board.boardToWorldCoord(boardPosition)
 
 func _client_try_cast_card(pathToCard: String):
 	try_cast_card.rpc(pathToCard)
 
 @rpc("any_peer", "call_local", "reliable")
 func try_cast_card(pathToCard: String):
-	if isCastersTurn():
-		var card = get_tree().get_current_scene().get_node(pathToCard)
-		if multiplayer.is_server():
-			var validMana = bank.manaPool.filter(func(mana: Mana): return card.card.costType.has(mana.manaType.type))
-			if validMana.size() >= card.card.costAmount && card.canCastEffect():
-				var removedManaTypes = bank.removeNManaOfType(card.card.costAmount, card.card.costType)
-				discard.addCards(removedManaTypes)
+	if isCastersTurn() && multiplayer.is_server():
+				var card = get_tree().get_current_scene().get_node(pathToCard)
 				card.castEffect()
 
 func _client_discard_mana(manaPath: NodePath):
@@ -222,7 +211,7 @@ func endTurn():
 func draw():
 	if multiplayer.is_server():
 		if bank.manaPool.size() < 6:
-			var drawnCards := deck.drawNCards(6-bank.manaPool.size(), self)
+			var drawnCards := deck.drawNCards(6-bank.manaPool.size())
 			bank.addManaCards(drawnCards)
 
 func updateCurrentState():
@@ -240,6 +229,11 @@ func updateCurrentState():
 			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
 		if basicMovesAvailable == 0 && currentState == Enums.PlayerState.MOVING_PIECE:
 			currentState = Enums.PlayerState.OBSERVING_BOARD
+		if currentState == Enums.PlayerState.PLANNING_ATTACK:
+			var tween = create_tween()
+			tween.parallel().tween_property(camera, "global_position", observing_board.global_position, 0.25)
+			tween.parallel().tween_property(camera, "global_rotation_degrees", Vector3(-50, camera.global_rotation_degrees.y, 0), 0.25 )
+
 
 func _client_pass_turn(card_pass: bool):
 	passTurn.rpc(card_pass)
@@ -251,7 +245,7 @@ func passTurn(card_pass: bool):
 			basicMovesAvailable = 0
 			GameManager.passTurn()
 
-func _on_pass_turn_collider_input_event(camera, event, event_position, normal, shape_idx):
+func _on_pass_turn_collider_input_event(_camera, event, _event_position, _normal, _shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click"):
 		_client_pass_turn(false)
 
@@ -273,7 +267,7 @@ func recieveWounds(woundAmount: int) -> int:
 	var gutCardsMilled := 0
 	var totalCardsMilled := 0
 	while gutCardsMilled != woundAmount:
-		var milledCard := deck.drawCard(self)
+		var milledCard := deck.drawCard()
 		if milledCard == -1:
 			print("YOU DIED!!! D:")
 			return totalCardsMilled

@@ -6,7 +6,6 @@ var KNOTS_PACKEDSCENE = load("res://Cards/Mana/Knots.tscn")
 var TEETH_PACKEDSCENE = load("res://Cards/Mana/Teeth.tscn")
 var caster: Node
 
-var syncableManaPool : Array[Enums.ManaType]
 var manaPool : Array[Mana] = []
 
 @onready var bank_spawner = $"../BankSpawner"
@@ -26,15 +25,6 @@ func serverAddManaToBank(node: Node):
 
 func serverRemoveManaFromBank(node: Node):
 	updateManaPool()
-
-func fixDiffForManaOfType(diffMana: Dictionary, manaType: Enums.ManaType):
-	if diffMana[manaType] > 0:
-		var manaOfTypeToAdd: Array[Enums.ManaType] = []
-		for i in diffMana[manaType]:
-			manaOfTypeToAdd.append(manaType)
-		addManaCards(manaOfTypeToAdd)
-	elif diffMana[manaType] < 0:
-		removeNManaOfType(-diffMana[manaType], [manaType])
 
 func updateManaPool():
 	manaPool = []
@@ -72,13 +62,14 @@ func removeManaAtNodePath(manaPath: NodePath) -> Enums.ManaType:
 	mana.queued_free = true
 	updateManaPool()
 	return removedCardManaType
-	
-	
 
-func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
+func hasNManaOfType(amount: int, type: Enums.ManaType) -> bool:
+	return manaPool.filter(func(mana: Mana): return mana.manaType.type == type).size() >= amount
+
+func removeManaOfType(type: Enums.ManaType) -> Enums.ManaType:
 	for manaInstance in get_children():
 		for mana in manaInstance.get_children():
-			if mana is Mana && type.has(mana.manaType.type) && !mana.queued_free:
+			if mana is Mana && type == mana.manaType.type && !mana.queued_free:
 				var removedCardManaType = mana.manaType.type
 				manaInstance.queue_free()
 				mana.queued_free = true
@@ -86,7 +77,7 @@ func removeManaOfType(type: Array[Enums.ManaType]) -> Enums.ManaType:
 				return removedCardManaType
 	return -1;
 
-func removeNManaOfType(amount: int, type: Array[Enums.ManaType]) -> Array[Enums.ManaType]:
+func removeNManaOfType(amount: int, type: Enums.ManaType) -> Array[Enums.ManaType]:
 	var removedMana: Array[Enums.ManaType] = []
 	for x in amount:
 		removedMana.push_back(removeManaOfType(type))

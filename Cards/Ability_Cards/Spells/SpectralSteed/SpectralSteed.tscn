@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://hyoh4aw35qry"]
+[gd_scene load_steps=6 format=3 uid="uid://hyoh4aw35qry"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_4ef7e"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="2_6dppb"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="2_6n11p"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="2_dxlkg"]
 [ext_resource type="PackedScene" uid="uid://w6kiehw6n3vr" path="res://Cards/Components/ImplementedComponents/AddBasicMove.tscn" id="3_ahwwj"]
 
 [node name="SpectralSteed" type="Node3D"]
@@ -10,7 +12,12 @@
 
 [node name="Components" type="Node" parent="Card"]
 
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("2_dxlkg")]
+
 [node name="Tap" parent="Card/Components" instance=ExtResource("2_6n11p")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("2_6dppb")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
 
 [node name="AddBasicMove" parent="Card/Components" instance=ExtResource("3_ahwwj")]
 moveAmount = 4

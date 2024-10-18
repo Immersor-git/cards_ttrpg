@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnhkpqqvw23sk"]
+
+[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_rm6ls"]
+[ext_resource type="Resource" uid="uid://d1higtgm7mast" path="res://Cards/Ability_Cards/Spells/Spoil/Spoil.tres" id="2_c046v"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="2_nnbtc"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_4863o"]
+[ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_tafe6"]
+[ext_resource type="PackedScene" path="res://Cards/Components/ImplementedComponents/MoveOppenentsBankToGraveyard.tscn" id="4_gkp11"]
+
+[node name="Spoil" type="Node3D"]
+
+[node name="Card" parent="." instance=ExtResource("1_rm6ls")]
+card = ExtResource("2_c046v")
+
+[node name="Components" type="Node" parent="Card"]
+
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("3_4863o")]
+
+[node name="Tap" parent="Card/Components" instance=ExtResource("3_tafe6")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("2_nnbtc")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
+
+[node name="MoveOppenentsBankToGraveyard" parent="Card/Components" instance=ExtResource("4_gkp11")]

@@ -8,8 +8,10 @@ extends Node3D
 @onready var hitbox = $StaticBody3D/CollisionShape3D
 @onready var cardCost = $Cost
 
+var currentState : Enums.CardState = Enums.CardState.DEFAULT
 var components: Array[AbstractComponent] = []
 var caster: Caster
+var componentsQueue: Array[AbstractComponent]
 
 signal cast_card(pathToCard: String)
 
@@ -17,33 +19,40 @@ signal cast_card(pathToCard: String)
 func _ready():
 	updateCardComponents()
 	updateCardText()
-	pass # Replace with function body.
+	pass
+
+func cancelCast():
+	self.currentState = Enums.CardState.DEFAULT
+	componentsQueue = []
 
 func castEffect():
+	currentState = Enums.CardState.CASTING_IN_PROGRESS
 	for component in components:
-		var isBlocking = component.handleCastEffect(caster)
-		if isBlocking:
-			return true
-	return false
+		componentsQueue.append(component)
 
-func canCastEffect() -> bool:
-	for components in components:
-		var canCast = components.canCast(caster)
-		if !canCast:
-			return false
-	return true
+func processComponentQueue():
+	if currentState == Enums.CardState.CASTING_IN_PROGRESS:
+		while componentsQueue.size() != 0:
+			var componentToTryCastEffect = componentsQueue[0]
+			var isBlocking = componentToTryCastEffect.handleCastEffect()
+			if isBlocking:
+				return
+			componentsQueue.pop_front()
+		currentState = Enums.CardState.DEFAULT
 
 func startTurnEffect():
 	for component in components:
-		component.handleStartTurn(caster)
+		component.handleStartTurn()
 
-func set_caster(caster: Caster):
-	self.caster = caster
+func set_caster(cardOwner: Caster):
+	self.caster = cardOwner
 
-func _process(delta):
+func _process(_delta):
 	if Engine.is_editor_hint():
 		updateCardComponents()
 		updateCardText()
+	else:
+		processComponentQueue()
 
 
 func updateCardComponents():
@@ -54,6 +63,7 @@ func updateCardComponents():
 			for component in child.get_children():
 				if component is AbstractComponent:
 					components.append(component)
+					component.setComponentOwner(self)
 					description.text += " " + component.castAbilityDescription()
 	
 func updateCardText():
@@ -64,6 +74,6 @@ func updateCardText():
 		cardTitle.text = ''
 
 
-func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
+func _on_card_click(_camera, event: InputEvent, _event_position: Vector3, _normal, _shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click") && caster.caster_id == multiplayer.get_unique_id():
 		cast_card.emit(self.get_path())

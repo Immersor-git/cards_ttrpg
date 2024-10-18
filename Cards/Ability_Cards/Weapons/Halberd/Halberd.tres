@@ -5,6 +5,13 @@
 [resource]
 script = ExtResource("1_0gylx")
 title = "Halberd"
-costType = Array[int]([1])
-costAmount = 3
 scenePath = "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn"
+cost = {
+"GUT": 0,
+"KNOTS": 0,
+"KNOT_GUT": 0,
+"TEETH": 3,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

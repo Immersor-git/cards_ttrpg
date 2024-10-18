@@ -6,14 +6,16 @@ extends AbstractComponent
 ## The radius where wounds are dealt to opponents
 @export var woundRadius := 1
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	var castersInRadius := cardOwner.getCastersInRadius(woundRadius)
-	for caster in castersInRadius:
-		if caster.team_id != cardOwner.team_id:
-			caster.recieveWounds(woundAmount)
+func handleCastEffect() -> bool:
+	var componentCaster = componentOwner.get('caster');
+	if componentCaster is Caster:
+		var castersInRadius: Array[Caster] = componentCaster.getCastersInRadius(woundRadius)
+		for caster in castersInRadius:
+			if caster.team_id != componentCaster.team_id:
+				caster.recieveWounds(woundAmount)
 	return false
 
-func handleStartTurn(cardOwner: Caster):
+func handleStartTurn():
 	pass
 
 func castAbilityDescription() -> String:
@@ -21,6 +23,3 @@ func castAbilityDescription() -> String:
 	if woundRadius == 0:
 		return "Deal %s %s to enemy in affected square" % [woundAmount, properlyPluralizedWounds]
 	return "Deal %s %s to all enemies within %s squares" % [woundAmount, properlyPluralizedWounds, woundRadius]
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

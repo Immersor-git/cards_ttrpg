@@ -10,7 +10,7 @@ extends Node3D
 var cardCount: int = 0
 var isOwnedMesh:bool = false
 
-func _process(delta):
+func _process(_delta):
 	if multiplayer.is_server():
 		cardCount = contents.size()
 	updateDeckDisplaySize()
@@ -50,18 +50,17 @@ func shuffle():
 	contents.shuffle()
 	return
 
-func drawCard(caster: Caster) -> Enums.ManaType:
+func drawCard() -> Enums.ManaType:
 	var drawnCardType = contents.pop_back()
 	if drawnCardType == null:
-		print("YOU DIED!! (message sent from drawCard function)")
 		return -1
 	updateManaTotals(drawnCardType, false)
 	return drawnCardType
 
-func drawNCards(amount: int, caster: Caster) -> Array[Enums.ManaType]:
+func drawNCards(amount: int) -> Array[Enums.ManaType]:
 	var drawnCards: Array[Enums.ManaType] = []
 	for i in amount:
-		drawnCards.push_back(drawCard(caster))
+		drawnCards.push_back(drawCard())
 	return drawnCards
 
 func addCard(manaType: Enums.ManaType):

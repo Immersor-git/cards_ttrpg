@@ -4,14 +4,17 @@ extends AbstractComponent
 @export var manaTypeToCreate: Enums.ManaType
 @export var amountToCreate: int
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	var mana: Array[Enums.ManaType] = []
-	for i in amountToCreate:
-		mana.append(manaTypeToCreate)
-	cardOwner.bank.addManaCards(mana)
-	return true
+func handleCastEffect() -> bool:
+	var componentCaster = componentOwner.get('caster')
+	if componentCaster:
+		if componentCaster is Caster:
+			var mana: Array[Enums.ManaType] = []
+			for i in amountToCreate:
+				mana.append(manaTypeToCreate)
+			componentCaster.bank.addManaCards(mana)
+	return false
 
-func handleStartTurn(cardOwner: Caster):
+func handleStartTurn():
 	pass
 
 func castAbilityDescription() -> String:
@@ -21,6 +24,3 @@ func castAbilityDescription() -> String:
 	elif manaTypeToCreate == Enums.ManaType.GUT:
 		manaType = "Gut"
 	return "Create %s %s in your bank" % [amountToCreate, manaType]
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

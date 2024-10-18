@@ -1,16 +1,15 @@
 @tool
 extends AbstractComponent
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	print("passing turn")
-	cardOwner._client_pass_turn(true)
+func handleCastEffect() -> bool:
+	var componentCaster = componentOwner.get('caster')
+	if componentCaster:
+		if componentCaster is Caster:
+			componentCaster.passTurn(true)
 	return false
 
-func handleStartTurn(cardOwner: Caster):
+func handleStartTurn():
 	pass
 
 func castAbilityDescription() -> String:
 	return "Ends Turn"
-
-func canCast(cardOwner: Caster) -> bool:
-	return true

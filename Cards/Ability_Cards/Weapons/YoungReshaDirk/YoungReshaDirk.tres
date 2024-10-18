@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://cca5vteffweev"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_yq1jx"]
+
+[resource]
+script = ExtResource("1_yq1jx")
+title = "Young Resha's Dirk"
+scenePath = "res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tscn"
+cost = {
+"GUT": 0,
+"KNOTS": 0,
+"KNOT_GUT": 0,
+"TEETH": 1,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

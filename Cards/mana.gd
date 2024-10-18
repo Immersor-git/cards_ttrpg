@@ -20,10 +20,10 @@ func _ready():
 
 func enterDiscard():
 	for component in components:
-		component.handleCastEffect(caster)
+		component.handleCastEffect()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Engine.is_editor_hint():
 		updateManaTitle()
 
@@ -34,6 +34,7 @@ func updateCardComponents():
 			for component in child.get_children():
 				if component is AbstractComponent:
 					components.append(component)
+					component.setComponentOwner(self)
 	
 func updateManaTitle():
 	if manaType != null :
@@ -42,6 +43,6 @@ func updateManaTitle():
 	else:
 		manaTitle.text = ''
 
-func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
+func _on_card_click(_camera, event: InputEvent, _event_position: Vector3, _normal, _shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click") && caster.caster_id == multiplayer.get_unique_id():
 		discard_mana.emit(self.get_path())

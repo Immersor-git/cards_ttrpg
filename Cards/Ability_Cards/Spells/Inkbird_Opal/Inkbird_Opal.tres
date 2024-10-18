@@ -5,6 +5,13 @@
 [resource]
 script = ExtResource("1_dinio")
 title = "Inkbird's Opal"
-costType = Array[int]([0])
-costAmount = 1
 scenePath = "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn"
+cost = {
+"GUT": 0,
+"KNOTS": 1,
+"KNOT_GUT": 0,
+"TEETH": 0,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

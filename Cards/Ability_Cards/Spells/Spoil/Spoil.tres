@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://d1higtgm7mast"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_a0fek"]
+
+[resource]
+script = ExtResource("1_a0fek")
+title = "Spoil"
+scenePath = "res://Cards/Ability_Cards/Spells/Spoil/Spoil.tscn"
+cost = {
+"GUT": 0,
+"KNOTS": 2,
+"KNOT_GUT": 0,
+"TEETH": 0,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

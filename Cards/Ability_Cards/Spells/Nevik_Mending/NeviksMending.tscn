@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cikkafol2eysa"]
+[gd_scene load_steps=7 format=3 uid="uid://cikkafol2eysa"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_conr0"]
 [ext_resource type="Resource" uid="uid://b4jc0m2snepxv" path="res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tres" id="2_54seu"]
 [ext_resource type="PackedScene" uid="uid://c3220pp81wfvr" path="res://Cards/Components/ImplementedComponents/Heal.tscn" id="2_oboxf"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_30hlw"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_bh05t"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="3_fo6o0"]
 
 [node name="NeviksMending" type="Node3D"]
 
@@ -12,7 +14,12 @@ card = ExtResource("2_54seu")
 
 [node name="Components" type="Node" parent="Card"]
 
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("3_30hlw")]
+
 [node name="Tap" parent="Card/Components" instance=ExtResource("3_bh05t")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("3_fo6o0")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
 
 [node name="Heal" parent="Card/Components" instance=ExtResource("2_oboxf")]
 healAmount = 3
