@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4erueqq73gdq"]
+[gd_scene load_steps=7 format=3 uid="uid://d4erueqq73gdq"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_c1nho"]
 [ext_resource type="Resource" uid="uid://dr5mhsvs85olx" path="res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tres" id="2_d8pb3"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_hfsef"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_kctli"]
 [ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="3_u0ss3"]
 [ext_resource type="PackedScene" uid="uid://cnbeij774e155" path="res://Cards/Components/ImplementedComponents/CreateBankCards.tscn" id="4_1co7c"]
@@ -13,9 +14,12 @@ card = ExtResource("2_d8pb3")
 
 [node name="Components" type="Node" parent="Card"]
 
-[node name="PayCardCost" parent="Card/Components" instance=ExtResource("3_u0ss3")]
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("3_hfsef")]
 
 [node name="Tap" parent="Card/Components" instance=ExtResource("3_kctli")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("3_u0ss3")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
 
 [node name="CreateBankCards" parent="Card/Components" instance=ExtResource("4_1co7c")]
 amountToCreate = 3

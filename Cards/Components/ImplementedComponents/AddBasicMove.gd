@@ -3,11 +3,11 @@ extends AbstractComponent
 
 @export var moveAmount := 1
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	cardOwner.basicMovesAvailable += moveAmount
+func handleCastEffect() -> bool:
+	card.caster.basicMovesAvailable += moveAmount
 	return false
 
-func handleStartTurn(cardOwner: Caster):
+func handleStartTurn():
 	pass
 
 func castAbilityDescription() -> String:

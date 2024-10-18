@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://csvw5c2tc80h2"]
+[gd_scene load_steps=7 format=3 uid="uid://csvw5c2tc80h2"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_51p50"]
 [ext_resource type="Resource" uid="uid://cmvdkoa1osmjs" path="res://Cards/Ability_Cards/Spells/Jaska_Vigor/Jaska_Vigor.tres" id="2_rfc7w"]
 [ext_resource type="PackedScene" uid="uid://c3220pp81wfvr" path="res://Cards/Components/ImplementedComponents/Heal.tscn" id="2_xlimg"]
 [ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="3_5unrx"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_g7yn0"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_v06n1"]
 
 [node name="JaskaVigor" type="Node3D"]
 
@@ -13,9 +14,12 @@ card = ExtResource("2_rfc7w")
 
 [node name="Components" type="Node" parent="Card"]
 
-[node name="PayCardCost" parent="Card/Components" instance=ExtResource("3_5unrx")]
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("3_v06n1")]
 
 [node name="Tap" parent="Card/Components" instance=ExtResource("3_g7yn0")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("3_5unrx")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
 
 [node name="Heal" parent="Card/Components" instance=ExtResource("2_xlimg")]
 healAmount = 3

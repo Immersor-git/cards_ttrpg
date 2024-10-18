@@ -1,7 +1,8 @@
 @tool
+class_name AllocateCardCostAmount
 extends AbstractComponent
 
-@export var allocatedCardCostAmount: AllocateCardCostAmount
+var allocatedManaCards: Array[Enums.ManaType] = []
 
 func simpleCardCost(cardCost: Dictionary) -> bool:
 	var cardCostKeys = cardCost.keys().filter(func (key): return !Enums.BasicManaCost.has(key))
@@ -11,11 +12,16 @@ func simpleCardCost(cardCost: Dictionary) -> bool:
 	return true
 
 func handleCastEffect() -> bool:
+	allocatedManaCards = []
 	var cardCost = card.card.cost
 	if simpleCardCost(cardCost):
-		for manaCard in allocatedCardCostAmount.allocatedManaCards:
-			var removedManaCards := card.caster.bank.removeManaOfType([manaCard])
-			card.caster.discard.addCard(removedManaCards)
+		for simpleManaType in Enums.BasicManaCost:
+			var manaAmount:int = cardCost[simpleManaType]
+			if !card.caster.bank.hasNManaOfType(manaAmount, Enums.manaStringToEnum(simpleManaType)):
+				card.cancelCast()
+				return true
+			for _manaIndex in manaAmount:
+				allocatedManaCards.push_back(Enums.manaStringToEnum(simpleManaType))
 	return false
 
 func handleStartTurn():

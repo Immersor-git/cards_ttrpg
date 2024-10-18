@@ -24,5 +24,6 @@ var CardNameToCardResource: Dictionary = {
 	"Nevik's Mending": preload("res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tres"),
 	"Broadsword": preload("res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tres"),
 	"Halberd": preload("res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tres"),
-	"Spoil": preload("res://Cards/Ability_Cards/Spells/Spoil/Spoil.tres")
+	"Spoil": preload("res://Cards/Ability_Cards/Spells/Spoil/Spoil.tres"),
+	"Young Resha's Dirk": preload("res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tres")
 }

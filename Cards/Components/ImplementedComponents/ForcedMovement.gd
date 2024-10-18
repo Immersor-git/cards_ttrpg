@@ -1,26 +1,46 @@
 @tool
 extends AbstractComponent
 
+## Should check for collision with casters/obstacles
 @export var checkForCollision := true
+## Number of spaces in a straight line
 @export var spacesToMove := 1
+var displayedCasterUI := false
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	cardOwner.currentState = Enums.PlayerState.PLANNING_ATTACK
-	registerClickListener.rpc_id(cardOwner.caster_id, cardOwner)
-	return false
+func _process(_delta):
+	if !Engine.is_editor_hint() && multiplayer.is_server():
+		if card.caster.currentState == Enums.PlayerState.PLANNING_ATTACK:
+			print("PLANNING ATTACK")
+		else:
+			displayedCasterUI = false
+
+
+func handleCastEffect() -> bool:
+	if !displayedCasterUI:
+		updateCasterState.rpc_id(card.caster.caster_id)
+	
+	if displayedCasterUI && card.caster.currentState != Enums.PlayerState.PLANNING_ATTACK:
+		card.cancelCast()
+	return true
 
 @rpc("any_peer", "call_local", "reliable")
-func registerClickListener(cardOwner: Caster):
-	if !cardOwner.board.is_connected("send_clicked_square", self.boardSquareClicked):
-		cardOwner.board.send_clicked_square.connect(self.boardSquareClicked.rpc)
+func acknowledgeCasterDisplay():
+	displayedCasterUI = true
 
 @rpc("any_peer", "call_local", "reliable")
-func boardSquareClicked(pos: Vector2):
+func updateCasterState():
+	card.caster.currentState = Enums.PlayerState.PLANNING_ATTACK
+	acknowledgeCasterDisplay.rpc()
+
+func _client_click_board(clickedPosition: Vector2):
+	setAttackDirection.rpc(clickedPosition)
+
+@rpc("any_peer", "call_local", "reliable")
+func setAttackDirection(_clickedPosition: Vector2):
 	pass
 
-func handleStartTurn(cardOwner: Caster):
-	assert("Abstract Method must be Overridden")
+func handleStartTurn():
+	pass
 
 func castAbilityDescription() -> String:
-	assert("Abstract Method must be Overridden")
 	return ""

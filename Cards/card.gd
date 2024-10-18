@@ -34,7 +34,7 @@ func processComponentQueue():
 	if currentState == Enums.CardState.CASTING_IN_PROGRESS:
 		while componentsQueue.size() != 0:
 			var componentToTryCastEffect = componentsQueue[0]
-			var isBlocking = componentToTryCastEffect.handleCastEffect(caster)
+			var isBlocking = componentToTryCastEffect.handleCastEffect()
 			if isBlocking:
 				return
 			componentsQueue.pop_front()
@@ -42,12 +42,12 @@ func processComponentQueue():
 
 func startTurnEffect():
 	for component in components:
-		component.handleStartTurn(caster)
+		component.handleStartTurn()
 
-func set_caster(caster: Caster):
-	self.caster = caster
+func set_caster(cardOwner: Caster):
+	self.caster = cardOwner
 
-func _process(delta):
+func _process(_delta):
 	if Engine.is_editor_hint():
 		updateCardComponents()
 		updateCardText()
@@ -63,6 +63,7 @@ func updateCardComponents():
 			for component in child.get_children():
 				if component is AbstractComponent:
 					components.append(component)
+					component.setCard(self)
 					description.text += " " + component.castAbilityDescription()
 	
 func updateCardText():
@@ -73,6 +74,6 @@ func updateCardText():
 		cardTitle.text = ''
 
 
-func _on_card_click(camera, event: InputEvent, event_position: Vector3, normal, shape_idx):
+func _on_card_click(_camera, event: InputEvent, _event_position: Vector3, _normal, _shape_idx):
 	if event is InputEventMouseButton && event.is_action_pressed("left_click") && caster.caster_id == multiplayer.get_unique_id():
 		cast_card.emit(self.get_path())

@@ -6,14 +6,14 @@ extends AbstractComponent
 ## The radius where wounds are dealt to opponents
 @export var woundRadius := 1
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	var castersInRadius := cardOwner.getCastersInRadius(woundRadius)
+func handleCastEffect() -> bool:
+	var castersInRadius := card.caster.getCastersInRadius(woundRadius)
 	for caster in castersInRadius:
-		if caster.team_id != cardOwner.team_id:
+		if caster.team_id != card.caster.team_id:
 			caster.recieveWounds(woundAmount)
 	return false
 
-func handleStartTurn(cardOwner: Caster):
+func handleStartTurn():
 	pass
 
 func castAbilityDescription() -> String:

@@ -96,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0374705, 0)
 mesh = SubResource("SphereMesh_3ikwe")
 
 [node name="HandSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn", "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn", "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn", "res://Cards/Ability_Cards/Spells/Spoil/Spoil.tscn")
+_spawnable_scenes = PackedStringArray("res://Cards/Ability_Cards/Weapons/MorningStar/MorningStar.tscn", "res://Cards/Ability_Cards/Spells/SpectralSteed/SpectralSteed.tscn", "res://Cards/Ability_Cards/Spells/Nevik_Mending/NeviksMending.tscn", "res://Cards/Ability_Cards/Spells/Inkbird_Opal/Inkbird_Opal.tscn", "res://Cards/Ability_Cards/Spells/Jaska_Vigor/JaskaVigor.tscn", "res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tscn", "res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tscn", "res://Cards/Ability_Cards/Spells/Spoil/Spoil.tscn", "res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tscn")
 spawn_path = NodePath("../Hand")
 
 [node name="Hand" type="Node3D" parent="."]
@@ -112,9 +112,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.7)
 
 [node name="Deck" parent="." instance=ExtResource("6_osmyo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 6.7)
+contents = null
+manaTotals = null
+type = null
 
 [node name="Discard" parent="." instance=ExtResource("6_osmyo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 6.7)
+contents = null
+manaTotals = null
+type = null
 
 [node name="SeatedNeutral" type="Node3D" parent="."]
 transform = Transform3D(1, -0.000112572, 0.000288055, -1.52985e-05, 0.912256, 0.40962, -0.000308892, -0.40962, 0.912256, 0, 5.409, 10.632)

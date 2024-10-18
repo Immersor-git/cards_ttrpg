@@ -1,20 +1,18 @@
 class_name AbstractComponent
 extends Node
 
-func handleCastEffect(cardOwner: Caster) -> bool:
-	assert("Abstract Method must be Overridden")
+var card: Card
+
+func setCard(cardToSet: Card):
+	self.card = cardToSet
+
+func handleCastEffect() -> bool:
+	assert(false, "Abstract Method must be Overridden")
 	return false
 
-func handleStartTurn(cardOwner: Caster):
-	assert("Abstract Method must be Overridden")
+func handleStartTurn():
+	assert(false, "Abstract Method must be Overridden")
 
 func castAbilityDescription() -> String:
-	assert("Abstract Method must be Overridden")
+	assert(false, "Abstract Method must be Overridden")
 	return ""
-
-func boardClicked(pos: Vector2):
-	assert("Abstract Method must be Overridden")
-
-func canCast(cardOwner: Caster) -> bool:
-	assert("Abstract Method must be Overridden")
-	return false

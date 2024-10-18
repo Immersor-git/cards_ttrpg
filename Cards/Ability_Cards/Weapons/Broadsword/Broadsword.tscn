@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dipu8f5usp7i3"]
+[gd_scene load_steps=8 format=3 uid="uid://dipu8f5usp7i3"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_vlo2o"]
 [ext_resource type="Resource" uid="uid://cget4rjvmiltc" path="res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tres" id="2_bgqnn"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_ci43v"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_hr0p2"]
 [ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="3_xoc8s"]
 [ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="4_41bte"]
@@ -14,9 +15,12 @@ card = ExtResource("2_bgqnn")
 
 [node name="Components" type="Node" parent="Card"]
 
-[node name="PayCardCost" parent="Card/Components" instance=ExtResource("3_xoc8s")]
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("3_ci43v")]
 
 [node name="Tap" parent="Card/Components" instance=ExtResource("3_hr0p2")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("3_xoc8s")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
 
 [node name="WoundInRadius" parent="Card/Components" instance=ExtResource("4_41bte")]
 woundAmount = 4
