@@ -1,0 +1,33 @@
+[gd_scene load_steps=9 format=3 uid="uid://csjjvycbhemp1"]
+
+[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_rfbhd"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="2_l8bvh"]
+[ext_resource type="Resource" uid="uid://b64bicrmxvck2" path="res://Cards/Ability_Cards/Weapons/ArmingSword/ArmingSword.tres" id="2_m0frs"]
+[ext_resource type="PackedScene" uid="uid://08fykqdegwcw" path="res://Cards/Components/ImplementedComponents/SelectAttackDirection.tscn" id="3_f8dsp"]
+[ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="4_rsmg2"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="5_cwqmx"]
+[ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="6_ddrlj"]
+[ext_resource type="PackedScene" uid="uid://0u0palxhdqwv" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.tscn" id="7_jesix"]
+
+[node name="ArmingSword" type="Node3D"]
+
+[node name="Card" parent="." instance=ExtResource("1_rfbhd")]
+card = ExtResource("2_m0frs")
+
+[node name="Components" type="Node" parent="Card"]
+
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("2_l8bvh")]
+
+[node name="Select Attack Direction" parent="Card/Components" instance=ExtResource("3_f8dsp")]
+
+[node name="Tap" parent="Card/Components" instance=ExtResource("4_rsmg2")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("5_cwqmx")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
+
+[node name="WoundInRadius" parent="Card/Components" instance=ExtResource("6_ddrlj")]
+
+[node name="MoveRelativeTo" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("7_jesix")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = 2
+squaresToMove = 2

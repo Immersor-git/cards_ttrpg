@@ -4,6 +4,7 @@ enum ManaType {KNOT, TEETH, GUT}
 enum DeckType {DECK, DISCARD}
 enum PlayerState {SITTING_NEUTRAL, OBSERVING_BOARD, MOVING_PIECE, SPENDING_MANA, PLANNING_ATTACK}
 enum CardState {CASTING_IN_PROGRESS, DEFAULT}
+enum CardinalDirection {WEST, NORTH, EAST, SOUTH, NONE}
 
 var BasicManaCost = ["TEETH", "KNOTS", "GUT"]
 
@@ -25,5 +26,6 @@ var CardNameToCardResource: Dictionary = {
 	"Broadsword": preload("res://Cards/Ability_Cards/Weapons/Broadsword/Broadsword.tres"),
 	"Halberd": preload("res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tres"),
 	"Spoil": preload("res://Cards/Ability_Cards/Spells/Spoil/Spoil.tres"),
-	"Young Resha's Dirk": preload("res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tres")
+	"Young Resha's Dirk": preload("res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tres"),
+	"Arming Sword": preload("res://Cards/Ability_Cards/Weapons/ArmingSword/ArmingSword.tres")
 }

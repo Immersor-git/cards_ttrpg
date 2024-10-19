@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="2_nnbtc"]
 [ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_4863o"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="3_tafe6"]
-[ext_resource type="PackedScene" path="res://Cards/Components/ImplementedComponents/MoveOppenentsBankToGraveyard.tscn" id="4_gkp11"]
+[ext_resource type="PackedScene" uid="uid://c5j6bn2uj4htd" path="res://Cards/Components/ImplementedComponents/MoveOppenentsBankToGraveyard.tscn" id="4_gkp11"]
 
 [node name="Spoil" type="Node3D"]
 

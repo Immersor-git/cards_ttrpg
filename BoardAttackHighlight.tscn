@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtutat12un7qp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8j2u"]
+transparency = 1
+albedo_color = Color(1, 0.282353, 0.4, 0.27451)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ued12"]
+material = SubResource("StandardMaterial3D_q8j2u")
+size = Vector3(10, 5, 0.05)
+
+[node name="BoardAttackHighlight" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -2.5)
+mesh = SubResource("PrismMesh_ued12")
