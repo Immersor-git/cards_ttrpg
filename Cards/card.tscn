@@ -38,7 +38,7 @@ width = 225.0
 
 [node name="Cost" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.139311, 0.990249, 0, -0.990249, 0.139311, 0.00747955, 0.0588787, 0.622022)
-text = "Knots 2"
+text = "2 Knots"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_kv1nn")

@@ -60,12 +60,12 @@ func handleCastEffect() -> bool:
 				if !displayedCasterUI:
 					updateCasterState.rpc_id(componentCaster.caster_id, Enums.PlayerState.PLANNING_ATTACK)
 				
-				# if displayedCasterUI && componentCaster.currentState != Enums.PlayerState.PLANNING_ATTACK && selectedDirection == Enums.CardinalDirection.NONE:
-				# 	if componentOwner.has_method('cancelCast'):
-				# 		print("cancelling")
-				# 		componentOwner.cancelCast()
-				# 		return true
-		#print("CASTING SELECT ATTACK DIR isBlocking --- ", selectedDirection == Enums.CardinalDirection.NONE)
+				if displayedCasterUI && componentCaster.currentState != Enums.PlayerState.PLANNING_ATTACK && selectedDirection == Enums.CardinalDirection.NONE:
+					if componentOwner.has_method('cancelCast'):
+						print("cancelling")
+						componentOwner.cancelCast()
+						return true
+		print("CASTING SELECT ATTACK DIR isBlocking --- ", selectedDirection == Enums.CardinalDirection.NONE)
 		return selectedDirection == Enums.CardinalDirection.NONE
 	return false
 
