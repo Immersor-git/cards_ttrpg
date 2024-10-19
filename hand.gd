@@ -41,4 +41,4 @@ func spawnHand(hand: Array[AbilityCard]):
 	self.caster = caster
 	var OFFSET = .65 * (hand.size() -1)
 	for card_index in hand.size():
-		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - OFFSET,0,0), load(Enums.CardNameToCardResource.get(hand[card_index].title).scenePath))
+		instantiateAbilityCardInstance(Vector3(card_index * 1.3 - OFFSET,0,0), load(hand[card_index].scenePath))

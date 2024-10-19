@@ -5,9 +5,17 @@ enum RelativeDirection {FORWARD = 0, LEFT = -1, RIGHT = 1, BACK = 2}
 
 @export var selectedAttackDirection: SelectAttackDirectionComponent
 @export var relativeDirection: RelativeDirection
-@export var amount := 1
+@export var squaresToMove := 1
 var pieceFullyMoved = false
 var pieceStartedMoving = false
+
+func _ready():
+	if !selectedAttackDirection:
+		var components = componentOwner.get('components')
+		if components:
+			for component in components:
+				if component is SelectAttackDirectionComponent:
+					selectedAttackDirection = component
 
 func handleCastEffect() -> bool:
 	if !pieceStartedMoving:
@@ -26,7 +34,7 @@ func handleCastEffect() -> bool:
 				if cardinalMoveDirection == 3:
 					moveDir = Vector2(0, 1)
 				var moves: Array[Vector3] = []
-				for _moveNum in amount:
+				for _moveNum in squaresToMove:
 					var locationToMoveTo = componentCaster.boardPosition + moveDir
 					var boardSize = componentCaster.board.size - Vector2(1, 1)
 					if locationToMoveTo.x > boardSize.x || locationToMoveTo.y > boardSize.y || locationToMoveTo.x < 0 || locationToMoveTo.y < 0:
@@ -61,4 +69,4 @@ func handleStartTurn():
 	pass
 
 func castAbilityDescription() -> String:
-	return "Move %s" % amount
+	return "Move %s" % squaresToMove

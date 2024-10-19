@@ -4,5 +4,3 @@
 
 [node name="MoveRelativeTo" type="Node"]
 script = ExtResource("1_er3d3")
-relativeDirection = null
-amount = null
