@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://0u0palxhdqwv"]
+
+[ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.gd" id="1_er3d3"]
+
+[node name="MoveRelativeTo" type="Node"]
+script = ExtResource("1_er3d3")
+relativeDirection = null
+amount = null

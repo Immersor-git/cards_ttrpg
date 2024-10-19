@@ -4,6 +4,7 @@ enum ManaType {KNOT, TEETH, GUT}
 enum DeckType {DECK, DISCARD}
 enum PlayerState {SITTING_NEUTRAL, OBSERVING_BOARD, MOVING_PIECE, SPENDING_MANA, PLANNING_ATTACK}
 enum CardState {CASTING_IN_PROGRESS, DEFAULT}
+enum CardinalDirection {WEST, NORTH, EAST, SOUTH, NONE}
 
 var BasicManaCost = ["TEETH", "KNOTS", "GUT"]
 

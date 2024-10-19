@@ -81,7 +81,7 @@ properties/0/path = NodePath(".:currentState")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Caster" type="Node3D" node_paths=PackedStringArray("hand", "bank", "deck", "discard", "camera")]
+[node name="Caster" type="Node3D" node_paths=PackedStringArray("hand", "bank", "deck", "discard", "camera") groups=["boardOccupying"]]
 script = ExtResource("1_s5bp1")
 boardPosition = Vector2(7, 7)
 hand = NodePath("Hand")

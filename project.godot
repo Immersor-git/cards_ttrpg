@@ -21,6 +21,10 @@ Enums="*res://AutoLoads/Enums.gd"
 MultiplayerManager="*res://AutoLoads/MultiplayerManager.gd"
 GameManager="*res://AutoLoads/GameManager.gd"
 
+[global_group]
+
+boardOccupying="Mark peices with boardPosition values"
+
 [input]
 
 move_forward={

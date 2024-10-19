@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckm3btkyaeshj"]
+[gd_scene load_steps=8 format=3 uid="uid://ckm3btkyaeshj"]
 
 [ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_j8ki1"]
 [ext_resource type="Resource" uid="uid://cca5vteffweev" path="res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tres" id="2_tlpcw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="3_6ka5o"]
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="5_80xwh"]
 [ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="6_73l54"]
+[ext_resource type="PackedScene" uid="uid://0u0palxhdqwv" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.tscn" id="7_gbmjg"]
 
 [node name="YoungReshaDirk" type="Node3D"]
 
@@ -22,3 +23,13 @@ card = ExtResource("2_tlpcw")
 
 [node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("6_73l54")]
 allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
+
+[node name="MoveRelativeTo" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("7_gbmjg")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = null
+amount = 2
+
+[node name="MoveRelativeTo2" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("7_gbmjg")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = 2
+amount = 2
