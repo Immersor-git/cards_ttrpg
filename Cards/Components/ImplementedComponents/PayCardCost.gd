@@ -4,12 +4,14 @@ extends AbstractComponent
 @export var allocatedCardCostAmount: AllocateCardCostAmount
 
 func _ready():
-	if !allocatedCardCostAmount:
-		var components = componentOwner.get('components')
-		if components:
-			for component in components:
-				if component is AllocateCardCostAmount:
-					allocatedCardCostAmount = component
+	# TODO: Run when Component Owner is Set
+	#if !allocatedCardCostAmount:
+		#var components = componentOwner.get('components')
+		#if components:
+			#for component in components:
+				#if component is AllocateCardCostAmount:
+					#allocatedCardCostAmount = component
+	pass
 
 func simpleCardCost(cardCost: Dictionary) -> bool:
 	var cardCostKeys = cardCost.keys().filter(func (key): return !Enums.BasicManaCost.has(key))

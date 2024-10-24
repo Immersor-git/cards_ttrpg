@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="4_rsmg2"]
 [ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="5_cwqmx"]
 [ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="6_ddrlj"]
-[ext_resource type="PackedScene" uid="uid://0u0palxhdqwv" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.tscn" id="7_jesix"]
+[ext_resource type="PackedScene" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.tscn" id="7_jesix"]
 
 [node name="ArmingSword" type="Node3D"]
 

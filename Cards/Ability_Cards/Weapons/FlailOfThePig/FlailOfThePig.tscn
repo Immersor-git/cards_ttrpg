@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://vy61r1eunswx"]
+
+[ext_resource type="PackedScene" uid="uid://biqqw3xuldq1b" path="res://Cards/card.tscn" id="1_gyt1b"]
+[ext_resource type="Resource" uid="uid://uxgs5jhaevsw" path="res://Cards/Ability_Cards/Weapons/FlailOfThePig/FlailOfThePig.tres" id="2_fpjp8"]
+[ext_resource type="PackedScene" uid="uid://b7fsuac1edj31" path="res://Cards/Components/ImplementedComponents/AllocateCardCostAmount.tscn" id="2_xs0e0"]
+[ext_resource type="PackedScene" uid="uid://08fykqdegwcw" path="res://Cards/Components/ImplementedComponents/SelectAttackDirection.tscn" id="3_nkhk7"]
+[ext_resource type="PackedScene" uid="uid://dgx1tqwhajynu" path="res://Cards/Components/ImplementedComponents/Tap.tscn" id="4_tmwf3"]
+[ext_resource type="PackedScene" uid="uid://q37fultagj60" path="res://Cards/Components/ImplementedComponents/PayCardCost.tscn" id="5_l0sfa"]
+[ext_resource type="PackedScene" uid="uid://dkbcshw3isl2o" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.tscn" id="6_keua2"]
+[ext_resource type="PackedScene" uid="uid://dppnrkyb3am8b" path="res://Cards/Components/ImplementedComponents/WoundInRadius.tscn" id="7_oj60u"]
+[ext_resource type="PackedScene" uid="uid://cfjspaayt164g" path="res://Cards/Components/ImplementedComponents/PassTurn.tscn" id="9_u70mp"]
+
+[node name="FlailOfThePig" type="Node3D"]
+
+[node name="Card" parent="." instance=ExtResource("1_gyt1b")]
+card = ExtResource("2_fpjp8")
+
+[node name="Components" type="Node" parent="Card"]
+
+[node name="AllocateCardCostAmount" parent="Card/Components" instance=ExtResource("2_xs0e0")]
+
+[node name="Select Attack Direction" parent="Card/Components" instance=ExtResource("3_nkhk7")]
+
+[node name="Tap" parent="Card/Components" instance=ExtResource("4_tmwf3")]
+
+[node name="PayCardCost" parent="Card/Components" node_paths=PackedStringArray("allocatedCardCostAmount") instance=ExtResource("5_l0sfa")]
+allocatedCardCostAmount = NodePath("../AllocateCardCostAmount")
+
+[node name="MoveRelativeTo" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("6_keua2")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = 5
+
+[node name="MoveRelativeTo2" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("6_keua2")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+
+[node name="WoundInRadius" parent="Card/Components" instance=ExtResource("7_oj60u")]
+
+[node name="MoveRelativeTo3" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("6_keua2")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = -1
+squaresToMove = 2
+
+[node name="WoundInRadius2" parent="Card/Components" instance=ExtResource("7_oj60u")]
+
+[node name="MoveRelativeTo4" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("6_keua2")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = 2
+
+[node name="MoveRelativeTo5" parent="Card/Components" node_paths=PackedStringArray("selectedAttackDirection") instance=ExtResource("6_keua2")]
+selectedAttackDirection = NodePath("../Select Attack Direction")
+relativeDirection = 3
+
+[node name="PassTurn" parent="Card/Components" instance=ExtResource("9_u70mp")]

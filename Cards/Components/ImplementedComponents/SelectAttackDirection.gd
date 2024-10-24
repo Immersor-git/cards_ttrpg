@@ -29,15 +29,19 @@ func _process(_delta):
 							componentCaster.board_piece.add_child(attackIndicatorInst)
 						var hoveringDirection: Enums.CardinalDirection
 						if cardinal_direction == 0:
+							print("WEST")
 							hoveringDirection = Enums.CardinalDirection.WEST
 							componentCaster.board_piece.global_rotation_degrees = Vector3(0, 90, 0)
 						elif cardinal_direction == 1:
+							print("NORTH")
 							hoveringDirection = Enums.CardinalDirection.NORTH
 							componentCaster.board_piece.global_rotation_degrees = Vector3(0, 0, 0)
 						elif cardinal_direction == 2:
+							print("EAST")
 							hoveringDirection = Enums.CardinalDirection.EAST
 							componentCaster.board_piece.global_rotation_degrees = Vector3(0, 270, 0)
 						elif cardinal_direction == 3:
+							print("SOUTH")
 							hoveringDirection = Enums.CardinalDirection.SOUTH
 							componentCaster.board_piece.global_rotation_degrees = Vector3(0, 180, 0)
 						if Input.is_action_just_pressed("left_click") && hasDebouncedLeftClick:
@@ -60,6 +64,7 @@ func handleCastEffect() -> bool:
 				if !displayedCasterUI:
 					updateCasterState.rpc_id(componentCaster.caster_id, Enums.PlayerState.PLANNING_ATTACK)
 				
+				print(selectedDirection)
 				if displayedCasterUI && componentCaster.currentState != Enums.PlayerState.PLANNING_ATTACK && selectedDirection == Enums.CardinalDirection.NONE:
 					if componentOwner.has_method('cancelCast'):
 						print("cancelling")

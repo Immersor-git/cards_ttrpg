@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://0u0palxhdqwv"]
+[gd_scene load_steps=2 format=3 uid="uid://dkbcshw3isl2o"]
 
 [ext_resource type="Script" path="res://Cards/Components/ImplementedComponents/MoveRelativeTo.gd" id="1_er3d3"]
 

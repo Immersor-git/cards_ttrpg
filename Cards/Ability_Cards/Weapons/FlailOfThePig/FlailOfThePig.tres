@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AbilityCard" load_steps=2 format=3 uid="uid://uxgs5jhaevsw"]
+
+[ext_resource type="Script" path="res://Cards/abilityCard.gd" id="1_e3u66"]
+
+[resource]
+script = ExtResource("1_e3u66")
+title = "Flail of the Pig"
+scenePath = "res://Cards/Ability_Cards/Weapons/FlailOfThePig/FlailOfThePig.tscn"
+cost = {
+"GUT": 0,
+"KNOTS": 0,
+"KNOT_GUT": 0,
+"TEETH": 2,
+"TEETH_GUT": 0,
+"TEETH_KNOT": 0,
+"TEETH_KNOT_GUT": 0
+}

@@ -27,5 +27,6 @@ var CardNameToCardResource: Dictionary = {
 	"Halberd": preload("res://Cards/Ability_Cards/Weapons/Halberd/Halberd.tres"),
 	"Spoil": preload("res://Cards/Ability_Cards/Spells/Spoil/Spoil.tres"),
 	"Young Resha's Dirk": preload("res://Cards/Ability_Cards/Weapons/YoungReshaDirk/YoungReshaDirk.tres"),
-	"Arming Sword": preload("res://Cards/Ability_Cards/Weapons/ArmingSword/ArmingSword.tres")
+	"Arming Sword": preload("res://Cards/Ability_Cards/Weapons/ArmingSword/ArmingSword.tres"),
+	"Flail of the Pig": preload("res://Cards/Ability_Cards/Weapons/FlailOfThePig/FlailOfThePig.tres")
 }
